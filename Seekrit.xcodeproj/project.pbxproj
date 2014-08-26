@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2776D0E319AC1ABD0053D0A6 /* Seekrit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2776D0E219AC1ABD0053D0A6 /* Seekrit.h */; };
+		2776D0E519AC1ABD0053D0A6 /* Seekrit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0E419AC1ABD0053D0A6 /* Seekrit.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2776D0DD19AC1ABD0053D0A6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				2776D0E319AC1ABD0053D0A6 /* Seekrit.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2776D0DF19AC1ABD0053D0A6 /* libSeekrit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekrit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2776D0E219AC1ABD0053D0A6 /* Seekrit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Seekrit.h; sourceTree = "<group>"; };
+		2776D0E419AC1ABD0053D0A6 /* Seekrit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Seekrit.m; sourceTree = "<group>"; };
+		2776D0EA19AC1ABD0053D0A6 /* SeekritTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2776D0ED19AC1ABD0053D0A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2776D0DC19AC1ABD0053D0A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2776D0E719AC1ABD0053D0A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2776D0D619AC1ABD0053D0A6 = {
+			isa = PBXGroup;
+			children = (
+				2776D0E119AC1ABD0053D0A6 /* Seekrit */,
+				2776D0EB19AC1ABD0053D0A6 /* SeekritTests */,
+				2776D0E019AC1ABD0053D0A6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2776D0E019AC1ABD0053D0A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2776D0DF19AC1ABD0053D0A6 /* libSeekrit.a */,
+				2776D0EA19AC1ABD0053D0A6 /* SeekritTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2776D0E119AC1ABD0053D0A6 /* Seekrit */ = {
+			isa = PBXGroup;
+			children = (
+				2776D0E219AC1ABD0053D0A6 /* Seekrit.h */,
+				2776D0E419AC1ABD0053D0A6 /* Seekrit.m */,
+			);
+			path = Seekrit;
+			sourceTree = "<group>";
+		};
+		2776D0EB19AC1ABD0053D0A6 /* SeekritTests */ = {
+			isa = PBXGroup;
+			children = (
+				2776D0EC19AC1ABD0053D0A6 /* Supporting Files */,
+			);
+			path = SeekritTests;
+			sourceTree = "<group>";
+		};
+		2776D0EC19AC1ABD0053D0A6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2776D0ED19AC1ABD0053D0A6 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2776D0DE19AC1ABD0053D0A6 /* Seekrit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2776D0F019AC1ABD0053D0A6 /* Build configuration list for PBXNativeTarget "Seekrit" */;
+			buildPhases = (
+				2776D0DB19AC1ABD0053D0A6 /* Sources */,
+				2776D0DC19AC1ABD0053D0A6 /* Frameworks */,
+				2776D0DD19AC1ABD0053D0A6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Seekrit;
+			productName = Seekrit;
+			productReference = 2776D0DF19AC1ABD0053D0A6 /* libSeekrit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2776D0E919AC1ABD0053D0A6 /* SeekritTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2776D0F319AC1ABD0053D0A6 /* Build configuration list for PBXNativeTarget "SeekritTests" */;
+			buildPhases = (
+				2776D0E619AC1ABD0053D0A6 /* Sources */,
+				2776D0E719AC1ABD0053D0A6 /* Frameworks */,
+				2776D0E819AC1ABD0053D0A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SeekritTests;
+			productName = SeekritTests;
+			productReference = 2776D0EA19AC1ABD0053D0A6 /* SeekritTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2776D0D719AC1ABD0053D0A6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = Couchbase;
+				TargetAttributes = {
+					2776D0DE19AC1ABD0053D0A6 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					2776D0E919AC1ABD0053D0A6 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = 2776D0DA19AC1ABD0053D0A6 /* Build configuration list for PBXProject "Seekrit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2776D0D619AC1ABD0053D0A6;
+			productRefGroup = 2776D0E019AC1ABD0053D0A6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2776D0DE19AC1ABD0053D0A6 /* Seekrit */,
+				2776D0E919AC1ABD0053D0A6 /* SeekritTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2776D0E819AC1ABD0053D0A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2776D0DB19AC1ABD0053D0A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2776D0E519AC1ABD0053D0A6 /* Seekrit.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2776D0E619AC1ABD0053D0A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2776D0EE19AC1ABD0053D0A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2776D0EF19AC1ABD0053D0A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2776D0F119AC1ABD0053D0A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2776D0F219AC1ABD0053D0A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2776D0F419AC1ABD0053D0A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SeekritTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2776D0F519AC1ABD0053D0A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SeekritTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2776D0DA19AC1ABD0053D0A6 /* Build configuration list for PBXProject "Seekrit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2776D0EE19AC1ABD0053D0A6 /* Debug */,
+				2776D0EF19AC1ABD0053D0A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2776D0F019AC1ABD0053D0A6 /* Build configuration list for PBXNativeTarget "Seekrit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2776D0F119AC1ABD0053D0A6 /* Debug */,
+				2776D0F219AC1ABD0053D0A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2776D0F319AC1ABD0053D0A6 /* Build configuration list for PBXNativeTarget "SeekritTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2776D0F419AC1ABD0053D0A6 /* Debug */,
+				2776D0F519AC1ABD0053D0A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2776D0D719AC1ABD0053D0A6 /* Project object */;
+}
