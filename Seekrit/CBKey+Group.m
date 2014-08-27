@@ -1,12 +1,12 @@
 //
-//  Key+Group.m
+//  CBKey+Group.m
 //  Seekrit
 //
 //  Created by Jens Alfke on 8/27/14.
 //  Copyright (c) 2014 Couchbase. All rights reserved.
 //
 
-#import "Key+Group.h"
+#import "CBKey+Group.h"
 
 
 /*
@@ -21,7 +21,7 @@
 
 
 typedef struct {
-    Nonce nonce;
+    CBNonce nonce;
     uint32_t count;
     struct {
         uint8_t bytes[48];
@@ -29,7 +29,7 @@ typedef struct {
 } GroupMessage;
 
 
-@implementation PrivateKey (GroupEncryption)
+@implementation CBPrivateKey (GroupEncryption)
 
 - (NSData*) encryptGroupMessage: (NSData*)cleartext
                   forRecipients: (NSArray*)recipients
@@ -37,17 +37,17 @@ typedef struct {
     NSMutableData* output = [NSMutableData dataWithCapacity: 28 + 48*recipients.count
                                                                 + cleartext.length + 16];
     // Generate a random nonce and write it:
-    Nonce nonce = [PrivateKey randomNonce];
+    CBNonce nonce = [CBPrivateKey randomNonce];
     [output appendBytes: &nonce length: sizeof(nonce)];
 
     // Generate a random session key-pair:
-    PrivateKey* sessionKey = [Key generateKeyPair];
+    CBPrivateKey* sessionKey = [CBKey generateKeyPair];
     NSData* sessionPrivateKeyData = sessionKey.keyData;
 
     // Write the recipient count, and the session's private key encrypted for each recipient:
     uint32_t bigCount = CFSwapInt32HostToBig((uint32_t)recipients.count);
     [output appendBytes: &bigCount length: sizeof(bigCount)];
-    for (PublicKey* recipient in recipients) {
+    for (CBPublicKey* recipient in recipients) {
         // It's OK to reuse the same nonce, because each recipient public key is different
         [output appendData: [self encrypt: sessionPrivateKeyData
                                 withNonce: nonce
@@ -62,7 +62,7 @@ typedef struct {
 
 
 - (NSData*) decryptGroupMessage: (NSData*)input
-                     fromSender: (PublicKey*)sender
+                     fromSender: (CBPublicKey*)sender
 {
     // Read the header:
     size_t inputLen = input.length;
@@ -85,7 +85,7 @@ typedef struct {
     if (!sessionKeyData)
         return nil; // Apparently it wasn't addressed to this key
 
-    PrivateKey* sessionKey = [[PrivateKey alloc] initWithKeyData: sessionKeyData];
+    CBPrivateKey* sessionKey = [[CBPrivateKey alloc] initWithKeyData: sessionKeyData];
     if (!sessionKey)
         return nil;
 

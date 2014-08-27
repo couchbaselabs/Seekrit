@@ -1,5 +1,5 @@
 //
-//  Key.m
+//  CBKey.m
 //  Seekrit
 //
 //  Created by Jens Alfke on 8/25/14.
@@ -11,7 +11,7 @@
 // http://nacl.cr.yp.to/box.html
 
 
-#import "Key.h"
+#import "CBKey.h"
 #import "tweetnacl.h"
 #import "curve_sigs.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -31,21 +31,21 @@ typedef struct {
 
 
 
-@implementation Key
+@implementation CBKey
 {
     @protected
-    RawKey _rawKey;
+    CBRawKey _rawKey;
 }
 
 @synthesize rawKey=_rawKey;
 
-+ (PrivateKey*) generateKeyPair {
-    RawKey priv;
++ (CBPrivateKey*) generateKeyPair {
+    CBRawKey priv;
     SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
-    return [[PrivateKey alloc] initWithRawKey: priv];
+    return [[CBPrivateKey alloc] initWithRawKey: priv];
 }
 
-+ (PrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
++ (CBPrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
                              withSalt: (NSData*)salt
                                rounds: (uint32_t)rounds
 {
@@ -53,7 +53,7 @@ typedef struct {
     NSAssert(salt.length > 4, @"Insufficient salt");
     NSAssert(rounds > 10000, @"Insufficient rounds");
     NSData* passwordData = [passphrase dataUsingEncoding: NSUTF8StringEncoding];
-    RawKey priv;
+    CBRawKey priv;
     int status = CCKeyDerivationPBKDF(kCCPBKDF2,
                                       passwordData.bytes, passwordData.length,
                                       salt.bytes, salt.length,
@@ -62,18 +62,18 @@ typedef struct {
     if (status) {
         return nil;
     }
-    return [[PrivateKey alloc] initWithRawKey: priv];
+    return [[CBPrivateKey alloc] initWithRawKey: priv];
 }
 
 + (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
                                    withSalt: (NSData*)salt
 {
     return CCCalibratePBKDF(kCCPBKDF2, 10, salt.length, kCCPRFHmacAlgSHA256,
-                            sizeof(RawKey), (uint32_t)(delay*1000.0));
+                            sizeof(CBRawKey), (uint32_t)(delay*1000.0));
 }
 
 
-- (instancetype) initWithRawKey: (RawKey)rawKey {
+- (instancetype) initWithRawKey: (CBRawKey)rawKey {
     self = [super init];
     if (self) {
         _rawKey = rawKey;
@@ -83,9 +83,9 @@ typedef struct {
 
 - (instancetype) initWithKeyData: (NSData*)keyData
 {
-    if (keyData.length != sizeof(RawKey))
+    if (keyData.length != sizeof(CBRawKey))
         return nil;
-    return [self initWithRawKey: *(const RawKey*)keyData.bytes];
+    return [self initWithRawKey: *(const CBRawKey*)keyData.bytes];
 }
 
 - (NSData*) keyData {
@@ -103,13 +103,13 @@ typedef struct {
 
 
 
-@implementation PrivateKey
+@implementation CBPrivateKey
 
 
 @synthesize publicKey=_publicKey;
 
 
-- (instancetype)initWithRawKey:(RawKey)rawKey {
+- (instancetype)initWithRawKey:(CBRawKey)rawKey {
     // A few bits need to be adjusted to make this into a valid Curve25519 key:
     rawKey.bytes[ 0] &= 0xF8;
     rawKey.bytes[31] &= 0x3F;
@@ -117,17 +117,17 @@ typedef struct {
     
     self = [super initWithRawKey: rawKey];
     if (self) {
-        RawKey pub;
+        CBRawKey pub;
         crypto_scalarmult_base(pub.bytes, _rawKey.bytes);  // recover public key
-        _publicKey = [[PublicKey alloc] initWithRawKey: pub];
+        _publicKey = [[CBPublicKey alloc] initWithRawKey: pub];
     }
     return self;
 }
 
 
 - (NSData*) encrypt: (NSData*)cleartext
-          withNonce: (Nonce)nonce
-       forRecipient: (PublicKey*)recipient
+          withNonce: (CBNonce)nonce
+       forRecipient: (CBPublicKey*)recipient
 {
     NSParameterAssert(recipient != nil);
     size_t msgLen = crypto_box_ZEROBYTES + cleartext.length;
@@ -141,8 +141,8 @@ typedef struct {
 
 
 - (NSData*) decrypt: (NSData*)ciphertext
-          withNonce: (Nonce)nonce
-         fromSender: (PublicKey*)sender
+          withNonce: (CBNonce)nonce
+         fromSender: (CBPublicKey*)sender
 {
     NSParameterAssert(sender != nil);
     size_t msgLen = crypto_box_BOXZEROBYTES + ciphertext.length;
@@ -157,12 +157,12 @@ typedef struct {
 }
 
 
-- (Signature) signDigest: (const void*)digest
+- (CBSignature) signDigest: (const void*)digest
                      length: (size_t)length
 {
     NSParameterAssert(digest != NULL);
     NSParameterAssert(length <= 256);
-    Signature signature;
+    CBSignature signature;
     uint8_t random[64];
     SecRandomCopyBytes(kSecRandomDefault, sizeof(random), random);
     if (curve25519_sign(signature.bytes, _rawKey.bytes, digest, length, random) != 0) {
@@ -172,20 +172,20 @@ typedef struct {
     return signature;
 }
 
-- (Signature) sign: (NSData*)input {
+- (CBSignature) sign: (NSData*)input {
     SHA256Digest digest;
     CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
     return [self signDigest: digest.bytes length: sizeof(digest)];
 }
 
 
-+ (Nonce) randomNonce {
-    Nonce nonce;
++ (CBNonce) randomNonce {
+    CBNonce nonce;
     SecRandomCopyBytes(kSecRandomDefault, sizeof(nonce), nonce.bytes);
     return nonce;
 }
 
-+ (void) incrementNonce: (Nonce*)nonce by: (int8_t)increment {
++ (void) incrementNonce: (CBNonce*)nonce by: (int8_t)increment {
     for (int pos=sizeof(*nonce)-1; pos >= 0; --pos) {
         int result = (int)nonce->bytes[pos] + increment;
         nonce->bytes[pos] = (uint8_t)result;
@@ -223,9 +223,9 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
 
 
 
-@implementation PublicKey
+@implementation CBPublicKey
 
-- (BOOL) verifySignature: (Signature)signature
+- (BOOL) verifySignature: (CBSignature)signature
                 ofDigest: (const void*)digest
                   length: (size_t)length
 {
@@ -234,7 +234,7 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
     return curve25519_verify(signature.bytes, _rawKey.bytes, digest, length) == 0;
 }
 
-- (BOOL) verifySignature: (Signature)signature
+- (BOOL) verifySignature: (CBSignature)signature
                   ofData: (NSData*)input
 {
     SHA256Digest digest;
