@@ -15,15 +15,15 @@ typedef struct {
     uint8_t bytes[32];
 } RawKey;
 
-/** The raw bytes of a nonce used for encryption. */
+/** A nonce used for encryption. */
 typedef struct {
     uint8_t bytes[24];
-} RawNonce;
+} Nonce;
 
-/** The raw bytes of a digital signature. */
+/** A digital signature. */
 typedef struct {
     uint8_t bytes[64];
-} RawSignature;
+} Signature;
 
 
 /** A Curve25519 key; abstract superclass of PublicKey and PrivateKey. */
@@ -53,9 +53,7 @@ typedef struct {
 
 
 /** Reconstitutes a Key object from previously saved raw key data.
-    A PrivateKey also reconstitutes its PublicKey.
-    Note: This method can be used to create a key pair from any combination of 32 bytes.
-    It can thus be used to derive a key-pair from a passphrase. */
+    A PrivateKey also reconstitutes its PublicKey. */
 - (instancetype) initWithRawKey: (RawKey)rawKey;
 
 /** Reconstitutes a key from previously saved data in the form of NSData.
@@ -87,7 +85,7 @@ typedef struct {
                 used to decrypt the message.
     @return  The encrypted message. */
 - (NSData*) encrypt: (NSData*)cleartext
-          withNonce: (RawNonce)nonce
+          withNonce: (Nonce)nonce
        forRecipient: (PublicKey*)recipient;
 
 /** Decrypts a data block.
@@ -101,7 +99,7 @@ typedef struct {
                 intended recipient's private key, or the nonce is wrong, or the sender key doesn't
                 match, or the ciphertext was corrupted.) */
 - (NSData*) decrypt: (NSData*)ciphertext
-          withNonce: (RawNonce)nonce
+          withNonce: (Nonce)nonce
          fromSender: (PublicKey*)sender;
 
 //////// SIGNATURES:
@@ -111,21 +109,21 @@ typedef struct {
     The matching public key can later be used to verify the signature.
     @param input  The data to be signed.
     @return  The signature (which will be 64 bytes long.) */
-- (RawSignature) sign: (NSData*)input;
+- (Signature) sign: (NSData*)input;
 
 /** Lower-level signature method that can only sign up to 256 bytes.
     You can use this if you've computed your own cryptographic digest of the data.
     (The regular -sign: method uses this to sign a 32-byte SHA256 digest.) */
-- (RawSignature) signDigest: (const void*)digest
+- (Signature) signDigest: (const void*)digest
                      length: (size_t)length;
 
 //////// NONCE UTILITIES:
 
 /** Generates a random nonce for use when encrypting. */
-+ (RawNonce) randomNonce;
++ (Nonce) randomNonce;
 
 /** Increments (or decrements) a nonce, treating it as a 192-bit big-endian integer. */
-+ (void) incrementNonce: (RawNonce*)nonce by: (int8_t)increment;
++ (void) incrementNonce: (Nonce*)nonce by: (int8_t)increment;
 
 @end
 
@@ -140,13 +138,13 @@ typedef struct {
     @param input  The data whose signature is to be verified.
     @return  YES if the signature was created from this input data by the corresponding private
                 key; NO if the signature is invalid or doesn't match. */
-- (BOOL) verifySignature: (RawSignature)signature
+- (BOOL) verifySignature: (Signature)signature
                   ofData: (NSData*)input;
 
 /** Lower-level signature verification that can only handle 256 bytes.
     You can use this if you've computed your own cryptographic digest of the data.
     (The regular -verifySignature:ofData: method uses this to verify a SHA256 digest.) */
-- (BOOL) verifySignature: (RawSignature)signature
+- (BOOL) verifySignature: (Signature)signature
                 ofDigest: (const void*)digest
                   length: (size_t)length;
 

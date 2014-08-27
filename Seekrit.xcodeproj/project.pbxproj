@@ -86,6 +86,8 @@
 		2776D1D219AD13BE0053D0A6 /* sha512.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D13919AC5B930053D0A6 /* sha512.c */; };
 		2776D1D319AD13C90053D0A6 /* zeroize.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D13C19AC5B930053D0A6 /* zeroize.c */; };
 		2776D1D419AD14810053D0A6 /* fe_0.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D14419AC5B930053D0A6 /* fe_0.c */; };
+		27B960BA19AE542500AAA1FD /* Key+Group.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960B819AE542500AAA1FD /* Key+Group.h */; };
+		27B960BB19AE542500AAA1FD /* Key+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* Key+Group.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +186,8 @@
 		2776D18219AC5B930053D0A6 /* sph_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sph_types.h; sourceTree = "<group>"; };
 		2776D18319AC5B930053D0A6 /* sign.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sign.c; sourceTree = "<group>"; };
 		2776D18419AC5B930053D0A6 /* sqrtm1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqrtm1.h; sourceTree = "<group>"; };
+		27B960B819AE542500AAA1FD /* Key+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Key+Group.h"; sourceTree = "<group>"; };
+		27B960B919AE542500AAA1FD /* Key+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Key+Group.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,9 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				2776D0E119AC1ABD0053D0A6 /* Seekrit */,
-				2776D0F619AC1AF80053D0A6 /* TweetNaCl */,
-				2776D13319AC5B930053D0A6 /* ed25519 */,
 				2776D10E19AC40270053D0A6 /* SeekritOSXTests */,
+				27B960B719AE50BB00AAA1FD /* vendor */,
 				2776D12B19AC4B590053D0A6 /* Cocoa.framework */,
 				2776D0E019AC1ABD0053D0A6 /* Products */,
 			);
@@ -232,6 +235,8 @@
 			children = (
 				2776D0FA19AC1C1A0053D0A6 /* Key.h */,
 				2776D0FB19AC1C1A0053D0A6 /* Key.m */,
+				27B960B819AE542500AAA1FD /* Key+Group.h */,
+				27B960B919AE542500AAA1FD /* Key+Group.m */,
 			);
 			path = Seekrit;
 			sourceTree = "<group>";
@@ -370,6 +375,15 @@
 			path = sha512;
 			sourceTree = "<group>";
 		};
+		27B960B719AE50BB00AAA1FD /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				2776D0F619AC1AF80053D0A6 /* TweetNaCl */,
+				2776D13319AC5B930053D0A6 /* ed25519 */,
+			);
+			name = vendor;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -378,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2776D1A419AC5B930053D0A6 /* ge.h in Headers */,
+				27B960BA19AE542500AAA1FD /* Key+Group.h in Headers */,
 				2776D1AC19AC5B930053D0A6 /* ge_msub.h in Headers */,
 				2776D18819AC5B930053D0A6 /* curve_sigs.h in Headers */,
 				2776D1C119AC5B930053D0A6 /* crypto_sign_edwards25519sha512batch.h in Headers */,
@@ -513,6 +528,7 @@
 				2776D19919AC5B930053D0A6 /* fe_frombytes.c in Sources */,
 				2776D1B519AC5B930053D0A6 /* ge_p3_to_p2.c in Sources */,
 				2776D1B219AC5B930053D0A6 /* ge_p3_0.c in Sources */,
+				27B960BB19AE542500AAA1FD /* Key+Group.m in Sources */,
 				2776D18B19AC5B930053D0A6 /* sign_modified.c in Sources */,
 				2776D1B919AC5B930053D0A6 /* ge_sub.c in Sources */,
 				2776D19E19AC5B930053D0A6 /* fe_neg.c in Sources */,
@@ -652,6 +668,7 @@
 				);
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -664,6 +681,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -687,6 +705,7 @@
 					"$(PROJECT_DIR)/build/Seekrit/Build/Products/Debug",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xctest;
@@ -708,6 +727,7 @@
 					"$(PROJECT_DIR)/build/Seekrit/Build/Products/Debug",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xctest;

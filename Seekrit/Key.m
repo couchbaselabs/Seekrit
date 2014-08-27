@@ -24,6 +24,11 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 }
 
 
+typedef struct {
+    uint8_t bytes[32];
+} SHA256Digest;
+
+
 
 
 @implementation Key
@@ -46,7 +51,7 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 {
     NSParameterAssert(passphrase);
     NSAssert(salt.length > 4, @"Insufficient salt");
-    NSAssert(rounds > 200, @"Insufficient rounds");
+    NSAssert(rounds > 10000, @"Insufficient rounds");
     NSData* passwordData = [passphrase dataUsingEncoding: NSUTF8StringEncoding];
     RawKey priv;
     int status = CCKeyDerivationPBKDF(kCCPBKDF2,
@@ -87,6 +92,11 @@ void randombytes(uint8_t* bytes, uint64_t count) {
     return [NSData dataWithBytes: &_rawKey length: sizeof(_rawKey)];
 }
 
+- (void) dealloc {
+    // Don't leave key data lying around in RAM (remember Heartbleed...)
+    memset(&_rawKey, 0, sizeof(_rawKey));
+}
+
 
 @end
 
@@ -101,9 +111,9 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 
 - (instancetype)initWithRawKey:(RawKey)rawKey {
     // A few bits need to be adjusted to make this into a valid Curve25519 key:
-    rawKey.bytes[0] &= 248;
-    rawKey.bytes[31] &= 63;
-    rawKey.bytes[31] |= 64;
+    rawKey.bytes[ 0] &= 0xF8;
+    rawKey.bytes[31] &= 0x3F;
+    rawKey.bytes[31] |= 0x40;
     
     self = [super initWithRawKey: rawKey];
     if (self) {
@@ -116,7 +126,7 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 
 
 - (NSData*) encrypt: (NSData*)cleartext
-          withNonce: (RawNonce)nonce
+          withNonce: (Nonce)nonce
        forRecipient: (PublicKey*)recipient
 {
     NSParameterAssert(recipient != nil);
@@ -131,7 +141,7 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 
 
 - (NSData*) decrypt: (NSData*)ciphertext
-          withNonce: (RawNonce)nonce
+          withNonce: (Nonce)nonce
          fromSender: (PublicKey*)sender
 {
     NSParameterAssert(sender != nil);
@@ -147,12 +157,12 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 }
 
 
-- (RawSignature) signDigest: (const void*)digest
+- (Signature) signDigest: (const void*)digest
                      length: (size_t)length
 {
     NSParameterAssert(digest != NULL);
     NSParameterAssert(length <= 256);
-    RawSignature signature;
+    Signature signature;
     uint8_t random[64];
     SecRandomCopyBytes(kSecRandomDefault, sizeof(random), random);
     if (curve25519_sign(signature.bytes, _rawKey.bytes, digest, length, random) != 0) {
@@ -162,20 +172,20 @@ void randombytes(uint8_t* bytes, uint64_t count) {
     return signature;
 }
 
-- (RawSignature) sign: (NSData*)input {
-    uint8_t digest[32];
-    CC_SHA256(input.bytes, (CC_LONG)input.length, digest);
-    return [self signDigest: digest length: sizeof(digest)];
+- (Signature) sign: (NSData*)input {
+    SHA256Digest digest;
+    CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
+    return [self signDigest: digest.bytes length: sizeof(digest)];
 }
 
 
-+ (RawNonce) randomNonce {
-    RawNonce nonce;
++ (Nonce) randomNonce {
+    Nonce nonce;
     SecRandomCopyBytes(kSecRandomDefault, sizeof(nonce), nonce.bytes);
     return nonce;
 }
 
-+ (void) incrementNonce: (RawNonce*)nonce by: (int8_t)increment {
++ (void) incrementNonce: (Nonce*)nonce by: (int8_t)increment {
     for (int pos=sizeof(*nonce)-1; pos >= 0; --pos) {
         int result = (int)nonce->bytes[pos] + increment;
         nonce->bytes[pos] = (uint8_t)result;
@@ -215,7 +225,7 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
 
 @implementation PublicKey
 
-- (BOOL) verifySignature: (RawSignature)signature
+- (BOOL) verifySignature: (Signature)signature
                 ofDigest: (const void*)digest
                   length: (size_t)length
 {
@@ -224,12 +234,12 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
     return curve25519_verify(signature.bytes, _rawKey.bytes, digest, length) == 0;
 }
 
-- (BOOL) verifySignature: (RawSignature)signature
+- (BOOL) verifySignature: (Signature)signature
                   ofData: (NSData*)input
 {
-    uint8_t digest[32];
-    CC_SHA256(input.bytes, (CC_LONG)input.length, digest);
-    return [self verifySignature: signature ofDigest: digest length: sizeof(digest)];
+    SHA256Digest digest;
+    CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
+    return [self verifySignature: signature ofDigest: digest.bytes length: sizeof(digest)];
 }
 
 
