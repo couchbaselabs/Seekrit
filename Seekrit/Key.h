@@ -20,6 +20,11 @@ typedef struct {
     uint8_t bytes[24];
 } RawNonce;
 
+/** The raw bytes of a digital signature. */
+typedef struct {
+    uint8_t bytes[64];
+} RawSignature;
+
 
 /** A Curve25519 key; abstract superclass of PublicKey and PrivateKey. */
 @interface Key : NSObject
@@ -99,17 +104,22 @@ typedef struct {
           withNonce: (RawNonce)nonce
          fromSender: (PublicKey*)sender;
 
+//////// SIGNATURES:
+
 /** Creates a digital signature of a block of data, using this key.
     (Actually it uses the closely related Ed25519 key.)
     The matching public key can later be used to verify the signature.
-    @param input  The data to be signed. Must be no more than 256 bytes long.
+    @param input  The data to be signed.
     @return  The signature (which will be 64 bytes long.) */
-- (NSData*) sign: (NSData*)input;
+- (RawSignature) sign: (NSData*)input;
 
-/** Lower-level signature method that can only sign up to 256 bytes of data.
-    The regular sign: method actually computes a SHA256 digest of the data and generates a raw
-    signature of that. */
-- (NSData*) rawSign: (NSData*)input;
+/** Lower-level signature method that can only sign up to 256 bytes.
+    You can use this if you've computed your own cryptographic digest of the data.
+    (The regular -sign: method uses this to sign a 32-byte SHA256 digest.) */
+- (RawSignature) signDigest: (const void*)digest
+                     length: (size_t)length;
+
+//////// NONCE UTILITIES:
 
 /** Generates a random nonce for use when encrypting. */
 + (RawNonce) randomNonce;
@@ -130,11 +140,14 @@ typedef struct {
     @param input  The data whose signature is to be verified.
     @return  YES if the signature was created from this input data by the corresponding private
                 key; NO if the signature is invalid or doesn't match. */
-- (BOOL) verifySignature: (NSData*)signature
+- (BOOL) verifySignature: (RawSignature)signature
                   ofData: (NSData*)input;
 
-/** Lower-level signature verification that requires the input data to be no longer than 256 bytes. (The regular -verifySignature: method actually verifies a SHA256 digest of the input data.) */
-- (BOOL) verifyRawSignature: (NSData*)signature
-                     ofData: (NSData*)input;
+/** Lower-level signature verification that can only handle 256 bytes.
+    You can use this if you've computed your own cryptographic digest of the data.
+    (The regular -verifySignature:ofData: method uses this to verify a SHA256 digest.) */
+- (BOOL) verifySignature: (RawSignature)signature
+                ofDigest: (const void*)digest
+                  length: (size_t)length;
 
 @end

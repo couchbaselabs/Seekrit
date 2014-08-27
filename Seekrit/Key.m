@@ -147,22 +147,25 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 }
 
 
-- (NSData*) rawSign: (NSData*)input {
-    NSParameterAssert(input != nil);
-    if (input.length > 256)
-        return nil;
-    uint8_t signature[64];
+- (RawSignature) signDigest: (const void*)digest
+                     length: (size_t)length
+{
+    NSParameterAssert(digest != NULL);
+    NSParameterAssert(length <= 256);
+    RawSignature signature;
     uint8_t random[64];
     SecRandomCopyBytes(kSecRandomDefault, sizeof(random), random);
-    if (curve25519_sign(signature, _rawKey.bytes, input.bytes, input.length, random) != 0)
-        return nil;
-    return [NSData dataWithBytes: signature length: sizeof(signature)];
+    if (curve25519_sign(signature.bytes, _rawKey.bytes, digest, length, random) != 0) {
+        [NSException raise: NSInternalInconsistencyException
+                    format: @"Curve25519 signing failed"];
+    }
+    return signature;
 }
 
-- (NSData*) sign: (NSData*)input {
+- (RawSignature) sign: (NSData*)input {
     uint8_t digest[32];
     CC_SHA256(input.bytes, (CC_LONG)input.length, digest);
-    return [self rawSign: [NSData dataWithBytes: digest length: sizeof(digest)]];
+    return [self signDigest: digest length: sizeof(digest)];
 }
 
 
@@ -212,22 +215,21 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
 
 @implementation PublicKey
 
-- (BOOL) verifyRawSignature: (NSData*)signature
-                     ofData: (NSData*)input
+- (BOOL) verifySignature: (RawSignature)signature
+                ofDigest: (const void*)digest
+                  length: (size_t)length
 {
-    NSParameterAssert(signature != nil);
-    NSParameterAssert(input != nil);
-    return signature.length == 64
-        && curve25519_verify(signature.bytes, _rawKey.bytes, input.bytes, input.length) == 0;
+    NSParameterAssert(digest != nil);
+    NSParameterAssert(length <= 256);
+    return curve25519_verify(signature.bytes, _rawKey.bytes, digest, length) == 0;
 }
 
-- (BOOL) verifySignature: (NSData*)signature
+- (BOOL) verifySignature: (RawSignature)signature
                   ofData: (NSData*)input
 {
     uint8_t digest[32];
     CC_SHA256(input.bytes, (CC_LONG)input.length, digest);
-    return [self verifyRawSignature: signature
-                             ofData: [NSData dataWithBytes: digest length: sizeof(digest)]];
+    return [self verifySignature: signature ofDigest: digest length: sizeof(digest)];
 }
 
 
