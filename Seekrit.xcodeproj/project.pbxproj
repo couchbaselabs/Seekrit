@@ -323,7 +323,8 @@
 				2776D18319AC5B930053D0A6 /* sign.c */,
 				2776D18419AC5B930053D0A6 /* sqrtm1.h */,
 			);
-			path = ed25519;
+			name = ed25519;
+			path = vendor/ref10_extract/ed25519;
 			sourceTree = "<group>";
 		};
 		2776D13419AC5B930053D0A6 /* additions */ = {
