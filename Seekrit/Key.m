@@ -7,12 +7,15 @@
 //
 
 // http://cr.yp.to/ecdh.html
+// http://ed25519.cr.yp.to
 // http://nacl.cr.yp.to/box.html
 
 
 #import "Key.h"
 #import "tweetnacl.h"
 #import "curve_sigs.h"
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonKeyDerivation.h>
 
 
 // External function called by tweetnacl.c
@@ -36,6 +39,34 @@ void randombytes(uint8_t* bytes, uint64_t count) {
     SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
     return [[PrivateKey alloc] initWithRawKey: priv];
 }
+
++ (PrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
+                             withSalt: (NSData*)salt
+                               rounds: (uint32_t)rounds
+{
+    NSParameterAssert(passphrase);
+    NSAssert(salt.length > 4, @"Insufficient salt");
+    NSAssert(rounds > 200, @"Insufficient rounds");
+    NSData* passwordData = [passphrase dataUsingEncoding: NSUTF8StringEncoding];
+    RawKey priv;
+    int status = CCKeyDerivationPBKDF(kCCPBKDF2,
+                                      passwordData.bytes, passwordData.length,
+                                      salt.bytes, salt.length,
+                                      kCCPRFHmacAlgSHA256, rounds,
+                                      priv.bytes, sizeof(priv));
+    if (status) {
+        return nil;
+    }
+    return [[PrivateKey alloc] initWithRawKey: priv];
+}
+
++ (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
+                                   withSalt: (NSData*)salt
+{
+    return CCCalibratePBKDF(kCCPBKDF2, 10, salt.length, kCCPRFHmacAlgSHA256,
+                            sizeof(RawKey), (uint32_t)(delay*1000.0));
+}
+
 
 - (instancetype) initWithRawKey: (RawKey)rawKey {
     self = [super init];
@@ -116,7 +147,7 @@ void randombytes(uint8_t* bytes, uint64_t count) {
 }
 
 
-- (NSData*) sign: (NSData*)input {
+- (NSData*) rawSign: (NSData*)input {
     NSParameterAssert(input != nil);
     if (input.length > 256)
         return nil;
@@ -126,6 +157,12 @@ void randombytes(uint8_t* bytes, uint64_t count) {
     if (curve25519_sign(signature, _rawKey.bytes, input.bytes, input.length, random) != 0)
         return nil;
     return [NSData dataWithBytes: signature length: sizeof(signature)];
+}
+
+- (NSData*) sign: (NSData*)input {
+    uint8_t digest[32];
+    CC_SHA256(input.bytes, (CC_LONG)input.length, digest);
+    return [self rawSign: [NSData dataWithBytes: digest length: sizeof(digest)]];
 }
 
 
@@ -175,13 +212,23 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
 
 @implementation PublicKey
 
-- (BOOL) verifySignature: (NSData*)signature
-                  ofData: (NSData*)input
+- (BOOL) verifyRawSignature: (NSData*)signature
+                     ofData: (NSData*)input
 {
     NSParameterAssert(signature != nil);
     NSParameterAssert(input != nil);
     return signature.length == 64
         && curve25519_verify(signature.bytes, _rawKey.bytes, input.bytes, input.length) == 0;
 }
+
+- (BOOL) verifySignature: (NSData*)signature
+                  ofData: (NSData*)input
+{
+    uint8_t digest[32];
+    CC_SHA256(input.bytes, (CC_LONG)input.length, digest);
+    return [self verifyRawSignature: signature
+                             ofData: [NSData dataWithBytes: digest length: sizeof(digest)]];
+}
+
 
 @end

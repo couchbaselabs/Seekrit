@@ -21,12 +21,31 @@ typedef struct {
 } RawNonce;
 
 
-
-/** Abstract superclass of PublicKey and PrivateKey. */
+/** A Curve25519 key; abstract superclass of PublicKey and PrivateKey. */
 @interface Key : NSObject
 
 /** Generates a new PrivateKey/PublicKey pair at random. */
 + (PrivateKey*) generateKeyPair;
+
+/** Creates a PrivateKey/PublicKey pair, derived from a password using PBKDF2.
+    The same input values will always create the same key pair. In practice, the salt and rounds
+    parameters should be fixed (hardcoded in the app) while the passphrase should be entered by the
+    user.
+    @param passphrase  The passphrase/password, presumably entered by the user.
+    @param salt  A data blob that perturbs the generated key; must be at least 4 bytes long.
+                Should usually be kept fixed for any particular app, but doesn't need to be secret.
+    @param rounds  The number of rounds of hashing to perform. More rounds is more secure but takes
+                longer. */
++ (PrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
+                             withSalt: (NSData*)salt
+                               rounds: (uint32_t)rounds;
+
+/** Estimates the number of rounds needed to make +keyPairFromPassphrase: take a given amount of time
+    on the current CPU. The goal is to make it take a macroscopic amount of time (like a second) 
+    in order to make password cracking impractical, but not long enough to annoy the user. */
++ (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
+                                   withSalt: (NSData*)salt;
+
 
 /** Reconstitutes a Key object from previously saved raw key data.
     A PrivateKey also reconstitutes its PublicKey.
@@ -80,11 +99,17 @@ typedef struct {
           withNonce: (RawNonce)nonce
          fromSender: (PublicKey*)sender;
 
-/** Creates a digital signature of a block of data.
+/** Creates a digital signature of a block of data, using this key.
+    (Actually it uses the closely related Ed25519 key.)
     The matching public key can later be used to verify the signature.
     @param input  The data to be signed. Must be no more than 256 bytes long.
     @return  The signature (which will be 64 bytes long.) */
 - (NSData*) sign: (NSData*)input;
+
+/** Lower-level signature method that can only sign up to 256 bytes of data.
+    The regular sign: method actually computes a SHA256 digest of the data and generates a raw
+    signature of that. */
+- (NSData*) rawSign: (NSData*)input;
 
 /** Generates a random nonce for use when encrypting. */
 + (RawNonce) randomNonce;
@@ -100,11 +125,16 @@ typedef struct {
 @interface PublicKey : Key
 
 /** Verifies a digital signature using this public key.
+    (Actually it uses the closely related Ed25519 key.)
     @param signature  The signature to be verified.
     @param input  The data whose signature is to be verified.
     @return  YES if the signature was created from this input data by the corresponding private
                 key; NO if the signature is invalid or doesn't match. */
 - (BOOL) verifySignature: (NSData*)signature
                   ofData: (NSData*)input;
+
+/** Lower-level signature verification that requires the input data to be no longer than 256 bytes. (The regular -verifySignature: method actually verifies a SHA256 digest of the input data.) */
+- (BOOL) verifyRawSignature: (NSData*)signature
+                     ofData: (NSData*)input;
 
 @end
