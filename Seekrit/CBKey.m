@@ -58,6 +58,12 @@ typedef struct {
     return [NSData dataWithBytes: &_rawKey length: sizeof(_rawKey)];
 }
 
+- (BOOL) isEqual:(id)object {
+    if (![object isKindOfClass: [CBKey class]])
+        return NO;
+    return memcmp(&_rawKey, &((CBKey*)object)->_rawKey, sizeof(_rawKey)) == 0;
+}
+
 - (void) dealloc {
     // Don't leave key data lying around in RAM (remember Heartbleed...)
     memset(&_rawKey, 0, sizeof(_rawKey));
@@ -180,8 +186,9 @@ typedef struct {
 }
 
 
-- (BOOL) addToKeychainWithService: (NSString*)service
-                          account: (NSString*)account
+- (BOOL) addToKeychain: (CBKeychainRef)keychain
+           withService: (NSString*)service
+               account: (NSString*)account
 {
     NSData* itemData = [self.keyData base64EncodedDataWithOptions: 0];
     NSDate* now = [NSDate date];
@@ -193,20 +200,35 @@ typedef struct {
                              (__bridge id)kSecAttrModificationDate: now,
                              (__bridge id)kSecAttrDescription: @"curve25519 private key",
                              };
+#if !TARGET_OS_IPHONE
+    if (keychain) {
+        NSMutableDictionary* attrs2 = [attrs mutableCopy];
+        attrs2[(__bridge id)kSecUseKeychain] = (__bridge id)keychain;
+        attrs = attrs2;
+    }
+#endif
     CFTypeRef result = NULL;
     OSStatus err = SecItemAdd((__bridge CFDictionaryRef)attrs, &result);
     return err == noErr;
 }
 
 
-+ (CBPrivateKey*) keyPairFromKeychainWithService: (NSString*)service
-                                         account: (NSString*)account
++ (CBPrivateKey*) keyPairFromKeychain: (CBKeychainRef)keychain
+                          withService: (NSString*)service
+                              account: (NSString*)account
 {
     NSDictionary* attrs = @{ (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
                              (__bridge id)kSecAttrService: service,
                              (__bridge id)kSecAttrAccount: account,
                              (__bridge id)kSecReturnData: @YES,
                              };
+#if !TARGET_OS_IPHONE
+    if (keychain) {
+        NSMutableDictionary* attrs2 = [attrs mutableCopy];
+        attrs2[(__bridge id)kSecMatchSearchList] = @[(__bridge id)keychain];
+        attrs = attrs2;
+    }
+#endif
     CFTypeRef result = NULL;
     OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)attrs, &result);
     if (err || result == NULL) {

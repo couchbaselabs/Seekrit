@@ -153,38 +153,35 @@
 }
 
 - (void) testKeychain {
-    [self useTestKeychain];
     CBPrivateKey* key = [CBPrivateKey generateKeyPair];
-    XCTAssert([key addToKeychainWithService: @"unit-test"
-                                    account: @"testy-mc-tester"]);
+    XCTAssert([key addToKeychain: self.keychain
+                     withService: @"unit-test"
+                         account: @"testy-mc-tester"]);
 
-    CBPrivateKey* readKey = [CBPrivateKey keyPairFromKeychainWithService: @"unit-test"
-                                                                 account: @"testy-mc-tester"];
+    CBPrivateKey* readKey = [CBPrivateKey keyPairFromKeychain: self.keychain
+                                                  withService: @"unit-test"
+                                                      account: @"testy-mc-tester"];
     XCTAssertNotNil(readKey);
     XCTAssertEqualObjects(key.keyData, readKey.keyData);
 
-    XCTAssertNil([CBPrivateKey keyPairFromKeychainWithService: @"unit-test"
-                                                      account: @"frobozz"]);
+    XCTAssertNil([CBPrivateKey keyPairFromKeychain: self.keychain
+                                       withService: @"unit-test"
+                                           account: @"frobozz"]);
 }
 
 
-#if TARGET_OS_IPHONE
-- (void) useTestKeychain {
-    // iOS doesn't support multiple keychains
-}
-#else
-- (SecKeychainRef) useTestKeychain {
-    static SecKeychainRef sTestKeychain;
+- (CBKeychainRef) keychain {
+    static CBKeychainRef sTestKeychain;
+#if !TARGET_OS_IPHONE
     if (!sTestKeychain) {
         NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"beanbag_test.keychain"];
         NSLog(@"Creating keychain at %@", path);
         [[NSFileManager defaultManager] removeItemAtPath: path error: NULL];
         XCTAssertEqual(SecKeychainCreate(path.fileSystemRepresentation, 6, "foobar", NO, NULL, &sTestKeychain), noErr);
-        XCTAssertEqual(SecKeychainSetDefault(sTestKeychain), noErr);
     }
+#endif
     return sTestKeychain;
 }
-#endif
 
 
 @end

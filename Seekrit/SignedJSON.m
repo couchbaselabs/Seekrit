@@ -13,10 +13,7 @@
 
 #define kExpiresUnit (60.0) // one minute
 
-
 NSString* const kJSONSignatureProperty = @"(signed)";
-
-#define kKeyType @"25519"
 
 
 static NSData* CanonicalDigest(id jsonObject) {
@@ -32,12 +29,10 @@ static NSString* CanonicalDigestString(id jsonObject) {
     return [CanonicalDigest(jsonObject) base64EncodedStringWithOptions: 0];
 }
 
-static NSData* ParseTypedData(NSString* expectedType, id input) {
-    if (![input isKindOfClass: [NSArray class]])
+static NSData* DecodeBase64(id input) {
+    if (![input isKindOfClass: [NSString class]])
         return nil;
-    if ([input count] != 2 || ![input[0] isEqual: expectedType])
-        return nil;
-    return [[NSData alloc] initWithBase64EncodedString: input[1]
+    return [[NSData alloc] initWithBase64EncodedString: input
                                            options: NSDataBase64DecodingIgnoreUnknownCharacters];
 }
 
@@ -77,7 +72,7 @@ static NSString* formatDate(NSDate* date) {
 
 @implementation CBPublicKey (JSON)
 
-+ (NSDictionary*) signatureFromJSON: (id)jsonObject {
++ (NSDictionary*) signatureOfJSON: (id)jsonObject {
     if (![jsonObject isKindOfClass: [NSDictionary class]])
         return nil;
     id signature = jsonObject[kJSONSignatureProperty];
@@ -88,7 +83,7 @@ static NSString* formatDate(NSDate* date) {
 
 + (CBPublicKey*) keyFromSignature:(NSDictionary*)signature {
     // Check whether this is actually signed JSON with a '(signed)' item in it:
-    NSData* keyData = ParseTypedData(kKeyType, signature[@"key"]);
+    NSData* keyData = DecodeBase64(signature[@"key_25519"]);
     if (keyData)
         return [[CBPublicKey alloc] initWithKeyData: keyData];
     return nil;
@@ -98,24 +93,25 @@ static NSString* formatDate(NSDate* date) {
     return parseDate(signature[@"date"]);
 }
 
-+ (BOOL) isExpiredSignature: (NSDictionary*)signature {
++ (NSDate*) expirationDateOfSignature: (NSDictionary*)signature {
     id expiresObj = signature[@"expires"];
+    if (!expiresObj)
+        return [NSDate distantFuture];  // no expiration
     if (![expiresObj isKindOfClass: [NSNumber class]])
-          return NO;
-    double expires = [expiresObj doubleValue];
-    if (expires <= 0.0)
-        return NO;
-    NSDate* date = [self dateOfSignature: signature];
-    if (!date)
-        return NO;
-    return -[date timeIntervalSinceNow] > (expires * kExpiresUnit);
+        return [NSDate distantPast];  // invalid expiration
+    NSTimeInterval expires = [expiresObj doubleValue] * kExpiresUnit;
+    return [[self dateOfSignature: signature] dateByAddingTimeInterval: expires];
+}
+
++ (BOOL) isExpiredSignature: (NSDictionary*)signature {
+    return [self expirationDateOfSignature: signature].timeIntervalSinceNow < 0;
 }
 
 /** Verifies a signature created by +signatureOfJSON. */
 - (BOOL) verifySignature: (NSDictionary*)signature ofJSON: (id)jsonObject {
     if ([[self class] isExpiredSignature: signature])
         return NO;
-    NSData* digestData = ParseTypedData(@"SHA1", signature[@"digest"]);
+    NSData* digestData = DecodeBase64(signature[@"digest_SHA"]);
     if (!digestData || ![digestData isEqual: CanonicalDigest(jsonObject)]) {
         NSLog(@"Warning: SignedJSON: Signature digest %@ doesn't match payload's %@; canonical JSON = %@",
              digestData, CanonicalDigest(jsonObject),
@@ -135,7 +131,7 @@ static NSString* formatDate(NSDate* date) {
 
 /** Verifies a signed JSON object created by +addSignatureToJSON:. */
 - (BOOL) verifySignedJSON: (NSDictionary*)jsonDict {
-    NSDictionary *signature = [[self class] signatureFromJSON: jsonDict];
+    NSDictionary *signature = [[self class] signatureOfJSON: jsonDict];
     if (!signature)
         return NO;
     NSMutableDictionary *unsignedDict = [jsonDict mutableCopy];
@@ -146,7 +142,7 @@ static NSString* formatDate(NSDate* date) {
 
 
 + (CBPublicKey*) signerOfJSON:(NSDictionary*)jsonDict {
-    CBPublicKey* key = [self keyFromSignature: [self signatureFromJSON: jsonDict]];
+    CBPublicKey* key = [self keyFromSignature: [self signatureOfJSON: jsonDict]];
     if ([key verifySignedJSON: jsonDict])
         return key;
     return nil;
@@ -168,20 +164,16 @@ static NSString* formatDate(NSDate* date) {
 @implementation CBPrivateKey (JSON)
 
 - (NSDictionary*) signatureOfJSON: (id)jsonObject
-                        expiresAt: (NSDate*)expires
+                     expiresAfter: (NSTimeInterval)expirationInterval
 {
     NSString* keyStr = [self.publicKey.keyData base64EncodedStringWithOptions: 0];
     NSMutableDictionary* signature = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-        @[@"SHA1", CanonicalDigestString(jsonObject)], @"digest",
-        @[kKeyType, keyStr], @"key",
+        CanonicalDigestString(jsonObject), @"digest_SHA",
+        keyStr, @"key_25519",
         formatDate([NSDate date]), @"date",
         nil];
-    if (expires) {
-        SInt64 expiration = (SInt64)floor(expires.timeIntervalSinceNow / kExpiresUnit);
-        if (expiration == 0)
-            expiration = 1;
-        signature[@"expires"] = @(expiration);
-    }
+    if (expirationInterval > 0.0)
+        signature[@"expires"] = @(MAX(0, floor(expirationInterval / kExpiresUnit)));
     CBSignature sig = [self sign: [CanonicalJSON canonicalData: signature]];
     NSData* sigData = [NSData dataWithBytes: &sig length: sizeof(sig)];
     signature[@"sig"] = [sigData base64EncodedStringWithOptions: 0];
@@ -190,11 +182,11 @@ static NSString* formatDate(NSDate* date) {
 
 
 - (NSDictionary*) addSignatureToJSON: (NSDictionary*)jsonDict
-                           expiresAt: (NSDate*)expires
+                        expiresAfter: (NSTimeInterval)expirationInterval
 {
     NSMutableDictionary *signedDict = [jsonDict mutableCopy];
     [signedDict removeObjectForKey: kJSONSignatureProperty];
-    NSDictionary *signature = [self signatureOfJSON: signedDict expiresAt: expires];
+    NSDictionary *signature = [self signatureOfJSON: signedDict expiresAfter: expirationInterval];
     if (!signature)
         return nil;
     signedDict[kJSONSignatureProperty] = signature;
