@@ -88,6 +88,11 @@
 		2776D1D419AD14810053D0A6 /* fe_0.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D14419AC5B930053D0A6 /* fe_0.c */; };
 		27B960BA19AE542500AAA1FD /* CBKey+Group.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960B819AE542500AAA1FD /* CBKey+Group.h */; };
 		27B960BB19AE542500AAA1FD /* CBKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBKey+Group.m */; };
+		27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */; };
+		27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */; };
+		27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */; };
+		27B960C319AE8EEE00AAA1FD /* SignedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */; };
+		27B960C619AE964800AAA1FD /* SignedJSON_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960C519AE964800AAA1FD /* SignedJSON_Test.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +193,11 @@
 		2776D18419AC5B930053D0A6 /* sqrtm1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqrtm1.h; sourceTree = "<group>"; };
 		27B960B819AE542500AAA1FD /* CBKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBKey+Group.h"; sourceTree = "<group>"; };
 		27B960B919AE542500AAA1FD /* CBKey+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBKey+Group.m"; sourceTree = "<group>"; };
+		27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanonicalJSON.h; sourceTree = "<group>"; };
+		27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanonicalJSON.m; sourceTree = "<group>"; };
+		27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedJSON.h; sourceTree = "<group>"; };
+		27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedJSON.m; sourceTree = "<group>"; };
+		27B960C519AE964800AAA1FD /* SignedJSON_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedJSON_Test.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +247,7 @@
 				2776D0FB19AC1C1A0053D0A6 /* CBKey.m */,
 				27B960B819AE542500AAA1FD /* CBKey+Group.h */,
 				27B960B919AE542500AAA1FD /* CBKey+Group.m */,
+				27B960C419AE8EF700AAA1FD /* JSON */,
 			);
 			path = Seekrit;
 			sourceTree = "<group>";
@@ -254,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				2776D13119AC57D80053D0A6 /* Key_Test.m */,
+				27B960C519AE964800AAA1FD /* SignedJSON_Test.m */,
 				2776D10F19AC40270053D0A6 /* Supporting Files */,
 			);
 			path = SeekritOSXTests;
@@ -384,6 +396,17 @@
 			name = vendor;
 			sourceTree = "<group>";
 		};
+		27B960C419AE8EF700AAA1FD /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */,
+				27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */,
+				27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */,
+				27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -398,6 +421,7 @@
 				2776D1C119AC5B930053D0A6 /* crypto_sign_edwards25519sha512batch.h in Headers */,
 				2776D1BA19AC5B930053D0A6 /* ge_sub.h in Headers */,
 				2776D1C619AC5B930053D0A6 /* pow22523.h in Headers */,
+				27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */,
 				2776D1D019AC5B930053D0A6 /* sqrtm1.h in Headers */,
 				2776D1CE19AC5B930053D0A6 /* sph_types.h in Headers */,
 				2776D1C819AC5B930053D0A6 /* sc.h in Headers */,
@@ -408,6 +432,7 @@
 				2776D1C319AC5B930053D0A6 /* crypto_uint64.h in Headers */,
 				2776D1CD19AC5B930053D0A6 /* sph_sha2.h in Headers */,
 				2776D1C419AC5B930053D0A6 /* crypto_verify_32.h in Headers */,
+				27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */,
 				2776D18619AC5B930053D0A6 /* compare.h in Headers */,
 				2776D18E19AC5B930053D0A6 /* api.h in Headers */,
 				2776D1B119AC5B930053D0A6 /* ge_p2_dbl.h in Headers */,
@@ -515,6 +540,7 @@
 			files = (
 				2776D12F19AC50620053D0A6 /* CBKey.m in Sources */,
 				2776D19519AC5B930053D0A6 /* fe_1.c in Sources */,
+				27B960C319AE8EEE00AAA1FD /* SignedJSON.m in Sources */,
 				2776D1A319AC5B930053D0A6 /* fe_tobytes.c in Sources */,
 				2776D1D219AD13BE0053D0A6 /* sha512.c in Sources */,
 				2776D19819AC5B930053D0A6 /* fe_copy.c in Sources */,
@@ -525,6 +551,7 @@
 				2776D1B619AC5B930053D0A6 /* ge_p3_tobytes.c in Sources */,
 				2776D1A019AC5B930053D0A6 /* fe_sq.c in Sources */,
 				2776D1CC19AC5B930053D0A6 /* sha2big.c in Sources */,
+				27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */,
 				2776D19919AC5B930053D0A6 /* fe_frombytes.c in Sources */,
 				2776D1B519AC5B930053D0A6 /* ge_p3_to_p2.c in Sources */,
 				2776D1B219AC5B930053D0A6 /* ge_p3_0.c in Sources */,
@@ -568,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2776D13219AC57D80053D0A6 /* Key_Test.m in Sources */,
+				27B960C619AE964800AAA1FD /* SignedJSON_Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

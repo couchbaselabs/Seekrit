@@ -41,7 +41,7 @@ typedef struct {
     [output appendBytes: &nonce length: sizeof(nonce)];
 
     // Generate a random session key-pair:
-    CBPrivateKey* sessionKey = [CBKey generateKeyPair];
+    CBPrivateKey* sessionKey = [CBPrivateKey generateKeyPair];
     NSData* sessionPrivateKeyData = sessionKey.keyData;
 
     // Write the recipient count, and the session's private key encrypted for each recipient:

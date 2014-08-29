@@ -39,40 +39,6 @@ typedef struct {
 
 @synthesize rawKey=_rawKey;
 
-+ (CBPrivateKey*) generateKeyPair {
-    CBRawKey priv;
-    SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
-    return [[CBPrivateKey alloc] initWithRawKey: priv];
-}
-
-+ (CBPrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
-                             withSalt: (NSData*)salt
-                               rounds: (uint32_t)rounds
-{
-    NSParameterAssert(passphrase);
-    NSAssert(salt.length > 4, @"Insufficient salt");
-    NSAssert(rounds > 10000, @"Insufficient rounds");
-    NSData* passwordData = [passphrase dataUsingEncoding: NSUTF8StringEncoding];
-    CBRawKey priv;
-    int status = CCKeyDerivationPBKDF(kCCPBKDF2,
-                                      passwordData.bytes, passwordData.length,
-                                      salt.bytes, salt.length,
-                                      kCCPRFHmacAlgSHA256, rounds,
-                                      priv.bytes, sizeof(priv));
-    if (status) {
-        return nil;
-    }
-    return [[CBPrivateKey alloc] initWithRawKey: priv];
-}
-
-+ (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
-                                   withSalt: (NSData*)salt
-{
-    return CCCalibratePBKDF(kCCPBKDF2, 10, salt.length, kCCPRFHmacAlgSHA256,
-                            sizeof(CBRawKey), (uint32_t)(delay*1000.0));
-}
-
-
 - (instancetype) initWithRawKey: (CBRawKey)rawKey {
     self = [super init];
     if (self) {
@@ -107,6 +73,41 @@ typedef struct {
 
 
 @synthesize publicKey=_publicKey;
+
+
++ (CBPrivateKey*) generateKeyPair {
+    CBRawKey priv;
+    SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
+    return [[CBPrivateKey alloc] initWithRawKey: priv];
+}
+
+
++ (CBPrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
+                             withSalt: (NSData*)salt
+                               rounds: (uint32_t)rounds
+{
+    NSParameterAssert(passphrase);
+    NSAssert(salt.length > 4, @"Insufficient salt");
+    NSAssert(rounds > 10000, @"Insufficient rounds");
+    NSData* passwordData = [passphrase dataUsingEncoding: NSUTF8StringEncoding];
+    CBRawKey priv;
+    int status = CCKeyDerivationPBKDF(kCCPBKDF2,
+                                      passwordData.bytes, passwordData.length,
+                                      salt.bytes, salt.length,
+                                      kCCPRFHmacAlgSHA256, rounds,
+                                      priv.bytes, sizeof(priv));
+    if (status) {
+        return nil;
+    }
+    return [[CBPrivateKey alloc] initWithRawKey: priv];
+}
+
++ (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
+                                   withSalt: (NSData*)salt
+{
+    return CCCalibratePBKDF(kCCPBKDF2, 10, salt.length, kCCPRFHmacAlgSHA256,
+                            sizeof(CBRawKey), (uint32_t)(delay*1000.0));
+}
 
 
 - (instancetype)initWithRawKey:(CBRawKey)rawKey {
@@ -176,6 +177,46 @@ typedef struct {
     SHA256Digest digest;
     CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
     return [self signDigest: digest.bytes length: sizeof(digest)];
+}
+
+
+- (BOOL) addToKeychainWithService: (NSString*)service
+                          account: (NSString*)account
+{
+    NSData* itemData = [self.keyData base64EncodedDataWithOptions: 0];
+    NSDate* now = [NSDate date];
+    NSDictionary* attrs = @{ (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+                             (__bridge id)kSecAttrService: service,
+                             (__bridge id)kSecAttrAccount: account,
+                             (__bridge id)kSecValueData: itemData,
+                             (__bridge id)kSecAttrCreationDate: now,
+                             (__bridge id)kSecAttrModificationDate: now,
+                             (__bridge id)kSecAttrDescription: @"curve25519 private key",
+                             };
+    CFTypeRef result = NULL;
+    OSStatus err = SecItemAdd((__bridge CFDictionaryRef)attrs, &result);
+    return err == noErr;
+}
+
+
++ (CBPrivateKey*) keyPairFromKeychainWithService: (NSString*)service
+                                         account: (NSString*)account
+{
+    NSDictionary* attrs = @{ (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+                             (__bridge id)kSecAttrService: service,
+                             (__bridge id)kSecAttrAccount: account,
+                             (__bridge id)kSecReturnData: @YES,
+                             };
+    CFTypeRef result = NULL;
+    OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)attrs, &result);
+    if (err || result == NULL) {
+        return nil;
+    }
+    NSData* itemData = CFBridgingRelease(result);
+    NSData* keyData = [[NSData alloc] initWithBase64EncodedData: itemData options: 0];
+    if (!keyData)
+        return nil;
+    return [[self alloc] initWithKeyData: keyData];
 }
 
 

@@ -29,29 +29,6 @@ typedef struct {
 /** A Curve25519 key; abstract superclass of PublicKey and PrivateKey. */
 @interface CBKey : NSObject
 
-/** Generates a new PrivateKey/PublicKey pair at random. */
-+ (CBPrivateKey*) generateKeyPair;
-
-/** Creates a PrivateKey/PublicKey pair, derived from a password using PBKDF2.
-    The same input values will always create the same key pair. In practice, the salt and rounds
-    parameters should be fixed (hardcoded in the app) while the passphrase should be entered by the
-    user.
-    @param passphrase  The passphrase/password, presumably entered by the user.
-    @param salt  A data blob that perturbs the generated key; must be at least 4 bytes long.
-                Should usually be kept fixed for any particular app, but doesn't need to be secret.
-    @param rounds  The number of rounds of hashing to perform. More rounds is more secure but takes
-                longer. */
-+ (CBPrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
-                               withSalt: (NSData*)salt
-                                 rounds: (uint32_t)rounds;
-
-/** Estimates the number of rounds needed to make +keyPairFromPassphrase: take a given amount of time
-    on the current CPU. The goal is to make it take a macroscopic amount of time (like a second) 
-    in order to make password cracking impractical, but not long enough to annoy the user. */
-+ (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
-                                   withSalt: (NSData*)salt;
-
-
 /** Reconstitutes a Key object from previously saved raw key data.
     A PrivateKey also reconstitutes its PublicKey. */
 - (instancetype) initWithRawKey: (CBRawKey)rawKey;
@@ -75,6 +52,38 @@ typedef struct {
 
 /** The matching PublicKey to this PrivateKey. */
 @property CBPublicKey* publicKey;
+
+/** Generates a new PrivateKey/PublicKey pair at random. */
++ (CBPrivateKey*) generateKeyPair;
+
+/** Creates a PrivateKey/PublicKey pair, derived from a password using PBKDF2.
+    The same input values will always create the same key pair. In practice, the salt and rounds
+    parameters should be fixed (hardcoded in the app) while the passphrase should be entered by the
+    user.
+    @param passphrase  The passphrase/password, presumably entered by the user.
+    @param salt  A data blob that perturbs the generated key; must be at least 4 bytes long.
+                Should usually be kept fixed for any particular app, but doesn't need to be secret.
+    @param rounds  The number of rounds of hashing to perform. More rounds is more secure but takes
+                longer. */
++ (CBPrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
+                               withSalt: (NSData*)salt
+                                 rounds: (uint32_t)rounds;
+
+/** Estimates the number of rounds needed to make +keyPairFromPassphrase: take a given amount of time
+    on the current CPU. The goal is to make it take a macroscopic amount of time (like a second) 
+    in order to make password cracking impractical, but not long enough to annoy the user. */
++ (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
+                                   withSalt: (NSData*)salt;
+
+
+/** Reads a private key (and its public key) from the Keychain, looking up the given service and
+    account. */
++ (CBPrivateKey*) keyPairFromKeychainWithService: (NSString*)service
+                                         account: (NSString*)account;
+
+/** Adds a private key to the Keychain under the given service and account names. */
+- (BOOL) addToKeychainWithService: (NSString*)service
+                          account: (NSString*)account;
 
 /** Encrypts a data block. The encrypted form can only be read using the recipient's private key.
     @param cleartext  The message to be encrypted.

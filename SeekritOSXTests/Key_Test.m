@@ -24,8 +24,8 @@
 
 - (void)setUp {
     [super setUp];
-    alice = [CBKey generateKeyPair];
-    bob = [CBKey generateKeyPair];
+    alice = [CBPrivateKey generateKeyPair];
+    bob = [CBPrivateKey generateKeyPair];
     XCTAssert(alice.publicKey != nil);
     XCTAssert(bob.publicKey != nil);
 }
@@ -113,13 +113,13 @@
 
 - (void) testPasswords {
     NSData* salt = [@"SaltyMcNaCl" dataUsingEncoding: NSUTF8StringEncoding];
-    uint32_t rounds = [CBKey passphraseRoundsNeededForDelay: 0.5 withSalt: salt];
+    uint32_t rounds = [CBPrivateKey passphraseRoundsNeededForDelay: 0.5 withSalt: salt];
     NSLog(@"Rounds should be %d", rounds);
     XCTAssertGreaterThan(rounds, 100000);
 
     // Generate a key from a password:
     NSString* password = @"letmein123456";
-    CBPrivateKey* key = [CBKey keyPairFromPassphrase: password
+    CBPrivateKey* key = [CBPrivateKey keyPairFromPassphrase: password
                                         withSalt: salt
                                           rounds: rounds];
     NSLog(@"Derived key = %@", key.keyData);
@@ -132,12 +132,12 @@
     NSMutableArray* groupPrivate = [NSMutableArray array];
     NSMutableArray* groupPublic = [NSMutableArray array];
     for (size_t i=0; i<n; ++i) {
-        CBPrivateKey* priv = [CBKey generateKeyPair];
+        CBPrivateKey* priv = [CBPrivateKey generateKeyPair];
         [groupPrivate addObject: priv];
         [groupPublic addObject: priv.publicKey];
     }
 
-    CBPrivateKey* me = [CBKey generateKeyPair];
+    CBPrivateKey* me = [CBPrivateKey generateKeyPair];
 
     NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
     NSData* cipher = [me encryptGroupMessage: clear forRecipients: groupPublic];
@@ -148,8 +148,43 @@
         XCTAssertEqualObjects(decrypted, clear);
     }
 
-    CBPrivateKey* stranger = [CBKey generateKeyPair];
+    CBPrivateKey* stranger = [CBPrivateKey generateKeyPair];
     XCTAssertNil([stranger decryptGroupMessage: cipher fromSender: me.publicKey]);
 }
+
+- (void) testKeychain {
+    [self useTestKeychain];
+    CBPrivateKey* key = [CBPrivateKey generateKeyPair];
+    XCTAssert([key addToKeychainWithService: @"unit-test"
+                                    account: @"testy-mc-tester"]);
+
+    CBPrivateKey* readKey = [CBPrivateKey keyPairFromKeychainWithService: @"unit-test"
+                                                                 account: @"testy-mc-tester"];
+    XCTAssertNotNil(readKey);
+    XCTAssertEqualObjects(key.keyData, readKey.keyData);
+
+    XCTAssertNil([CBPrivateKey keyPairFromKeychainWithService: @"unit-test"
+                                                      account: @"frobozz"]);
+}
+
+
+#if TARGET_OS_IPHONE
+- (void) useTestKeychain {
+    // iOS doesn't support multiple keychains
+}
+#else
+- (SecKeychainRef) useTestKeychain {
+    static SecKeychainRef sTestKeychain;
+    if (!sTestKeychain) {
+        NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"beanbag_test.keychain"];
+        NSLog(@"Creating keychain at %@", path);
+        [[NSFileManager defaultManager] removeItemAtPath: path error: NULL];
+        XCTAssertEqual(SecKeychainCreate(path.fileSystemRepresentation, 6, "foobar", NO, NULL, &sTestKeychain), noErr);
+        XCTAssertEqual(SecKeychainSetDefault(sTestKeychain), noErr);
+    }
+    return sTestKeychain;
+}
+#endif
+
 
 @end
