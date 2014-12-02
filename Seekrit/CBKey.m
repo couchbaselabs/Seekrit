@@ -165,7 +165,7 @@ typedef struct {
 
 
 - (CBSignature) signDigest: (const void*)digest
-                     length: (size_t)length
+                    length: (size_t)length
 {
     NSParameterAssert(digest != NULL);
     NSParameterAssert(length <= 256);
@@ -186,8 +186,8 @@ typedef struct {
 }
 
 
-- (BOOL) addToKeychain: (CBKeychainRef)keychain
-           withService: (NSString*)service
+- (BOOL) addToKeychain: (SecKeychainRef)keychain
+            forService: (NSString*)service
                account: (NSString*)account
 {
     NSData* itemData = [self.keyData base64EncodedDataWithOptions: 0];
@@ -212,9 +212,15 @@ typedef struct {
     return err == noErr;
 }
 
+- (BOOL) addToKeychainForService: (NSString*)service
+                         account: (NSString*)account
+{
+    return [self addToKeychain: NULL forService: service account: account];
+}
 
-+ (CBPrivateKey*) keyPairFromKeychain: (CBKeychainRef)keychain
-                          withService: (NSString*)service
+
++ (CBPrivateKey*) keyPairFromKeychain: (SecKeychainRef)keychain
+                           forService: (NSString*)service
                               account: (NSString*)account
 {
     NSDictionary* attrs = @{ (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
@@ -239,6 +245,12 @@ typedef struct {
     if (!keyData)
         return nil;
     return [[self alloc] initWithKeyData: keyData];
+}
+
++ (CBPrivateKey*) keyPairFromKeychainForService: (NSString*)service
+                                        account: (NSString*)account
+{
+    return [self keyPairFromKeychain: NULL forService: service account: account];
 }
 
 

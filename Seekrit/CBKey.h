@@ -10,13 +10,6 @@
 @class CBPrivateKey, CBPublicKey;
 
 
-#if TARGET_OS_IPHONE
-typedef CFTypeRef CBKeychainRef;
-#else
-typedef SecKeychainRef CBKeychainRef;
-#endif
-
-
 /** The raw bytes of a Curve25519 key. */
 typedef struct {
     uint8_t bytes[32];
@@ -82,17 +75,23 @@ typedef struct {
 + (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
                                    withSalt: (NSData*)salt;
 
-
 /** Reads a private key (and its public key) from the Keychain, looking up the given service and
     account. */
-+ (CBPrivateKey*) keyPairFromKeychain: (CBKeychainRef)keychain
-                          withService: (NSString*)service
-                              account: (NSString*)account;
++ (CBPrivateKey*) keyPairFromKeychainForService: (NSString*)service
+                                        account: (NSString*)account;
 
 /** Adds a private key to the Keychain under the given service and account names. */
-- (BOOL) addToKeychain: (CBKeychainRef)keychain
-           withService: (NSString*)service
+- (BOOL) addToKeychainForService: (NSString*)service
+                         account: (NSString*)account;
+
+#if !TARGET_OS_IPHONE
+- (BOOL) addToKeychain: (SecKeychainRef)keychain
+            forService: (NSString*)service
                account: (NSString*)account;
++ (CBPrivateKey*) keyPairFromKeychain: (SecKeychainRef)keychain
+                           forService: (NSString*)service
+                              account: (NSString*)account;
+#endif
 
 /** Encrypts a data block. The encrypted form can only be read using the recipient's private key.
     @param cleartext  The message to be encrypted.

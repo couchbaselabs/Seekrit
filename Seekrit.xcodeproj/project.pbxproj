@@ -494,7 +494,7 @@
 		2776D0D719AC1ABD0053D0A6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Couchbase;
 				TargetAttributes = {
 					2776D10219AC40270053D0A6 = {
@@ -689,6 +689,7 @@
 		2776D11219AC40270053D0A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -705,6 +706,7 @@
 		2776D11319AC40270053D0A6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				GCC_WARN_UNUSED_VARIABLE = NO;

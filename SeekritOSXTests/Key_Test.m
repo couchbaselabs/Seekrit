@@ -155,23 +155,23 @@
 - (void) testKeychain {
     CBPrivateKey* key = [CBPrivateKey generateKeyPair];
     XCTAssert([key addToKeychain: self.keychain
-                     withService: @"unit-test"
+                      forService: @"unit-test"
                          account: @"testy-mc-tester"]);
 
     CBPrivateKey* readKey = [CBPrivateKey keyPairFromKeychain: self.keychain
-                                                  withService: @"unit-test"
+                                                   forService: @"unit-test"
                                                       account: @"testy-mc-tester"];
     XCTAssertNotNil(readKey);
     XCTAssertEqualObjects(key.keyData, readKey.keyData);
 
     XCTAssertNil([CBPrivateKey keyPairFromKeychain: self.keychain
-                                       withService: @"unit-test"
+                                        forService: @"unit-test"
                                            account: @"frobozz"]);
 }
 
 
-- (CBKeychainRef) keychain {
-    static CBKeychainRef sTestKeychain;
+- (SecKeychainRef) keychain {
+    static SecKeychainRef sTestKeychain;
 #if !TARGET_OS_IPHONE
     if (!sTestKeychain) {
         NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"beanbag_test.keychain"];

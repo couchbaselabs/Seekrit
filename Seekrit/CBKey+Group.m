@@ -19,13 +19,16 @@
     cleartext encrypted with session key (16 bytes overhead)
  */
 
+#define kCBEncryptedMessageOverhead 16
+
+typedef struct {
+    uint8_t bytes[ sizeof(CBRawKey) + kCBEncryptedMessageOverhead ];
+} GroupMessageEncryptedKey;
 
 typedef struct {
     CBNonce nonce;
     uint32_t count;
-    struct {
-        uint8_t bytes[48];
-    } encryptedKey[0];
+    GroupMessageEncryptedKey encryptedKey[0];
 } GroupMessage;
 
 
@@ -34,8 +37,9 @@ typedef struct {
 - (NSData*) encryptGroupMessage: (NSData*)cleartext
                   forRecipients: (NSArray*)recipients
 {
-    NSMutableData* output = [NSMutableData dataWithCapacity: 28 + 48*recipients.count
-                                                                + cleartext.length + 16];
+    NSMutableData* output = [NSMutableData dataWithCapacity: sizeof(GroupMessage)
+                                            + recipients.count * sizeof(GroupMessageEncryptedKey)
+                                            + cleartext.length + kCBEncryptedMessageOverhead];
     // Generate a random nonce and write it:
     CBNonce nonce = [CBPrivateKey randomNonce];
     [output appendBytes: &nonce length: sizeof(nonce)];
