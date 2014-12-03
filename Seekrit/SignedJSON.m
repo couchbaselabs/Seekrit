@@ -44,7 +44,7 @@ static NSDateFormatter* getISO8601Formatter() {
         // Thanks to DenNukem's answer in http://stackoverflow.com/questions/399527/
         sFormatter = [[NSDateFormatter alloc] init];
         sFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssXXX";
-        sFormatter.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        sFormatter.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         sFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         sFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     });

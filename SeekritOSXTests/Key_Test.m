@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Couchbase. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 #import "CBKey.h"
 #import "CBKey+Group.h"
@@ -152,6 +152,7 @@
     XCTAssertNil([stranger decryptGroupMessage: cipher fromSender: me.publicKey]);
 }
 
+#if !TARGET_OS_IPHONE
 - (void) testKeychain {
     CBPrivateKey* key = [CBPrivateKey generateKeyPair];
     XCTAssert([key addToKeychain: self.keychain
@@ -168,20 +169,21 @@
                                         forService: @"unit-test"
                                            account: @"frobozz"]);
 }
+#endif
 
 
+#if !TARGET_OS_IPHONE
 - (SecKeychainRef) keychain {
     static SecKeychainRef sTestKeychain;
-#if !TARGET_OS_IPHONE
     if (!sTestKeychain) {
         NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"beanbag_test.keychain"];
         NSLog(@"Creating keychain at %@", path);
         [[NSFileManager defaultManager] removeItemAtPath: path error: NULL];
         XCTAssertEqual(SecKeychainCreate(path.fileSystemRepresentation, 6, "foobar", NO, NULL, &sTestKeychain), noErr);
     }
-#endif
     return sTestKeychain;
 }
+#endif
 
 
 @end

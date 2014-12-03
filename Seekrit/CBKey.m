@@ -151,6 +151,7 @@ typedef struct {
           withNonce: (CBNonce)nonce
          fromSender: (CBPublicKey*)sender
 {
+    NSParameterAssert(ciphertext != nil);
     NSParameterAssert(sender != nil);
     size_t msgLen = crypto_box_BOXZEROBYTES + ciphertext.length;
     uint8_t* paddedCiphertext = allocPadded(ciphertext, crypto_box_BOXZEROBYTES);
@@ -186,7 +187,11 @@ typedef struct {
 }
 
 
-- (BOOL) addToKeychain: (SecKeychainRef)keychain
+#if TARGET_OS_IPHONE
+typedef CFTypeRef SecKeychainRef;
+#endif
+
+- (BOOL) addToKeychain: (SecKeychainRef)keychain // parameter is unused in iOS
             forService: (NSString*)service
                account: (NSString*)account
 {

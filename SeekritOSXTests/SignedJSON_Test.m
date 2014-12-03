@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Couchbase. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 #import "CBKey.h"
 #import "SignedJSON.h"
