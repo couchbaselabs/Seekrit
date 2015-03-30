@@ -85,6 +85,38 @@
 		2776D1D119AC5CCF0053D0A6 /* compare.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D13519AC5B930053D0A6 /* compare.c */; };
 		2776D1D319AD13C90053D0A6 /* zeroize.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D13C19AC5B930053D0A6 /* zeroize.c */; };
 		2776D1D419AD14810053D0A6 /* fe_0.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D14419AC5B930053D0A6 /* fe_0.c */; };
+		278415B61AC785BE0011F0BF /* mn_wordlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 278415B31AC785BE0011F0BF /* mn_wordlist.c */; };
+		278415B71AC785BE0011F0BF /* mn_wordlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 278415B31AC785BE0011F0BF /* mn_wordlist.c */; };
+		278415B81AC785BE0011F0BF /* mnemonic.c in Sources */ = {isa = PBXBuildFile; fileRef = 278415B41AC785BE0011F0BF /* mnemonic.c */; };
+		278415B91AC785BE0011F0BF /* mnemonic.c in Sources */ = {isa = PBXBuildFile; fileRef = 278415B41AC785BE0011F0BF /* mnemonic.c */; };
+		278415BA1AC785BE0011F0BF /* mnemonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 278415B51AC785BE0011F0BF /* mnemonic.h */; };
+		278415BC1AC789A80011F0BF /* Mnemonicode_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415BB1AC789A80011F0BF /* Mnemonicode_Test.m */; };
+		278415BD1AC789A80011F0BF /* Mnemonicode_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415BB1AC789A80011F0BF /* Mnemonicode_Test.m */; };
+		278415C01AC791FE0011F0BF /* NSData+Mnemonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 278415BE1AC791FE0011F0BF /* NSData+Mnemonic.h */; };
+		278415C11AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */; };
+		278415C21AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */; };
+		278415C51AC7AA060011F0BF /* CBQRCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 278415C31AC7AA060011F0BF /* CBQRCode.h */; };
+		278415C61AC7AA060011F0BF /* CBQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415C41AC7AA060011F0BF /* CBQRCode.m */; };
+		278415C71AC7AA060011F0BF /* CBQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415C41AC7AA060011F0BF /* CBQRCode.m */; };
+		278415D21AC7B20C0011F0BF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415D11AC7B20C0011F0BF /* AppDelegate.m */; };
+		278415D41AC7B20C0011F0BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415D31AC7B20C0011F0BF /* main.m */; };
+		278415D61AC7B20C0011F0BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278415D51AC7B20C0011F0BF /* Images.xcassets */; };
+		278415D91AC7B20C0011F0BF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278415D71AC7B20C0011F0BF /* MainMenu.xib */; };
+		278415ED1AC7B6570011F0BF /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278415EC1AC7B6570011F0BF /* AVKit.framework */; };
+		278415EE1AC7D0BD0011F0BF /* libSeekritOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2776D10319AC40270053D0A6 /* libSeekritOSX.a */; };
+		278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 278415F11AC8729E0011F0BF /* CBQRCodeScannerView.h */; };
+		278415F41AC8729E0011F0BF /* CBQRCodeScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415F21AC8729E0011F0BF /* CBQRCodeScannerView.m */; };
+		278415FF1AC89FBF0011F0BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415FE1AC89FBF0011F0BF /* main.m */; };
+		278416021AC89FBF0011F0BF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416011AC89FBF0011F0BF /* AppDelegate.m */; };
+		278416051AC89FBF0011F0BF /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416041AC89FBF0011F0BF /* FirstViewController.m */; };
+		2784160B1AC89FBF0011F0BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278416091AC89FBF0011F0BF /* Main.storyboard */; };
+		2784160D1AC89FBF0011F0BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2784160C1AC89FBF0011F0BF /* Images.xcassets */; };
+		278416101AC89FBF0011F0BF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2784160E1AC89FBF0011F0BF /* LaunchScreen.xib */; };
+		2784162F1AC89FFE0011F0BF /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
+		278416361AC8B8220011F0BF /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 278416351AC8B8220011F0BF /* CameraShutter.aiff */; };
+		278416371AC8B8220011F0BF /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 278416351AC8B8220011F0BF /* CameraShutter.aiff */; };
+		2784163C1AC8CE090011F0BF /* QRCodeScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */; };
+		2784163E1AC8D2EF0011F0BF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */; };
 		27A12C5F1A2E90B200846803 /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
 		27A12C6B1A2E90E500846803 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
 		27A12C6C1A2E90E500846803 /* CBKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBKey+Group.m */; };
@@ -154,6 +186,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2776D10219AC40270053D0A6;
 			remoteInfo = SeekritOSX;
+		};
+		278415EF1AC7D0C10011F0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2776D0D719AC1ABD0053D0A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2776D10219AC40270053D0A6;
+			remoteInfo = SeekritOSX;
+		};
+		278416301AC8A0030011F0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2776D0D719AC1ABD0053D0A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27A12C531A2E90B200846803;
+			remoteInfo = SeekritIOS;
 		};
 		27A12C601A2E90B200846803 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -262,6 +308,40 @@
 		2776D18219AC5B930053D0A6 /* sph_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sph_types.h; sourceTree = "<group>"; };
 		2776D18319AC5B930053D0A6 /* sign.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sign.c; sourceTree = "<group>"; };
 		2776D18419AC5B930053D0A6 /* sqrtm1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqrtm1.h; sourceTree = "<group>"; };
+		278415B31AC785BE0011F0BF /* mn_wordlist.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = mn_wordlist.c; sourceTree = "<group>"; tabWidth = 8; };
+		278415B41AC785BE0011F0BF /* mnemonic.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = mnemonic.c; sourceTree = "<group>"; tabWidth = 8; };
+		278415B51AC785BE0011F0BF /* mnemonic.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = mnemonic.h; sourceTree = "<group>"; tabWidth = 8; };
+		278415BB1AC789A80011F0BF /* Mnemonicode_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mnemonicode_Test.m; sourceTree = "<group>"; };
+		278415BE1AC791FE0011F0BF /* NSData+Mnemonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Mnemonic.h"; sourceTree = "<group>"; };
+		278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Mnemonic.m"; sourceTree = "<group>"; };
+		278415C31AC7AA060011F0BF /* CBQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQRCode.h; sourceTree = "<group>"; };
+		278415C41AC7AA060011F0BF /* CBQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBQRCode.m; sourceTree = "<group>"; };
+		278415CC1AC7B20C0011F0BF /* Seekrit Mac Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Seekrit Mac Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		278415CF1AC7B20C0011F0BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		278415D01AC7B20C0011F0BF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		278415D11AC7B20C0011F0BF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		278415D31AC7B20C0011F0BF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		278415D51AC7B20C0011F0BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		278415D81AC7B20C0011F0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		278415EC1AC7B6570011F0BF /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		278415F11AC8729E0011F0BF /* CBQRCodeScannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQRCodeScannerView.h; sourceTree = "<group>"; };
+		278415F21AC8729E0011F0BF /* CBQRCodeScannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBQRCodeScannerView.m; sourceTree = "<group>"; };
+		278415FA1AC89FBF0011F0BF /* Seekrit iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Seekrit iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		278415FD1AC89FBF0011F0BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		278415FE1AC89FBF0011F0BF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		278416001AC89FBF0011F0BF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		278416011AC89FBF0011F0BF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		278416031AC89FBF0011F0BF /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		278416041AC89FBF0011F0BF /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		2784160A1AC89FBF0011F0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2784160C1AC89FBF0011F0BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2784160F1AC89FBF0011F0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		2784162E1AC89FC60011F0BF /* Seekrit iOS DemoTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Seekrit iOS DemoTests copy-Info.plist"; path = "/Couchbase/Seekrit/Seekrit iOS DemoTests copy-Info.plist"; sourceTree = "<absolute>"; };
+		278416321AC8A4340011F0BF /* Seekrit iOS Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Seekrit iOS Demo-Bridging-Header.h"; sourceTree = "<group>"; };
+		278416351AC8B8220011F0BF /* CameraShutter.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = CameraShutter.aiff; path = ../../../Users/snej/Desktop/CameraShutter.aiff; sourceTree = "<group>"; };
+		278416381AC8CA3B0011F0BF /* SeekritIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SeekritIOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanController.swift; sourceTree = "<group>"; };
+		2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		27A12C541A2E90B200846803 /* libSeekritIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B960B819AE542500AAA1FD /* CBKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBKey+Group.h"; sourceTree = "<group>"; };
@@ -290,6 +370,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		278415C91AC7B20C0011F0BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278415EE1AC7D0BD0011F0BF /* libSeekritOSX.a in Frameworks */,
+				278415ED1AC7B6570011F0BF /* AVKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278415F71AC89FBF0011F0BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2784162F1AC89FFE0011F0BF /* libSeekritIOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27A12C511A2E90B200846803 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -311,11 +408,15 @@
 		2776D0D619AC1ABD0053D0A6 = {
 			isa = PBXGroup;
 			children = (
+				278415EC1AC7B6570011F0BF /* AVKit.framework */,
 				2776D0E119AC1ABD0053D0A6 /* Seekrit */,
+				278415CD1AC7B20C0011F0BF /* Seekrit Mac Demo */,
+				278415FB1AC89FBF0011F0BF /* Seekrit iOS Demo */,
 				2776D10E19AC40270053D0A6 /* SeekritOSXTests */,
 				27B960B719AE50BB00AAA1FD /* vendor */,
 				2776D12B19AC4B590053D0A6 /* Cocoa.framework */,
 				2776D0E019AC1ABD0053D0A6 /* Products */,
+				2784162E1AC89FC60011F0BF /* Seekrit iOS DemoTests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -326,6 +427,8 @@
 				2776D10D19AC40270053D0A6 /* SeekritOSXTests.xctest */,
 				27A12C541A2E90B200846803 /* libSeekritIOS.a */,
 				27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */,
+				278415CC1AC7B20C0011F0BF /* Seekrit Mac Demo.app */,
+				278415FA1AC89FBF0011F0BF /* Seekrit iOS Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -337,7 +440,10 @@
 				2776D0FB19AC1C1A0053D0A6 /* CBKey.m */,
 				27B960B819AE542500AAA1FD /* CBKey+Group.h */,
 				27B960B919AE542500AAA1FD /* CBKey+Group.m */,
+				278415BE1AC791FE0011F0BF /* NSData+Mnemonic.h */,
+				278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */,
 				27B960C419AE8EF700AAA1FD /* JSON */,
+				278415F51AC879B00011F0BF /* QR Codes */,
 			);
 			path = Seekrit;
 			sourceTree = "<group>";
@@ -355,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				2776D13119AC57D80053D0A6 /* Key_Test.m */,
+				278415BB1AC789A80011F0BF /* Mnemonicode_Test.m */,
 				27B960C519AE964800AAA1FD /* SignedJSON_Test.m */,
 				2776D10F19AC40270053D0A6 /* Supporting Files */,
 			);
@@ -477,9 +584,82 @@
 			path = sha512;
 			sourceTree = "<group>";
 		};
+		278415991AC689130011F0BF /* mnemonicode */ = {
+			isa = PBXGroup;
+			children = (
+				278415B31AC785BE0011F0BF /* mn_wordlist.c */,
+				278415B41AC785BE0011F0BF /* mnemonic.c */,
+				278415B51AC785BE0011F0BF /* mnemonic.h */,
+			);
+			name = mnemonicode;
+			path = vendor/mnemonicode;
+			sourceTree = "<group>";
+		};
+		278415CD1AC7B20C0011F0BF /* Seekrit Mac Demo */ = {
+			isa = PBXGroup;
+			children = (
+				278415D01AC7B20C0011F0BF /* AppDelegate.h */,
+				278415D11AC7B20C0011F0BF /* AppDelegate.m */,
+				278415D51AC7B20C0011F0BF /* Images.xcassets */,
+				278415D71AC7B20C0011F0BF /* MainMenu.xib */,
+				278415CE1AC7B20C0011F0BF /* Supporting Files */,
+			);
+			path = "Seekrit Mac Demo";
+			sourceTree = "<group>";
+		};
+		278415CE1AC7B20C0011F0BF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				278415CF1AC7B20C0011F0BF /* Info.plist */,
+				278415D31AC7B20C0011F0BF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		278415F51AC879B00011F0BF /* QR Codes */ = {
+			isa = PBXGroup;
+			children = (
+				278415C31AC7AA060011F0BF /* CBQRCode.h */,
+				278415C41AC7AA060011F0BF /* CBQRCode.m */,
+				278415F11AC8729E0011F0BF /* CBQRCodeScannerView.h */,
+				278415F21AC8729E0011F0BF /* CBQRCodeScannerView.m */,
+				278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */,
+				278416381AC8CA3B0011F0BF /* SeekritIOS-Bridging-Header.h */,
+			);
+			name = "QR Codes";
+			sourceTree = "<group>";
+		};
+		278415FB1AC89FBF0011F0BF /* Seekrit iOS Demo */ = {
+			isa = PBXGroup;
+			children = (
+				278416001AC89FBF0011F0BF /* AppDelegate.h */,
+				278416011AC89FBF0011F0BF /* AppDelegate.m */,
+				278416031AC89FBF0011F0BF /* FirstViewController.h */,
+				278416041AC89FBF0011F0BF /* FirstViewController.m */,
+				278416091AC89FBF0011F0BF /* Main.storyboard */,
+				2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */,
+				278416351AC8B8220011F0BF /* CameraShutter.aiff */,
+				2784160C1AC89FBF0011F0BF /* Images.xcassets */,
+				2784160E1AC89FBF0011F0BF /* LaunchScreen.xib */,
+				278415FC1AC89FBF0011F0BF /* Supporting Files */,
+				278416321AC8A4340011F0BF /* Seekrit iOS Demo-Bridging-Header.h */,
+			);
+			path = "Seekrit iOS Demo";
+			sourceTree = "<group>";
+		};
+		278415FC1AC89FBF0011F0BF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				278415FD1AC89FBF0011F0BF /* Info.plist */,
+				278415FE1AC89FBF0011F0BF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		27B960B719AE50BB00AAA1FD /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				278415991AC689130011F0BF /* mnemonicode */,
 				2776D0F619AC1AF80053D0A6 /* TweetNaCl */,
 				2776D13319AC5B930053D0A6 /* ed25519 */,
 			);
@@ -510,6 +690,7 @@
 				2776D18819AC5B930053D0A6 /* curve_sigs.h in Headers */,
 				2776D1C119AC5B930053D0A6 /* crypto_sign_edwards25519sha512batch.h in Headers */,
 				2776D1BA19AC5B930053D0A6 /* ge_sub.h in Headers */,
+				278415C01AC791FE0011F0BF /* NSData+Mnemonic.h in Headers */,
 				2776D1C619AC5B930053D0A6 /* pow22523.h in Headers */,
 				27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */,
 				2776D1D019AC5B930053D0A6 /* sqrtm1.h in Headers */,
@@ -522,16 +703,19 @@
 				2776D1C319AC5B930053D0A6 /* crypto_uint64.h in Headers */,
 				2776D1CD19AC5B930053D0A6 /* sph_sha2.h in Headers */,
 				2776D1C419AC5B930053D0A6 /* crypto_verify_32.h in Headers */,
+				278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */,
 				27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */,
 				2776D18619AC5B930053D0A6 /* compare.h in Headers */,
 				2776D18E19AC5B930053D0A6 /* api.h in Headers */,
 				2776D1B119AC5B930053D0A6 /* ge_p2_dbl.h in Headers */,
+				278415C51AC7AA060011F0BF /* CBQRCode.h in Headers */,
 				2776D1BF19AC5B930053D0A6 /* crypto_int64.h in Headers */,
 				2776D18A19AC5B930053D0A6 /* sha512.h in Headers */,
 				2776D1A619AC5B930053D0A6 /* ge_add.h in Headers */,
 				2776D1C019AC5B930053D0A6 /* crypto_sign.h in Headers */,
 				2776D1BD19AC5B930053D0A6 /* crypto_hash_sha512.h in Headers */,
 				2776D1BE19AC5B930053D0A6 /* crypto_int32.h in Headers */,
+				278415BA1AC785BE0011F0BF /* mnemonic.h in Headers */,
 				2776D18D19AC5B930053D0A6 /* zeroize.h in Headers */,
 				2776D19119AC5B930053D0A6 /* d.h in Headers */,
 				2776D19319AC5B930053D0A6 /* fe.h in Headers */,
@@ -577,6 +761,42 @@
 			productName = SeekritOSXTests;
 			productReference = 2776D10D19AC40270053D0A6 /* SeekritOSXTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		278415CB1AC7B20C0011F0BF /* Seekrit Mac Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 278415E61AC7B20C0011F0BF /* Build configuration list for PBXNativeTarget "Seekrit Mac Demo" */;
+			buildPhases = (
+				278415C81AC7B20C0011F0BF /* Sources */,
+				278415C91AC7B20C0011F0BF /* Frameworks */,
+				278415CA1AC7B20C0011F0BF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				278415F01AC7D0C10011F0BF /* PBXTargetDependency */,
+			);
+			name = "Seekrit Mac Demo";
+			productName = "Seekrit Mac Demo";
+			productReference = 278415CC1AC7B20C0011F0BF /* Seekrit Mac Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		278415F91AC89FBF0011F0BF /* Seekrit iOS Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2784161D1AC89FBF0011F0BF /* Build configuration list for PBXNativeTarget "Seekrit iOS Demo" */;
+			buildPhases = (
+				278415F61AC89FBF0011F0BF /* Sources */,
+				278415F71AC89FBF0011F0BF /* Frameworks */,
+				278415F81AC89FBF0011F0BF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				278416311AC8A0030011F0BF /* PBXTargetDependency */,
+			);
+			name = "Seekrit iOS Demo";
+			productName = "Seekrit iOS Demo";
+			productReference = 278415FA1AC89FBF0011F0BF /* Seekrit iOS Demo.app */;
+			productType = "com.apple.product-type.application";
 		};
 		27A12C531A2E90B200846803 /* SeekritIOS */ = {
 			isa = PBXNativeTarget;
@@ -628,6 +848,12 @@
 					2776D10C19AC40270053D0A6 = {
 						CreatedOnToolsVersion = 6.0;
 					};
+					278415CB1AC7B20C0011F0BF = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					278415F91AC89FBF0011F0BF = {
+						CreatedOnToolsVersion = 6.3;
+					};
 					27A12C531A2E90B200846803 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -642,6 +868,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 2776D0D619AC1ABD0053D0A6;
 			productRefGroup = 2776D0E019AC1ABD0053D0A6 /* Products */;
@@ -652,6 +879,8 @@
 				2776D10C19AC40270053D0A6 /* SeekritOSXTests */,
 				27A12C531A2E90B200846803 /* SeekritIOS */,
 				27A12C5D1A2E90B200846803 /* SeekritIOSTests */,
+				278415CB1AC7B20C0011F0BF /* Seekrit Mac Demo */,
+				278415F91AC89FBF0011F0BF /* Seekrit iOS Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -661,6 +890,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278415CA1AC7B20C0011F0BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278416361AC8B8220011F0BF /* CameraShutter.aiff in Resources */,
+				278415D61AC7B20C0011F0BF /* Images.xcassets in Resources */,
+				278415D91AC7B20C0011F0BF /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278415F81AC89FBF0011F0BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2784160B1AC89FBF0011F0BF /* Main.storyboard in Resources */,
+				278416101AC89FBF0011F0BF /* LaunchScreen.xib in Resources */,
+				278416371AC8B8220011F0BF /* CameraShutter.aiff in Resources */,
+				2784160D1AC89FBF0011F0BF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +936,7 @@
 				2776D1B719AC5B930053D0A6 /* ge_precomp_0.c in Sources */,
 				2776D1B319AC5B930053D0A6 /* ge_p3_dbl.c in Sources */,
 				2776D19619AC5B930053D0A6 /* fe_add.c in Sources */,
+				278415B61AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				2776D1BB19AC5B930053D0A6 /* ge_tobytes.c in Sources */,
 				2776D1B619AC5B930053D0A6 /* ge_p3_tobytes.c in Sources */,
 				2776D1A019AC5B930053D0A6 /* fe_sq.c in Sources */,
@@ -693,6 +944,8 @@
 				2776D1CC19AC5B930053D0A6 /* sha2big.c in Sources */,
 				27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */,
 				2776D19919AC5B930053D0A6 /* fe_frombytes.c in Sources */,
+				278415C11AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
+				278415C61AC7AA060011F0BF /* CBQRCode.m in Sources */,
 				2776D1B519AC5B930053D0A6 /* ge_p3_to_p2.c in Sources */,
 				2776D1B219AC5B930053D0A6 /* ge_p3_0.c in Sources */,
 				27B960BB19AE542500AAA1FD /* CBKey+Group.m in Sources */,
@@ -709,6 +962,7 @@
 				2776D1A719AC5B930053D0A6 /* ge_double_scalarmult.c in Sources */,
 				2776D19B19AC5B930053D0A6 /* fe_isnegative.c in Sources */,
 				2776D1AE19AC5B930053D0A6 /* ge_p1p1_to_p3.c in Sources */,
+				278415F41AC8729E0011F0BF /* CBQRCodeScannerView.m in Sources */,
 				2776D1D319AD13C90053D0A6 /* zeroize.c in Sources */,
 				2776D1D119AC5CCF0053D0A6 /* compare.c in Sources */,
 				2776D1AD19AC5B930053D0A6 /* ge_p1p1_to_p2.c in Sources */,
@@ -725,6 +979,7 @@
 				2776D19F19AC5B930053D0A6 /* fe_pow22523.c in Sources */,
 				2776D19A19AC5B930053D0A6 /* fe_invert.c in Sources */,
 				2776D1C519AC5B930053D0A6 /* open.c in Sources */,
+				278415B81AC785BE0011F0BF /* mnemonic.c in Sources */,
 				2776D1B019AC5B930053D0A6 /* ge_p2_dbl.c in Sources */,
 				2776D11819AC40470053D0A6 /* tweetnacl.c in Sources */,
 			);
@@ -734,8 +989,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				278415BC1AC789A80011F0BF /* Mnemonicode_Test.m in Sources */,
 				2776D13219AC57D80053D0A6 /* Key_Test.m in Sources */,
 				27B960C619AE964800AAA1FD /* SignedJSON_Test.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278415C81AC7B20C0011F0BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278415D41AC7B20C0011F0BF /* main.m in Sources */,
+				278415D21AC7B20C0011F0BF /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278415F61AC89FBF0011F0BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278416021AC89FBF0011F0BF /* AppDelegate.m in Sources */,
+				278416051AC89FBF0011F0BF /* FirstViewController.m in Sources */,
+				278415FF1AC89FBF0011F0BF /* main.m in Sources */,
+				2784163E1AC8D2EF0011F0BF /* SecondViewController.swift in Sources */,
+				2784163C1AC8CE090011F0BF /* QRCodeScanController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +1028,7 @@
 				27A12C9D1A2E930800846803 /* sha2big.c in Sources */,
 				27A12C721A2E920200846803 /* fe_0.c in Sources */,
 				27A12C731A2E920200846803 /* fe_1.c in Sources */,
+				278415B71AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				27A12C741A2E920200846803 /* fe_add.c in Sources */,
 				27A12C751A2E920200846803 /* fe_cmov.c in Sources */,
 				27A12C761A2E920200846803 /* fe_copy.c in Sources */,
@@ -758,6 +1036,8 @@
 				27A12C771A2E920200846803 /* fe_frombytes.c in Sources */,
 				27A12C781A2E920200846803 /* fe_invert.c in Sources */,
 				27A12C791A2E920200846803 /* fe_isnegative.c in Sources */,
+				278415C21AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
+				278415C71AC7AA060011F0BF /* CBQRCode.m in Sources */,
 				27A12C7A1A2E920200846803 /* fe_isnonzero.c in Sources */,
 				27A12C7B1A2E920200846803 /* fe_mul.c in Sources */,
 				27A12C7C1A2E920200846803 /* fe_neg.c in Sources */,
@@ -790,6 +1070,7 @@
 				27A12C931A2E920200846803 /* ge_tobytes.c in Sources */,
 				27A12C941A2E920200846803 /* open.c in Sources */,
 				27A12C951A2E920200846803 /* sc_muladd.c in Sources */,
+				278415B91AC785BE0011F0BF /* mnemonic.c in Sources */,
 				27A12C961A2E920200846803 /* sc_reduce.c in Sources */,
 				27A12C971A2E920200846803 /* sign.c in Sources */,
 			);
@@ -799,6 +1080,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				278415BD1AC789A80011F0BF /* Mnemonicode_Test.m in Sources */,
 				27A12C6F1A2E918800846803 /* Key_Test.m in Sources */,
 				27A12C701A2E918B00846803 /* SignedJSON_Test.m in Sources */,
 			);
@@ -812,12 +1094,49 @@
 			target = 2776D10219AC40270053D0A6 /* SeekritOSX */;
 			targetProxy = 2776D11B19AC417F0053D0A6 /* PBXContainerItemProxy */;
 		};
+		278415F01AC7D0C10011F0BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2776D10219AC40270053D0A6 /* SeekritOSX */;
+			targetProxy = 278415EF1AC7D0C10011F0BF /* PBXContainerItemProxy */;
+		};
+		278416311AC8A0030011F0BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27A12C531A2E90B200846803 /* SeekritIOS */;
+			targetProxy = 278416301AC8A0030011F0BF /* PBXContainerItemProxy */;
+		};
 		27A12C611A2E90B200846803 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 27A12C531A2E90B200846803 /* SeekritIOS */;
 			targetProxy = 27A12C601A2E90B200846803 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		278415D71AC7B20C0011F0BF /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				278415D81AC7B20C0011F0BF /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		278416091AC89FBF0011F0BF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2784160A1AC89FBF0011F0BF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2784160E1AC89FBF0011F0BF /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2784160F1AC89FBF0011F0BF /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2776D0EE19AC1ABD0053D0A6 /* Debug */ = {
@@ -831,9 +1150,12 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -849,6 +1171,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -873,9 +1196,12 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -885,6 +1211,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -974,31 +1301,111 @@
 			};
 			name = Release;
 		};
-		27A12C661A2E90B200846803 /* Debug */ = {
+		278415E71AC7B20C0011F0BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Seekrit Mac Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		278415E81AC7B20C0011F0BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Seekrit Mac Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2784161E1AC89FBF0011F0BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Seekrit iOS Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit iOS Demo/Seekrit iOS Demo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2784161F1AC89FBF0011F0BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Seekrit iOS Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit iOS Demo/Seekrit iOS Demo-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		27A12C661A2E90B200846803 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit/SeekritIOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		27A12C671A2E90B200846803 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit/SeekritIOS-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1066,6 +1473,22 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		278415E61AC7B20C0011F0BF /* Build configuration list for PBXNativeTarget "Seekrit Mac Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				278415E71AC7B20C0011F0BF /* Debug */,
+				278415E81AC7B20C0011F0BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2784161D1AC89FBF0011F0BF /* Build configuration list for PBXNativeTarget "Seekrit iOS Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2784161E1AC89FBF0011F0BF /* Debug */,
+				2784161F1AC89FBF0011F0BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		27A12C651A2E90B200846803 /* Build configuration list for PBXNativeTarget "SeekritIOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1073,6 +1496,7 @@
 				27A12C671A2E90B200846803 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		27A12C681A2E90B200846803 /* Build configuration list for PBXNativeTarget "SeekritIOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1081,6 +1505,7 @@
 				27A12C6A1A2E90B200846803 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

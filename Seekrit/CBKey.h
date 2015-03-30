@@ -10,17 +10,17 @@
 @class CBPrivateKey, CBPublicKey;
 
 
-/** The raw bytes of a Curve25519 key. */
+/** The raw data of a Curve25519 key. (256 bits, 32 bytes) */
 typedef struct {
     uint8_t bytes[32];
 } CBRawKey;
 
-/** A nonce used for Curve25519 encryption. */
+/** A nonce used for Curve25519 encryption. (192 bits, 24 bytes) */
 typedef struct {
     uint8_t bytes[24];
 } CBNonce;
 
-/** A Curve25519 digital signature. */
+/** A Curve25519 digital signature. (512 bits, 64 bytes) */
 typedef struct {
     uint8_t bytes[64];
 } CBSignature;
@@ -47,19 +47,21 @@ typedef struct {
 
 
 
-/** A Curve25519 private key. */
+/** A Curve25519 private key. Also acts as the key pair, since it hangs onto the corresponding
+    public key. */
 @interface CBPrivateKey : CBKey
 
 /** The matching PublicKey to this PrivateKey. */
 @property CBPublicKey* publicKey;
 
-/** Generates a new PrivateKey/PublicKey pair at random. */
+/** Generates a new PrivateKey/PublicKey pair at random.
+    (Unlike RSA key generation, this is quite fast.) */
 + (CBPrivateKey*) generateKeyPair;
 
 /** Creates a PrivateKey/PublicKey pair, derived from a password using PBKDF2.
-    The same input values will always create the same key pair. In practice, the salt and rounds
-    parameters should be fixed (hardcoded in the app) while the passphrase should be entered by the
-    user.
+    The same input values will always create the same keys. In practice, the `salt` and `rounds`
+    parameters should be fixed (hardcoded in the app) while the passphrase should be entered by
+    the user.
     @param passphrase  The passphrase/password, presumably entered by the user.
     @param salt  A data blob that perturbs the generated key; must be at least 4 bytes long.
                 Should usually be kept fixed for any particular app, but doesn't need to be secret.
@@ -84,10 +86,13 @@ typedef struct {
 - (BOOL) addToKeychainForService: (NSString*)service
                          account: (NSString*)account;
 
-#if !TARGET_OS_IPHONE
+#if !TARGET_OS_IPHONE // OS X only; iOS doesn't support multiple Keychains.
+/** Adds a private key to a specific Keychain under the given service and account names. */
 - (BOOL) addToKeychain: (SecKeychainRef)keychain
             forService: (NSString*)service
                account: (NSString*)account;
+/** Reads a private key (and its public key) from a specific Keychain, looking up the given service
+    and account. */
 + (CBPrivateKey*) keyPairFromKeychain: (SecKeychainRef)keychain
                            forService: (NSString*)service
                               account: (NSString*)account;
@@ -96,8 +101,9 @@ typedef struct {
 /** Encrypts a data block. The encrypted form can only be read using the recipient's private key.
     @param cleartext  The message to be encrypted.
     @param nonce  A 24-byte value that alters the encryption. It can contain anything, but it's
-                important that no two messages exchanged by this key-pair and the recipient (in
+                crucial that no two messages exchanged by this key-pair and the recipient (in
                 either direction) use the same nonce, otherwise the security is weakened.
+                Typically the nonce is generated using +randomNonce or +incrementNonce:by:.
     @param recipient  The public key of the recipient. Only the corresponding private key can be
                 used to decrypt the message.
     @return  The encrypted message. */
@@ -105,13 +111,20 @@ typedef struct {
           withNonce: (CBNonce)nonce
        forRecipient: (CBPublicKey*)recipient;
 
+/** Encrypts a data block, appending the result to an existing NSMutableData.
+    For details, see -encrypt:withNonce:forRecipient:. */
+- (void) encrypt: (NSData*)cleartext
+       withNonce: (CBNonce)nonce
+    forRecipient: (CBPublicKey*)recipient
+        appendTo: (NSMutableData*)output;
+
 /** Decrypts a data block.
     @param ciphertext  The encrypted message to be decrypted.
     @param nonce  A 24-byte value that alters the encryption. This must be the same nonce value
                 that was used to encrypt the message. (Either the sender needs to include the
                 nonce along with the ciphertext, or they need to agree on some other way to
-                derive it, for example by using a counter of the number of message sent.)
-    @param recipient  The public key of the sender.
+                derive it, for example by using a counter of the number of messages sent.)
+    @param sender  The public key of the sender.
     @return  The decrypted message, or nil if it could not be decrypted (because this isn't the
                 intended recipient's private key, or the nonce is wrong, or the sender key doesn't
                 match, or the ciphertext was corrupted.) */
@@ -125,12 +138,12 @@ typedef struct {
     (Actually it uses the closely related Ed25519 key.)
     The matching public key can later be used to verify the signature.
     @param input  The data to be signed.
-    @return  The signature (which will be 64 bytes long.) */
-- (CBSignature) sign: (NSData*)input;
+    @return  The 64-byte signature. */
+- (CBSignature) signData: (NSData*)input;
 
 /** Lower-level signature method that can only sign up to 256 bytes.
     You can use this if you've computed your own cryptographic digest of the data.
-    (The regular -sign: method uses this to sign a 32-byte SHA256 digest.) */
+    (The regular -signData: method uses this to sign a 32-byte SHA256 digest.) */
 - (CBSignature) signDigest: (const void*)digest
                     length: (size_t)length;
 
@@ -152,11 +165,11 @@ typedef struct {
 /** Verifies a digital signature using this public key.
     (Actually it uses the closely related Ed25519 key.)
     @param signature  The signature to be verified.
-    @param input  The data whose signature is to be verified.
+    @param inputData  The data whose signature is to be verified.
     @return  YES if the signature was created from this input data by the corresponding private
                 key; NO if the signature is invalid or doesn't match. */
 - (BOOL) verifySignature: (CBSignature)signature
-                  ofData: (NSData*)input;
+                  ofData: (NSData*)inputData;
 
 /** Lower-level signature verification that can only handle 256 bytes.
     You can use this if you've computed your own cryptographic digest of the data.

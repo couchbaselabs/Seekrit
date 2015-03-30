@@ -11,6 +11,7 @@
 #import "CBKey.h"
 #import "CBKey+Group.h"
 #import "curve_sigs.h"
+#import "NSData+Mnemonic.h"
 
 
 @interface Key_Test : XCTestCase
@@ -79,7 +80,7 @@
 - (void) testSignatures {
     NSLog(@"alice = %@  /  %@", alice.keyData, alice.publicKey.keyData);
     NSData* message = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
-    CBSignature signature = [alice sign: message];
+    CBSignature signature = [alice signData: message];
     NSLog(@"Signature = %@", [NSData dataWithBytes: &signature length: sizeof(signature)]);
 
     XCTAssert([alice.publicKey verifySignature: signature ofData: message]);

@@ -13,11 +13,11 @@
 
 /** Encrypts a message so that any of the recipients can decipher it.
     @param cleartext  The message to be encrypted.
-    @param recipients  An array of PublicKey objects corresponding to the recipients who should be
-                    able to decipher the message.
+    @param recipientPublicKeys  An array of CBPublicKey objects corresponding to the recipients who 
+                should be able to decipher the message.
     @return  The encrypted data. */
 - (NSData*) encryptGroupMessage: (NSData*)cleartext
-                  forRecipients: (NSArray*)recipients;
+                  forRecipients: (NSArray*)recipientPublicKeys;
 
 /** Decrypts a message encrypted by -encryptGroupMessage:forRecipients:.
     This PrivateKey must correspond to one of the public keys given as a recipient when the message

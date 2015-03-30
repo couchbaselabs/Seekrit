@@ -1,3 +1,6 @@
 [submodule "vendor/ref10_extract"]
 	path = vendor/ref10_extract
 	url = git@github.com:trevp/ref10_extract.git
+[submodule "vendor/mnemonicode"]
+	path = vendor/mnemonicode
+	url = git@github.com:snej/mnemonicode.git

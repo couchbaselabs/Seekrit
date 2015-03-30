@@ -19,6 +19,7 @@
 
 
 // External function called by tweetnacl.c
+extern void randombytes(uint8_t *,uint64_t);
 void randombytes(uint8_t* bytes, uint64_t count) {
     SecRandomCopyBytes(kSecRandomDefault, (size_t)count, bytes);
 }
@@ -82,9 +83,7 @@ typedef struct {
 
 
 + (CBPrivateKey*) generateKeyPair {
-    CBRawKey priv;
-    SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
-    return [[CBPrivateKey alloc] initWithRawKey: priv];
+    return [[CBPrivateKey alloc] init];
 }
 
 
@@ -116,6 +115,13 @@ typedef struct {
 }
 
 
+- (instancetype) init {
+    CBRawKey priv;
+    SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
+    return [self initWithRawKey: priv];
+}
+
+
 - (instancetype)initWithRawKey:(CBRawKey)rawKey {
     // A few bits need to be adjusted to make this into a valid Curve25519 key:
     rawKey.bytes[ 0] &= 0xF8;
@@ -144,6 +150,24 @@ typedef struct {
                recipient.rawKey.bytes, _rawKey.bytes);
     free(paddedCleartext);
     return unpad(ciphertext, crypto_box_BOXZEROBYTES);
+}
+
+
+- (void) encrypt: (NSData*)cleartext
+       withNonce: (CBNonce)nonce
+    forRecipient: (CBPublicKey*)recipient
+        appendTo: (NSMutableData*)output
+{
+    NSParameterAssert(recipient != nil);
+    size_t msgLen = crypto_box_ZEROBYTES + cleartext.length;
+    uint8_t* paddedCleartext = allocPadded(cleartext, crypto_box_ZEROBYTES);
+    uint8_t* ciphertext = malloc(msgLen);
+    crypto_box(ciphertext, paddedCleartext, msgLen, nonce.bytes,
+               recipient.rawKey.bytes, _rawKey.bytes);
+    free(paddedCleartext);
+    [output appendBytes: ciphertext + crypto_box_BOXZEROBYTES
+                 length: msgLen - crypto_box_BOXZEROBYTES];
+    free(ciphertext);
 }
 
 
@@ -180,7 +204,7 @@ typedef struct {
     return signature;
 }
 
-- (CBSignature) sign: (NSData*)input {
+- (CBSignature) signData: (NSData*)input {
     SHA256Digest digest;
     CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
     return [self signDigest: digest.bytes length: sizeof(digest)];

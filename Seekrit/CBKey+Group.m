@@ -52,15 +52,17 @@ typedef struct {
     uint32_t bigCount = CFSwapInt32HostToBig((uint32_t)recipients.count);
     [output appendBytes: &bigCount length: sizeof(bigCount)];
     for (CBPublicKey* recipient in recipients) {
-        // It's OK to reuse the same nonce, because each recipient public key is different
-        [output appendData: [self encrypt: sessionPrivateKeyData
-                                withNonce: nonce
-                             forRecipient: recipient]];
+        // (It's OK to reuse the same nonce, because each recipient public key is different)
+        [self encrypt: sessionPrivateKeyData
+            withNonce: nonce
+         forRecipient: recipient
+             appendTo: output];
     }
     // Finally append the ciphertext, encrypted with me as sender and session key as recipient:
-    [output appendData: [self encrypt: cleartext
-                            withNonce: nonce
-                         forRecipient: sessionKey.publicKey]];
+    [self encrypt: cleartext
+        withNonce: nonce
+     forRecipient: sessionKey.publicKey
+         appendTo: output];
     return output;
 }
 
@@ -76,25 +78,25 @@ typedef struct {
     uint32_t count = CFSwapInt32BigToHost(header->count);
     if (inputLen < offsetof(GroupMessage, encryptedKey[count]))
         return nil;
-    // Look at each recipient's encrypted data looking for one I can decrypt:
+    // Look at each recipient's encrypted session key looking for one I can decrypt:
     NSData* sessionKeyData = nil;
     for (uint32_t i = 0; i < count; i++) {
-        NSData* item = [NSData dataWithBytesNoCopy: (void*)&header->encryptedKey[i]
-                                            length: sizeof(header->encryptedKey[i])
-                                      freeWhenDone: NO];
+        NSData* item = [[NSData alloc] initWithBytesNoCopy: (void*)&header->encryptedKey[i]
+                                                    length: sizeof(header->encryptedKey[i])
+                                              freeWhenDone: NO];
         sessionKeyData = [self decrypt: item withNonce: header->nonce fromSender: sender];
         if (sessionKeyData)
             break;
     }
     if (!sessionKeyData)
-        return nil; // Apparently it wasn't addressed to this key
+        return nil; // Apparently it wasn't addressed to me :(
 
     CBPrivateKey* sessionKey = [[CBPrivateKey alloc] initWithKeyData: sessionKeyData];
     if (!sessionKey)
         return nil;
 
     // Decrypt the ciphertext, which was encrypted with the session key as recipient:
-    NSData* ciphertext = [NSData dataWithBytesNoCopy: (void*)&header->encryptedKey[count]
+    NSData* ciphertext = [[NSData alloc] initWithBytesNoCopy: (void*)&header->encryptedKey[count]
                                               length: input.length - offsetof(GroupMessage,
                                                                               encryptedKey[count])
                                         freeWhenDone: NO];

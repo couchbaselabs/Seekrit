@@ -167,14 +167,14 @@ static NSString* formatDate(NSDate* date) {
                      expiresAfter: (NSTimeInterval)expirationInterval
 {
     NSString* keyStr = [self.publicKey.keyData base64EncodedStringWithOptions: 0];
-    NSMutableDictionary* signature = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-        CanonicalDigestString(jsonObject), @"digest_SHA",
-        keyStr, @"key_25519",
-        formatDate([NSDate date]), @"date",
-        nil];
+    NSMutableDictionary* signature = [@{
+        @"digest_SHA": CanonicalDigestString(jsonObject),
+        @"key_25519": keyStr,
+        @"date": formatDate([NSDate date])
+    } mutableCopy];
     if (expirationInterval > 0.0)
         signature[@"expires"] = @(MAX(0, floor(expirationInterval / kExpiresUnit)));
-    CBSignature sig = [self sign: [CanonicalJSON canonicalData: signature]];
+    CBSignature sig = [self signData: [CanonicalJSON canonicalData: signature]];
     NSData* sigData = [NSData dataWithBytes: &sig length: sizeof(sig)];
     signature[@"sig"] = [sigData base64EncodedStringWithOptions: 0];
     return [signature copy];
