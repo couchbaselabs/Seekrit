@@ -9,11 +9,11 @@
 //
 
 import UIKit
-import AssetsLibrary
 import AVFoundation
 
+
 /** A view controller that uses the device camera to scan for a QR code. */
-public class QRCodeScanController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+public class QRCodeScanController: UIViewController {
 
     /** This property will be set when a QR code is scanned.
         If a different QR code is scanned later, its value will change. (Observable) */
@@ -23,66 +23,54 @@ public class QRCodeScanController: UIViewController, AVCaptureMetadataOutputObje
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var codeStringLabel: UILabel!
 
-    var previewLayer: AVCaptureVideoPreviewLayer!
-    var session: AVCaptureSession!
+    let scanner = QRCodeScanner()
 
-    var sharedAssets: [ALAsset]?
+    var previewLayer: AVCaptureVideoPreviewLayer!
+
 
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
         startCapture()
     }
 
     override public func viewDidDisappear(animated: Bool) {
         pauseCapture()
-
         super.viewDidDisappear(animated)
     }
 
-    public func startCapture() {
-        if session != nil {
-            return
+    public func startCapture() -> Bool {
+        if previewLayer != nil {
+            return true
         }
         statusLabel.text = "Activating camera..."
         codeStringLabel.text = nil
         scannedString = nil
 
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        if device == nil {
-            showAlert("No camera found", title: "")
-            return
-        }
-
         var error: NSError?
-        let input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error)
-                                                as! AVCaptureDeviceInput
-        if error != nil {
-            showAlert("Cannot connect to camera", title: "Error")
-            return
+        if !scanner.startCapture(&error) {
+            let message = error?.localizedFailureReason ?? "An error occurred."
+            statusLabel.text = message
+            showAlert(message, title: "Error")
+            return false
         }
 
-        session = AVCaptureSession()
-        session.addInput(input)
-        let output = AVCaptureMetadataOutput()
-        output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
-        session.addOutput(output)
-        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
-
-        previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(session)
+        previewLayer = AVCaptureVideoPreviewLayer.layerWithSession(scanner.session)
                                             as! AVCaptureVideoPreviewLayer
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         previewLayer.frame = previewView.bounds
         previewView.layer.addSublayer(previewLayer)
 
-        session.startRunning()
+        scanner.addObserver(self, forKeyPath: "scannedString",
+            options: NSKeyValueObservingOptions(0), context: nil)
+
         statusLabel.text = "Looking for a QR code..."
+        return true
     }
 
     public func pauseCapture() {
-        if session != nil {
-            session.stopRunning()
-            session = nil
+        if previewLayer != nil {
+            scanner.removeObserver(self, forKeyPath: "scannedString")
+            scanner.pauseCapture()
             previewLayer.removeFromSuperlayer()
             previewLayer = nil
             codeStringLabel.text = nil
@@ -90,33 +78,21 @@ public class QRCodeScanController: UIViewController, AVCaptureMetadataOutputObje
         }
     }
 
-//MARK: - AVCaptureMetadataOutputObjectsDelegate
-
-    public func captureOutput(captureOutput: AVCaptureOutput!,
-                              didOutputMetadataObjects metadataObjects: [AnyObject]!,
-                              fromConnection connection: AVCaptureConnection!)
+    public override func observeValueForKeyPath(keyPath: String,
+                                                ofObject object: AnyObject,
+                                                change: [NSObject : AnyObject],
+                                                context: UnsafeMutablePointer<Void>)
     {
-        if session == nil {
-            // Workaround for iOS7 bugs
-            return
-        }
-
-        for metadata in metadataObjects as! [AVMetadataObject] {
-            if metadata.type == AVMetadataObjectTypeQRCode {
-                let transformed = previewLayer.transformedMetadataObjectForMetadataObject(metadata)
-                    as! AVMetadataMachineReadableCodeObject
-                let str = transformed.stringValue
-                if str != scannedString {
-                    println("SCANNED: \(str)")
-                    statusLabel.text = "Scanned a QR code!"
-                    codeStringLabel.text = str
-                    scannedString = str
-                }
-            }
+        if object as! NSObject == scanner {
+            scannedString = scanner.scannedString
+            codeStringLabel.text = scannedString
+            statusLabel.text = "Scanned a QR code!"
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
     }
 
-    func showAlert(message: String, title: String) {
+    func showAlert(message: String, title: String = "") {
         statusLabel.text = message
         UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK").show()
     }

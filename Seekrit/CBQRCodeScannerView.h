@@ -9,17 +9,14 @@
 #import <Cocoa/Cocoa.h>
 
 
-/** A QR-code scanner that uses the camera. The view displays a preview. */
+/** A view that uses a CBQRCodeScanner and displays a preview of the camera image. */
 @interface CBQRCodeScannerView : NSView
 
-- (void) startCapture;
+- (BOOL) startCapture: (NSError**)outError;
 - (void) pauseCapture;
 
 /** This property will be set when a QR code is scanned.
     If a different QR code is scanned later, its value will change. (Observable) */
 @property (readonly) NSString* scannedString;
-
-/** Error, set if there's a problem connecting to a camera. (Observable) */
-@property (readonly) NSError* error;
 
 @end

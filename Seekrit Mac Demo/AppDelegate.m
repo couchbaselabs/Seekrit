@@ -44,7 +44,7 @@
     if ([tabViewItem.identifier isEqual: @"Scan"]) {
         codeStringLabel.hidden = YES;
         captureView.hidden = NO;
-        [captureView performSelector: @selector(startCapture) withObject: nil afterDelay: 0.1];
+        [captureView performSelector: @selector(startCapture:) withObject: nil afterDelay: 0.1];
     } else {
         [captureView pauseCapture];
     }

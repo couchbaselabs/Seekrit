@@ -15,7 +15,6 @@
 + (CBImage*) QRCodeImageWithData: (NSData*)data size: (CGFloat)size {
     CIFilter* filter = [CIFilter filterWithName: @"CIQRCodeGenerator"];
     [filter setValue: data forKey: @"inputMessage"];
-//  [filter setValue: @"H" forKey: @"inputCorrectionLevel"];
     CIImage* ciImage = filter.outputImage;
     if (!ciImage)
         return nil;

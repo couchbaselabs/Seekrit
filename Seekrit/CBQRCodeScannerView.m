@@ -7,11 +7,12 @@
 //
 
 #import "CBQRCodeScannerView.h"
+#import "CBQRCodeScanner.h"
 @import AVFoundation;
 @import AVKit;
 
 
-@interface CBQRCodeScannerView () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface CBQRCodeScannerView ()
 @property (readwrite) NSString* scannedString;
 @property (readwrite) NSError* error;
 @end
@@ -19,11 +20,11 @@
 
 @implementation CBQRCodeScannerView
 {
-    IBOutlet AVCaptureView* _captureView;
-    CIDetector* _qrDetector;
+    CBQRCodeScanner* _scanner;
+    AVCaptureView* _captureView;
 }
 
-@synthesize scannedString=_scannedString;
+@synthesize scannedString=_scannedString, error=_error;
 
 
 - (void) drawRect:(NSRect)dirtyRect {
@@ -32,50 +33,23 @@
 }
 
 
-- (void) startCapture {
+- (BOOL) startCapture: (NSError**)outError {
     if (self.isHiddenOrHasHiddenAncestor)
-        return;
+        return YES;
     if (!_captureView) {
-        NSLog(@"Starting video capture...");
-        AVCaptureSession* session = [[AVCaptureSession alloc] init];
-        AVCaptureDevice* video = [AVCaptureDevice defaultDeviceWithMediaType: AVMediaTypeVideo];
-        if (!video) {
-            NSString* message = @"No video camera available";
-            self.error = [NSError errorWithDomain: @"CBQRCodeScannerView"
-                                             code: 1
-                                         userInfo: @{NSLocalizedFailureReasonErrorKey: message}];
-        }
-        NSError* error;
-        AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice: video
-                                                                            error: &error];
-        if (!input) {
-            self.error = error;
-            return;
-        }
-        [session addInput: input];
+        _scanner = [[CBQRCodeScanner alloc] init];
+        if (![_scanner startCapture: outError])
+            return NO;
 
-        AVCaptureVideoDataOutput* output = [[AVCaptureVideoDataOutput alloc] init];
-        output.alwaysDiscardsLateVideoFrames = YES;
-        [output setSampleBufferDelegate: self queue: dispatch_get_main_queue()];
-        [session addOutput: output];
-
-        [session startRunning];
+        [_scanner addObserver: self forKeyPath: @"scannedString" options: 0 context: NULL];
 
         _captureView = [[AVCaptureView alloc] initWithFrame: self.bounds];
         [self addSubview: _captureView];
-        [_captureView setSession: session showVideoPreview: YES showAudioPreview: NO];
-
-        // Lower frame rate (has to be done after adding the session to the view)
-        if ([video lockForConfiguration: NULL]) {
-            video.activeVideoMinFrameDuration = CMTimeMake(10, 30);  // 3fps
-            [video unlockForConfiguration];
-        }
+        [_captureView setSession: _scanner.captureSession
+                showVideoPreview: YES showAudioPreview: NO];
+        [_scanner setFrameRate: 3];
     }
-    if (!_qrDetector) {
-        _qrDetector = [CIDetector detectorOfType: CIDetectorTypeQRCode
-                                         context: nil
-                                         options: nil];
-    }
+    return YES;
 }
 
 
@@ -85,20 +59,26 @@
         [_captureView removeFromSuperview];
         _captureView = nil;
     }
-    _qrDetector = nil;
+    if (_scanner) {
+        [_scanner removeObserver: self forKeyPath: @"scannedString"];
+        [_scanner pauseCapture];
+        _scanner = nil;
+    }
 }
 
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput
-didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
-       fromConnection:(AVCaptureConnection *)connection
+- (void)dealloc {
+    [self pauseCapture];
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context
 {
-    CVImageBufferRef imageBuf = CMSampleBufferGetImageBuffer(sampleBuffer);
-    CIImage* frame = [CIImage imageWithCVImageBuffer: imageBuf];
-    CIQRCodeFeature* feature = [_qrDetector featuresInImage: frame].firstObject;
-    NSString* message = feature.messageString;
-    if (message && ![message isEqualToString: _scannedString]) {
-        self.scannedString = message;
+    if (object == _scanner) {
+        self.scannedString = _scanner.scannedString;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

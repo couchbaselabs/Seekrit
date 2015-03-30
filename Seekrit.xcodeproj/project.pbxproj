@@ -117,6 +117,9 @@
 		278416371AC8B8220011F0BF /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 278416351AC8B8220011F0BF /* CameraShutter.aiff */; };
 		2784163C1AC8CE090011F0BF /* QRCodeScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */; };
 		2784163E1AC8D2EF0011F0BF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */; };
+		278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */; };
+		278416421AC8E9700011F0BF /* CBQRCodeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416401AC8E9700011F0BF /* CBQRCodeScanner.m */; };
+		278416451AC909F50011F0BF /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416441AC909F50011F0BF /* QRCodeScanner.swift */; };
 		27A12C5F1A2E90B200846803 /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
 		27A12C6B1A2E90E500846803 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
 		27A12C6C1A2E90E500846803 /* CBKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBKey+Group.m */; };
@@ -336,12 +339,13 @@
 		2784160A1AC89FBF0011F0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2784160C1AC89FBF0011F0BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2784160F1AC89FBF0011F0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		2784162E1AC89FC60011F0BF /* Seekrit iOS DemoTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Seekrit iOS DemoTests copy-Info.plist"; path = "/Couchbase/Seekrit/Seekrit iOS DemoTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		278416321AC8A4340011F0BF /* Seekrit iOS Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Seekrit iOS Demo-Bridging-Header.h"; sourceTree = "<group>"; };
 		278416351AC8B8220011F0BF /* CameraShutter.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = CameraShutter.aiff; path = ../../../Users/snej/Desktop/CameraShutter.aiff; sourceTree = "<group>"; };
-		278416381AC8CA3B0011F0BF /* SeekritIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SeekritIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanController.swift; sourceTree = "<group>"; };
 		2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQRCodeScanner.h; sourceTree = "<group>"; };
+		278416401AC8E9700011F0BF /* CBQRCodeScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBQRCodeScanner.m; sourceTree = "<group>"; };
+		278416441AC909F50011F0BF /* QRCodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 		27A12C541A2E90B200846803 /* libSeekritIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B960B819AE542500AAA1FD /* CBKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBKey+Group.h"; sourceTree = "<group>"; };
@@ -408,15 +412,13 @@
 		2776D0D619AC1ABD0053D0A6 = {
 			isa = PBXGroup;
 			children = (
-				278415EC1AC7B6570011F0BF /* AVKit.framework */,
 				2776D0E119AC1ABD0053D0A6 /* Seekrit */,
 				278415CD1AC7B20C0011F0BF /* Seekrit Mac Demo */,
 				278415FB1AC89FBF0011F0BF /* Seekrit iOS Demo */,
 				2776D10E19AC40270053D0A6 /* SeekritOSXTests */,
 				27B960B719AE50BB00AAA1FD /* vendor */,
-				2776D12B19AC4B590053D0A6 /* Cocoa.framework */,
+				278416431AC900C90011F0BF /* Frameworks */,
 				2776D0E019AC1ABD0053D0A6 /* Products */,
-				2784162E1AC89FC60011F0BF /* Seekrit iOS DemoTests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -621,10 +623,12 @@
 			children = (
 				278415C31AC7AA060011F0BF /* CBQRCode.h */,
 				278415C41AC7AA060011F0BF /* CBQRCode.m */,
+				2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */,
+				278416401AC8E9700011F0BF /* CBQRCodeScanner.m */,
 				278415F11AC8729E0011F0BF /* CBQRCodeScannerView.h */,
 				278415F21AC8729E0011F0BF /* CBQRCodeScannerView.m */,
+				278416441AC909F50011F0BF /* QRCodeScanner.swift */,
 				278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */,
-				278416381AC8CA3B0011F0BF /* SeekritIOS-Bridging-Header.h */,
 			);
 			name = "QR Codes";
 			sourceTree = "<group>";
@@ -654,6 +658,15 @@
 				278415FE1AC89FBF0011F0BF /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		278416431AC900C90011F0BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2776D12B19AC4B590053D0A6 /* Cocoa.framework */,
+				278415EC1AC7B6570011F0BF /* AVKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		27B960B719AE50BB00AAA1FD /* vendor */ = {
@@ -704,6 +717,7 @@
 				2776D1CD19AC5B930053D0A6 /* sph_sha2.h in Headers */,
 				2776D1C419AC5B930053D0A6 /* crypto_verify_32.h in Headers */,
 				278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */,
+				278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */,
 				27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */,
 				2776D18619AC5B930053D0A6 /* compare.h in Headers */,
 				2776D18E19AC5B930053D0A6 /* api.h in Headers */,
@@ -963,6 +977,7 @@
 				2776D19B19AC5B930053D0A6 /* fe_isnegative.c in Sources */,
 				2776D1AE19AC5B930053D0A6 /* ge_p1p1_to_p3.c in Sources */,
 				278415F41AC8729E0011F0BF /* CBQRCodeScannerView.m in Sources */,
+				278416421AC8E9700011F0BF /* CBQRCodeScanner.m in Sources */,
 				2776D1D319AD13C90053D0A6 /* zeroize.c in Sources */,
 				2776D1D119AC5CCF0053D0A6 /* compare.c in Sources */,
 				2776D1AD19AC5B930053D0A6 /* ge_p1p1_to_p2.c in Sources */,
@@ -1010,6 +1025,7 @@
 			files = (
 				278416021AC89FBF0011F0BF /* AppDelegate.m in Sources */,
 				278416051AC89FBF0011F0BF /* FirstViewController.m in Sources */,
+				278416451AC909F50011F0BF /* QRCodeScanner.swift in Sources */,
 				278415FF1AC89FBF0011F0BF /* main.m in Sources */,
 				2784163E1AC8D2EF0011F0BF /* SecondViewController.swift in Sources */,
 				2784163C1AC8CE090011F0BF /* QRCodeScanController.swift in Sources */,
