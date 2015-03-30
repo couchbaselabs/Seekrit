@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--QR Code-->
+        <!--Show QR Code-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" sceneMemberID="viewController">
@@ -14,29 +14,40 @@
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="25P-QO-VVO">
-                                <rect key="frame" x="0.0" y="32" width="600" height="519"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25P-QO-VVO">
+                                <rect key="frame" x="16" y="28" width="382" height="372"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" placeholderIntrinsicWidth="552" placeholderIntrinsicHeight="282" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfH-z1-JHP">
+                                <rect key="frame" x="16" y="397" width="382" height="282"/>
+                                <fontDescription key="fontDescription" name="Superclarendon-Regular" family="Superclarendon" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="25P-QO-VVO" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="S57-AH-Zlq"/>
-                            <constraint firstItem="25P-QO-VVO" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="cxO-sE-suq"/>
-                            <constraint firstAttribute="trailing" secondItem="25P-QO-VVO" secondAttribute="trailing" id="m4F-kN-dzd"/>
-                            <constraint firstItem="25P-QO-VVO" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="12" id="quF-tL-by3"/>
+                            <constraint firstItem="25P-QO-VVO" firstAttribute="width" secondItem="wfH-z1-JHP" secondAttribute="width" id="MbZ-h8-838"/>
+                            <constraint firstItem="25P-QO-VVO" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="WTX-sw-lTF"/>
+                            <constraint firstItem="25P-QO-VVO" firstAttribute="centerX" secondItem="wfH-z1-JHP" secondAttribute="centerX" id="Wq4-C5-L3E"/>
+                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="wfH-z1-JHP" secondAttribute="bottom" constant="8" id="lbh-dk-Eai"/>
+                            <constraint firstItem="25P-QO-VVO" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="qEG-fG-Hm2"/>
+                            <constraint firstItem="wfH-z1-JHP" firstAttribute="top" secondItem="25P-QO-VVO" secondAttribute="bottom" constant="8" id="sCe-s4-imG"/>
+                            <constraint firstItem="25P-QO-VVO" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="8" id="wdW-i2-6SA"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="QR Code" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Show QR Code" image="first" id="acW-dT-cKf"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="mnemonicLabel" destination="wfH-z1-JHP" id="ohL-JY-uIX"/>
                         <outlet property="qrDisplayView" destination="25P-QO-VVO" id="8Da-xx-Ocj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="628" y="-581"/>
         </scene>
         <!--Scanner-->
         <scene sceneID="wg7-f3-ORb">
@@ -82,7 +93,7 @@
                             <constraint firstItem="wJI-fN-7mv" firstAttribute="trailing" secondItem="uk9-P2-LRV" secondAttribute="trailing" id="kGQ-KG-yi3"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Scan QR Code" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="codeStringLabel" destination="uk9-P2-LRV" id="ytZ-f8-iwT"/>
                         <outlet property="previewView" destination="wJI-fN-7mv" id="iN5-li-3Ct"/>
@@ -110,7 +121,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-22" y="-17"/>
         </scene>
     </scenes>
     <resources>
