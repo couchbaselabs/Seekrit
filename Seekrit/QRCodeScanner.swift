@@ -12,10 +12,15 @@ import AVFoundation
 /** Uses the camera to look for QR codes. */
 public class QRCodeScanner: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
+    /** Set this to specify whether to use the front or back camera. */
+    public var cameraPosition: AVCaptureDevicePosition = .Unspecified
+
     /** This property will be set when a QR code is scanned.
         If a different QR code is scanned later, its value will change. (Observable) */
     public dynamic var scannedString: String?
 
+    /** The underlying session object that's reading the video.
+        This can be hooked up to a GUI preview (QRCodeScanController does this.) */
     public var session: AVCaptureSession!
 
 
@@ -25,7 +30,7 @@ public class QRCodeScanner: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         }
         scannedString = nil
 
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let device = chooseInputDevice()
         if device == nil {
             if error != nil {
                 error.memory = NSError(domain: "QRCodeScanner", code: 1,
@@ -33,20 +38,19 @@ public class QRCodeScanner: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             }
             return false
         }
-
         let input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: error)
                                                 as! AVCaptureDeviceInput?
         if input == nil {
             return false
         }
 
+        let output = AVCaptureMetadataOutput()
+        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+
         session = AVCaptureSession()
         session.addInput(input)
-        let output = AVCaptureMetadataOutput()
-        output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         session.addOutput(output)
-        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
-
         session.startRunning()
         setFrameRate(3)
         return true
@@ -56,6 +60,15 @@ public class QRCodeScanner: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         if session != nil {
             session.stopRunning()
             session = nil
+        }
+    }
+
+    private func chooseInputDevice() -> AVCaptureDevice? {
+        if cameraPosition == .Unspecified {
+            return AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        } else {
+            let devices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice]
+            return filter(devices, {$0.position == self.cameraPosition}).first
         }
     }
 
@@ -72,18 +85,15 @@ public class QRCodeScanner: NSObject, AVCaptureMetadataOutputObjectsDelegate {
                               fromConnection connection: AVCaptureConnection!)
     {
         if session == nil {
-            // Workaround for iOS7 bugs
-            return
+            return            // Workaround for iOS7 bug
         }
-
-        for metadata in metadataObjects as! [AVMetadataObject] {
-            if metadata.type == AVMetadataObjectTypeQRCode {
-                let transformed = metadata as! AVMetadataMachineReadableCodeObject
-                let str = transformed.stringValue
-                if str != scannedString {
-                    println("SCANNED: \(str)") //TEMP
-                    scannedString = str
-                }
+        if let metadata = filter(metadataObjects as! [AVMetadataObject],
+                                 {$0.type == AVMetadataObjectTypeQRCode}).first,
+           let qrMeta = metadata as? AVMetadataMachineReadableCodeObject,
+           let str = qrMeta.stringValue
+        {
+            if str != scannedString {
+                scannedString = str // this will notify observers
             }
         }
     }

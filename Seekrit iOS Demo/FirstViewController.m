@@ -7,6 +7,7 @@
 //
 
 #import "FirstViewController.h"
+#import "AppDelegate.h"
 #import "CBKey.h"
 #import "SignedJSON.h"
 #import "CBQRCode.h"
@@ -24,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    CBPrivateKey* privKey = [[CBPrivateKey alloc] init];
+    CBPrivateKey* privKey = ((AppDelegate*)[UIApplication sharedApplication].delegate).privateKey;
     NSDictionary* obj = @{@"name": @"Pushpaw"};
     NSDictionary* s = [privKey addSignatureToJSON: obj expiresAfter: 5*60];
     NSData* json = [NSJSONSerialization dataWithJSONObject: s options: 0 error: nil];

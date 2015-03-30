@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ScanViewController;
+@class CBPrivateKey;
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property IBOutlet ScanViewController* scanController;
-
+@property (readonly) CBPrivateKey* privateKey;
 
 @end
 

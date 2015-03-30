@@ -12,6 +12,11 @@ import AudioToolbox
 
 public class SecondViewController: QRCodeScanController {
 
+    override public func startCapture() -> Bool {
+        //scanner.cameraPosition = .Front
+        return super.startCapture()
+    }
+
     override public var scannedString :String? {
         didSet {
             if scannedString != nil {

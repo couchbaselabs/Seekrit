@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-@import AudioToolbox;
+#import "CBKey.h"
 
 
 @interface AppDelegate ()
@@ -16,34 +16,20 @@
 
 @implementation AppDelegate
 
-@synthesize scanController=_scanController;
+@synthesize privateKey=_privateKey;
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    [(id)_scanController addObserver: self forKeyPath: @"scannedString" options: 0 context: NULL];
-    return YES;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                        change:(NSDictionary *)change context:(void *)context
+- (BOOL)application:(UIApplication *)application
+        didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if (object == _scanController) {
-        [self playShutterSound];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    _privateKey = [CBPrivateKey keyPairFromKeychainForService: @"Seekrit" account: @"me"];
+    if (!_privateKey) {
+        _privateKey = [CBPrivateKey generateKeyPair];
+        [_privateKey addToKeychainForService: @"Seekrit" account: @"me"];
+        NSLog(@"Generated key pair");
     }
-}
-
-- (void) playShutterSound {
-    static SystemSoundID sShutterSound;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSURL* url = [[NSBundle mainBundle] URLForResource: @"CameraShutter" withExtension: @"aiff"];
-        NSAssert(url, @"Missing audio file");
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &sShutterSound);
-    });
-    AudioServicesPlayAlertSound(sShutterSound);
+    NSLog(@"Public key = %@", _privateKey.publicKey.keyData);
+    return YES;
 }
 
 @end

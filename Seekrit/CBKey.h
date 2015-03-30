@@ -77,6 +77,8 @@ typedef struct {
 + (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
                                    withSalt: (NSData*)salt;
 
+//////// KEYCHAIN:
+
 /** Reads a private key (and its public key) from the Keychain, looking up the given service and
     account. */
 + (CBPrivateKey*) keyPairFromKeychainForService: (NSString*)service
@@ -97,6 +99,8 @@ typedef struct {
                            forService: (NSString*)service
                               account: (NSString*)account;
 #endif
+
+//////// ENCRYPTION:
 
 /** Encrypts a data block. The encrypted form can only be read using the recipient's private key.
     @param cleartext  The message to be encrypted.
