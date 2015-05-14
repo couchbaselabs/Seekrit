@@ -10,22 +10,32 @@
 @import AVFoundation;
 
 
+#define kMinScanInterval 0.2
+
+
 @interface CBQRCodeScanner () <AVCaptureVideoDataOutputSampleBufferDelegate>
-@property (readwrite) NSString* scannedString;
+@property (readwrite) CIImage* currentFrame;
+@property (readwrite) CIQRCodeFeature* scannedFeature;
+@property (readwrite, copy) NSString* scannedString;
 @end
 
 
 @implementation CBQRCodeScanner
 {
     CIDetector* _qrDetector;
+    CFAbsoluteTime _lastScanTime;
 }
 
-@synthesize captureSession=_session;
+@synthesize captureSession=_session, currentFrame=_currentFrame;
+
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
 
 
 - (BOOL) startCapture: (NSError**)outError {
     if (!_session) {
-        NSLog(@"Starting video capture...");
         _session = [[AVCaptureSession alloc] init];
         AVCaptureDevice* video = [AVCaptureDevice defaultDeviceWithMediaType: AVMediaTypeVideo];
         if (!video)
@@ -34,20 +44,20 @@
         AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice: video
                                                                             error: outError];
         if (!input)
-            return NO;
+            return [self failWithMessage: @"Couldn't acquire input device" error: outError];
+        [_session addInput: input];
 
         AVCaptureVideoDataOutput* output = [[AVCaptureVideoDataOutput alloc] init];
         output.alwaysDiscardsLateVideoFrames = YES;
         [output setSampleBufferDelegate: self queue: dispatch_get_main_queue()];
         [_session addOutput: output];
 
+        NSLog(@"Starting video capture...");
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(sessionNotification:)
+                                                     name: nil // all notifications
+                                                   object: _session];
         [_session startRunning];
-
-        // Lower frame rate
-        if ([video lockForConfiguration: NULL]) {
-            video.activeVideoMinFrameDuration = CMTimeMake(10, 30);  // 3fps
-            [video unlockForConfiguration];
-        }
     }
     if (!_qrDetector) {
         _qrDetector = [CIDetector detectorOfType: CIDetectorTypeQRCode
@@ -68,19 +78,18 @@
 }
 
 
-- (void) setFrameRate: (NSUInteger)frameRate {
-    AVCaptureDevice* video = [_session.inputs[0] device];
-    if ([video lockForConfiguration: NULL]) {
-        video.activeVideoMinFrameDuration = CMTimeMake(30/frameRate, 30);
-        [video unlockForConfiguration];
-    }
-}
-
-
 - (void) pauseCapture {
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: nil // all notifications
+                                                  object: _session];
     [_session stopRunning];
     _session = nil;
     _qrDetector = nil;
+}
+
+
+- (void) sessionNotification: (NSNotification*)n {
+    NSLog(@"Session posted %@", n.name);
 }
 
 
@@ -90,8 +99,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     CVImageBufferRef imageBuf = CMSampleBufferGetImageBuffer(sampleBuffer);
     CIImage* frame = [CIImage imageWithCVImageBuffer: imageBuf];
-    CIQRCodeFeature* feature = [_qrDetector featuresInImage: frame].firstObject;
-    NSString* message = feature.messageString;
+    CFAbsoluteTime time = CFAbsoluteTimeGetCurrent();
+    if (time - _lastScanTime >= kMinScanInterval) {
+        _lastScanTime = time;
+        self.scannedFeature = [_qrDetector featuresInImage: frame].firstObject;
+    }
+    self.currentFrame = frame;
+    NSString* message = [self.scannedFeature.messageString copy];
     if (message && ![message isEqualToString: _scannedString]) {
         self.scannedString = message;
     }

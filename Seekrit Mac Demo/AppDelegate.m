@@ -46,7 +46,7 @@
         captureView.hidden = NO;
         [captureView performSelector: @selector(startCapture:) withObject: nil afterDelay: 0.1];
     } else {
-        [captureView pauseCapture];
+        [captureView stopCapture];
     }
 }
 
@@ -58,8 +58,8 @@
         NSLog(@"*** Scanned: %@", captureView.scannedString);
         codeStringLabel.stringValue  = captureView.scannedString;
         codeStringLabel.hidden = NO;
-        [captureView pauseCapture];
-        captureView.hidden = YES;
+        //[captureView stopCapture];
+        //captureView.hidden = YES;
         [[NSSound soundNamed: @"CameraShutter.aiff"] play];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

@@ -12,8 +12,10 @@
 /** A view that uses a CBQRCodeScanner and displays a preview of the camera image. */
 @interface CBQRCodeScannerView : NSView
 
+@property BOOL showPreview;
+
 - (BOOL) startCapture: (NSError**)outError;
-- (void) pauseCapture;
+- (void) stopCapture;
 
 /** This property will be set when a QR code is scanned.
     If a different QR code is scanned later, its value will change. (Observable) */

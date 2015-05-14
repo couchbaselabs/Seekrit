@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271F776E1ACA40490062B59C /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 271F776D1ACA40490062B59C /* CameraShutter.aiff */; };
+		271F776F1ACA40490062B59C /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 271F776D1ACA40490062B59C /* CameraShutter.aiff */; };
 		2776D11819AC40470053D0A6 /* tweetnacl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0F719AC1AF80053D0A6 /* tweetnacl.c */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		2776D12E19AC4E680053D0A6 /* libSeekritOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2776D10319AC40270053D0A6 /* libSeekritOSX.a */; };
 		2776D12F19AC50620053D0A6 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
@@ -113,8 +115,6 @@
 		2784160D1AC89FBF0011F0BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2784160C1AC89FBF0011F0BF /* Images.xcassets */; };
 		278416101AC89FBF0011F0BF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2784160E1AC89FBF0011F0BF /* LaunchScreen.xib */; };
 		2784162F1AC89FFE0011F0BF /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
-		278416361AC8B8220011F0BF /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 278416351AC8B8220011F0BF /* CameraShutter.aiff */; };
-		278416371AC8B8220011F0BF /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 278416351AC8B8220011F0BF /* CameraShutter.aiff */; };
 		2784163C1AC8CE090011F0BF /* QRCodeScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */; };
 		2784163E1AC8D2EF0011F0BF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */; };
 		278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */; };
@@ -226,6 +226,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		271F776D1ACA40490062B59C /* CameraShutter.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = CameraShutter.aiff; sourceTree = "<group>"; };
 		2776D0F719AC1AF80053D0A6 /* tweetnacl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tweetnacl.c; sourceTree = "<group>"; };
 		2776D0F819AC1AF80053D0A6 /* tweetnacl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tweetnacl.h; sourceTree = "<group>"; };
 		2776D0FA19AC1C1A0053D0A6 /* CBKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBKey.h; sourceTree = "<group>"; };
@@ -340,7 +341,6 @@
 		2784160C1AC89FBF0011F0BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2784160F1AC89FBF0011F0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		278416321AC8A4340011F0BF /* Seekrit iOS Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Seekrit iOS Demo-Bridging-Header.h"; sourceTree = "<group>"; };
-		278416351AC8B8220011F0BF /* CameraShutter.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = CameraShutter.aiff; path = ../../../Users/snej/Desktop/CameraShutter.aiff; sourceTree = "<group>"; };
 		278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanController.swift; sourceTree = "<group>"; };
 		2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQRCodeScanner.h; sourceTree = "<group>"; };
@@ -642,8 +642,8 @@
 				278416041AC89FBF0011F0BF /* FirstViewController.m */,
 				278416091AC89FBF0011F0BF /* Main.storyboard */,
 				2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */,
-				278416351AC8B8220011F0BF /* CameraShutter.aiff */,
 				2784160C1AC89FBF0011F0BF /* Images.xcassets */,
+				271F776D1ACA40490062B59C /* CameraShutter.aiff */,
 				2784160E1AC89FBF0011F0BF /* LaunchScreen.xib */,
 				278415FC1AC89FBF0011F0BF /* Supporting Files */,
 				278416321AC8A4340011F0BF /* Seekrit iOS Demo-Bridging-Header.h */,
@@ -911,7 +911,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				278416361AC8B8220011F0BF /* CameraShutter.aiff in Resources */,
+				271F776E1ACA40490062B59C /* CameraShutter.aiff in Resources */,
 				278415D61AC7B20C0011F0BF /* Images.xcassets in Resources */,
 				278415D91AC7B20C0011F0BF /* MainMenu.xib in Resources */,
 			);
@@ -923,7 +923,7 @@
 			files = (
 				2784160B1AC89FBF0011F0BF /* Main.storyboard in Resources */,
 				278416101AC89FBF0011F0BF /* LaunchScreen.xib in Resources */,
-				278416371AC8B8220011F0BF /* CameraShutter.aiff in Resources */,
+				271F776F1ACA40490062B59C /* CameraShutter.aiff in Resources */,
 				2784160D1AC89FBF0011F0BF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1496,6 +1496,7 @@
 				278415E81AC7B20C0011F0BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2784161D1AC89FBF0011F0BF /* Build configuration list for PBXNativeTarget "Seekrit iOS Demo" */ = {
 			isa = XCConfigurationList;
@@ -1504,6 +1505,7 @@
 				2784161F1AC89FBF0011F0BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		27A12C651A2E90B200846803 /* Build configuration list for PBXNativeTarget "SeekritIOS" */ = {
 			isa = XCConfigurationList;
