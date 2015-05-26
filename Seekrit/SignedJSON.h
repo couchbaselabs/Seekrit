@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Couchbase, Inc. All rights reserved.
 //
 
-#import "CBKey.h"
+#import "CBSigningKey.h"
 
 
 // https://github.com/couchbase/couchbase-lite-ios/wiki/Signed-Documents
@@ -16,16 +16,18 @@
 extern NSString* const kJSONSignatureProperty;
 
 
-@interface CBPublicKey (JSON)
+@interface CBSigningPublicKey (JSON)
 
 /** Verifies a signed JSON object and returns the signer's key.
     If verification fails (or the object is unsigned) returns nil. */
-+ (CBPublicKey*) signerOfJSON:(NSDictionary*)jsonDict;
++ (CBSigningPublicKey*) signerOfJSON:(NSDictionary*)jsonDict
+                        error: (NSError**)outError;
 
 /** Verifies a JSON object with an external signature and returns the signer's key.
     If verification fails (or the object is unsigned) returns nil. */
-+ (CBPublicKey*) signerOfSignature: (NSDictionary*)signature
-                          ofJSON: (id)jsonObject;
++ (CBSigningPublicKey*) signerOfSignature: (NSDictionary*)signature
+                            ofJSON: (id)jsonObject
+                             error: (NSError**)outError;
 
 /** Returns the signature dictionary of a signed JSON object (without verifying it.) */
 + (NSDictionary*) signatureOfJSON: (id)jsonObject;
@@ -34,22 +36,25 @@ extern NSString* const kJSONSignatureProperty;
 + (NSDate*) dateOfSignature: (NSDictionary*)signature;
 
 /** Returns the date a signature expires.
-    If there is no*/
+    If there is no expiration date, returns [NSDate distantFuture]. */
 + (NSDate*) expirationDateOfSignature: (NSDictionary*)signature;
+
 + (BOOL) isExpiredSignature: (NSDictionary*)signature;
 
 /** Verifies a signature created by +signatureOfJSON. */
 - (BOOL) verifySignature: (NSDictionary*)signature
-                  ofJSON: (id)jsonObject;
+                  ofJSON: (id)jsonObject
+                   error: (NSError**)outError;
 
 /** Verifies a signed JSON object created by +addSignatureToJSON:.
     The object must have been signed by the private key matching the receiver.*/
-- (BOOL) verifySignedJSON: (NSDictionary*)jsonDict;
+- (BOOL) verifySignedJSON: (NSDictionary*)jsonDict
+                    error: (NSError**)outError;
 
 @end
 
 
-@interface CBPrivateKey (JSON)
+@interface CBSigningKey (JSON)
 
 /** Returns a dictionary containing a signature of the given object (which must be JSON-encodable). */
 - (NSDictionary*) signatureOfJSON: (id)jsonObject
@@ -60,3 +65,14 @@ extern NSString* const kJSONSignatureProperty;
                         expiresAfter: (NSTimeInterval)expirationInterval;
 
 @end
+
+
+extern NSString* const kCBSignedJSONErrorDomain;
+
+enum {
+    kCBSignedJSONErrorExpired = 1,
+    kCBSignedJSONErrorIncorrectDigest,
+    kCBSignedJSONErrorInvalidSignature,
+    kCBSignedJSONErrorUnknownSignatureType,
+    kCBSignedJSONErrorUnsigned
+};

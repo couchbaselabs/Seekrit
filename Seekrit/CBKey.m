@@ -6,30 +6,13 @@
 //  Copyright (c) 2014 Couchbase. All rights reserved.
 //
 
-// http://cr.yp.to/ecdh.html
-// http://ed25519.cr.yp.to
-// http://nacl.cr.yp.to/box.html
-
 
 #import "CBKey.h"
-#import "tweetnacl.h"
-#import "curve_sigs.h"
-#import <CommonCrypto/CommonDigest.h>
+#import "CBKey+Private.h"
+#import "sodium.h"
+#import "CBSigningKey.h"
+#import "CBEncryptingKey.h"
 #import <CommonCrypto/CommonKeyDerivation.h>
-
-
-// External function called by tweetnacl.c
-extern void randombytes(uint8_t *,uint64_t);
-void randombytes(uint8_t* bytes, uint64_t count) {
-    SecRandomCopyBytes(kSecRandomDefault, (size_t)count, bytes);
-}
-
-
-typedef struct {
-    uint8_t bytes[32];
-} SHA256Digest;
-
-
 
 
 @implementation CBKey
@@ -38,7 +21,29 @@ typedef struct {
     CBRawKey _rawKey;
 }
 
-@synthesize rawKey=_rawKey;
+
++ (void)initialize {
+    if (self == [CBKey class]) {
+        sodium_init();
+        assert(crypto_box_PUBLICKEYBYTES == sizeof(CBRawKey));
+        assert(crypto_box_SECRETKEYBYTES == sizeof(CBRawKey));
+        assert(crypto_box_SEEDBYTES == sizeof(CBKeySeed));
+        assert(crypto_box_NONCEBYTES == sizeof(CBNonce));
+        assert(crypto_sign_PUBLICKEYBYTES == sizeof(CBRawKey));
+        assert(crypto_sign_SEEDBYTES == sizeof(CBKeySeed));
+        assert(crypto_sign_BYTES == sizeof(CBSignature));
+    }
+}
+
++ (instancetype) generate {
+    return [[self alloc] init];
+}
+
+- (instancetype)init {
+    @throw [NSException exceptionWithName: NSInternalInconsistencyException
+                                   reason: @"CBKey is abstract" userInfo: nil];
+    return [self initWithKeyData: nil];
+}
 
 - (instancetype) initWithRawKey: (CBRawKey)rawKey {
     self = [super init];
@@ -48,11 +53,14 @@ typedef struct {
     return self;
 }
 
-- (instancetype) initWithKeyData: (NSData*)keyData
-{
+- (instancetype) initWithKeyData: (NSData*)keyData {
     if (keyData.length != sizeof(CBRawKey))
         return nil;
     return [self initWithRawKey: *(const CBRawKey*)keyData.bytes];
+}
+
+- (CBRawKey) rawKey {
+    return _rawKey;
 }
 
 - (NSData*) keyData {
@@ -60,7 +68,7 @@ typedef struct {
 }
 
 - (BOOL) isEqual:(id)object {
-    if (![object isKindOfClass: [CBKey class]])
+    if ([object class] != [self class])
         return NO;
     return memcmp(&_rawKey, &((CBKey*)object)->_rawKey, sizeof(_rawKey)) == 0;
 }
@@ -68,6 +76,29 @@ typedef struct {
 - (void) dealloc {
     // Don't leave key data lying around in RAM (remember Heartbleed...)
     memset(&_rawKey, 0, sizeof(_rawKey));
+}
+
+
+#pragma mark - NONCES
+
+
++ (CBNonce) randomNonce {
+    CBNonce nonce;
+    randombytes_buf(nonce.bytes, sizeof(nonce.bytes));
+    return nonce;
+}
+
++ (void) incrementNonce: (CBNonce*)nonce by: (int8_t)increment {
+    for (int pos=sizeof(*nonce)-1; pos >= 0; --pos) {
+        int result = (int)nonce->bytes[pos] + increment;
+        nonce->bytes[pos] = (uint8_t)result;
+        if (result < 0)
+            increment = -1;
+        else if (result > 255)
+            increment = 1;
+        else
+            break;
+    }
 }
 
 
@@ -79,15 +110,13 @@ typedef struct {
 @implementation CBPrivateKey
 
 
-@synthesize publicKey=_publicKey;
-
-
-+ (CBPrivateKey*) generateKeyPair {
-    return [[CBPrivateKey alloc] init];
+- (instancetype)initWithSeed: (CBKeySeed)seed {
+    // By default, treat the seed as a raw key
+    return [self initWithRawKey: *(CBRawKey*)&seed];
 }
 
 
-+ (CBPrivateKey*) keyPairFromPassphrase: (NSString*)passphrase
++ (CBPrivateKey*) keyFromPassphrase: (NSString*)passphrase
                              withSalt: (NSData*)salt
                                rounds: (uint32_t)rounds
 {
@@ -95,16 +124,16 @@ typedef struct {
     NSAssert(salt.length > 4, @"Insufficient salt");
     NSAssert(rounds > 10000, @"Insufficient rounds");
     NSData* passwordData = [passphrase dataUsingEncoding: NSUTF8StringEncoding];
-    CBRawKey priv;
+    CBKeySeed seed;
     int status = CCKeyDerivationPBKDF(kCCPBKDF2,
                                       passwordData.bytes, passwordData.length,
                                       salt.bytes, salt.length,
                                       kCCPRFHmacAlgSHA256, rounds,
-                                      priv.bytes, sizeof(priv));
+                                      seed.bytes, sizeof(seed));
     if (status) {
         return nil;
     }
-    return [[CBPrivateKey alloc] initWithRawKey: priv];
+    return [[self alloc] initWithSeed: seed];
 }
 
 + (uint32_t) passphraseRoundsNeededForDelay: (NSTimeInterval)delay
@@ -112,102 +141,6 @@ typedef struct {
 {
     return CCCalibratePBKDF(kCCPBKDF2, 10, salt.length, kCCPRFHmacAlgSHA256,
                             sizeof(CBRawKey), (uint32_t)(delay*1000.0));
-}
-
-
-- (instancetype) init {
-    CBRawKey priv;
-    SecRandomCopyBytes(kSecRandomDefault, sizeof(priv), priv.bytes);
-    return [self initWithRawKey: priv];
-}
-
-
-- (instancetype)initWithRawKey:(CBRawKey)rawKey {
-    // A few bits need to be adjusted to make this into a valid Curve25519 key:
-    rawKey.bytes[ 0] &= 0xF8;
-    rawKey.bytes[31] &= 0x3F;
-    rawKey.bytes[31] |= 0x40;
-    
-    self = [super initWithRawKey: rawKey];
-    if (self) {
-        CBRawKey pub;
-        crypto_scalarmult_base(pub.bytes, _rawKey.bytes);  // recover public key
-        _publicKey = [[CBPublicKey alloc] initWithRawKey: pub];
-    }
-    return self;
-}
-
-
-- (NSData*) encrypt: (NSData*)cleartext
-          withNonce: (CBNonce)nonce
-       forRecipient: (CBPublicKey*)recipient
-{
-    NSParameterAssert(recipient != nil);
-    size_t msgLen = crypto_box_ZEROBYTES + cleartext.length;
-    uint8_t* paddedCleartext = allocPadded(cleartext, crypto_box_ZEROBYTES);
-    NSMutableData* ciphertext = [NSMutableData dataWithLength: msgLen];
-    crypto_box(ciphertext.mutableBytes, paddedCleartext, msgLen, nonce.bytes,
-               recipient.rawKey.bytes, _rawKey.bytes);
-    free(paddedCleartext);
-    return unpad(ciphertext, crypto_box_BOXZEROBYTES);
-}
-
-
-- (void) encrypt: (NSData*)cleartext
-       withNonce: (CBNonce)nonce
-    forRecipient: (CBPublicKey*)recipient
-        appendTo: (NSMutableData*)output
-{
-    NSParameterAssert(recipient != nil);
-    size_t msgLen = crypto_box_ZEROBYTES + cleartext.length;
-    uint8_t* paddedCleartext = allocPadded(cleartext, crypto_box_ZEROBYTES);
-    uint8_t* ciphertext = malloc(msgLen);
-    crypto_box(ciphertext, paddedCleartext, msgLen, nonce.bytes,
-               recipient.rawKey.bytes, _rawKey.bytes);
-    free(paddedCleartext);
-    [output appendBytes: ciphertext + crypto_box_BOXZEROBYTES
-                 length: msgLen - crypto_box_BOXZEROBYTES];
-    free(ciphertext);
-}
-
-
-- (NSData*) decrypt: (NSData*)ciphertext
-          withNonce: (CBNonce)nonce
-         fromSender: (CBPublicKey*)sender
-{
-    NSParameterAssert(ciphertext != nil);
-    NSParameterAssert(sender != nil);
-    size_t msgLen = crypto_box_BOXZEROBYTES + ciphertext.length;
-    uint8_t* paddedCiphertext = allocPadded(ciphertext, crypto_box_BOXZEROBYTES);
-    NSMutableData* cleartext = [NSMutableData dataWithLength: msgLen];
-    int result = crypto_box_open(cleartext.mutableBytes, paddedCiphertext, msgLen, nonce.bytes,
-                                 sender.rawKey.bytes, _rawKey.bytes);
-    free(paddedCiphertext);
-    if (result != 0)
-        return nil;
-    return unpad(cleartext, crypto_box_ZEROBYTES);
-}
-
-
-- (CBSignature) signDigest: (const void*)digest
-                    length: (size_t)length
-{
-    NSParameterAssert(digest != NULL);
-    NSParameterAssert(length <= 256);
-    CBSignature signature;
-    uint8_t random[64];
-    SecRandomCopyBytes(kSecRandomDefault, sizeof(random), random);
-    if (curve25519_sign(signature.bytes, _rawKey.bytes, digest, length, random) != 0) {
-        [NSException raise: NSInternalInconsistencyException
-                    format: @"Curve25519 signing failed"];
-    }
-    return signature;
-}
-
-- (CBSignature) signData: (NSData*)input {
-    SHA256Digest digest;
-    CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
-    return [self signDigest: digest.bytes length: sizeof(digest)];
 }
 
 
@@ -248,7 +181,7 @@ typedef CFTypeRef SecKeychainRef;
 }
 
 
-+ (CBPrivateKey*) keyPairFromKeychain: (SecKeychainRef)keychain
++ (instancetype) keyPairFromKeychain: (SecKeychainRef)keychain
                            forService: (NSString*)service
                               account: (NSString*)account
 {
@@ -276,49 +209,11 @@ typedef CFTypeRef SecKeychainRef;
     return [[self alloc] initWithKeyData: keyData];
 }
 
-+ (CBPrivateKey*) keyPairFromKeychainForService: (NSString*)service
+
++ (instancetype) keyFromKeychainForService: (NSString*)service
                                         account: (NSString*)account
 {
     return [self keyPairFromKeychain: NULL forService: service account: account];
-}
-
-
-+ (CBNonce) randomNonce {
-    CBNonce nonce;
-    SecRandomCopyBytes(kSecRandomDefault, sizeof(nonce), nonce.bytes);
-    return nonce;
-}
-
-+ (void) incrementNonce: (CBNonce*)nonce by: (int8_t)increment {
-    for (int pos=sizeof(*nonce)-1; pos >= 0; --pos) {
-        int result = (int)nonce->bytes[pos] + increment;
-        nonce->bytes[pos] = (uint8_t)result;
-        if (result < 0)
-            increment = -1;
-        else if (result > 255)
-            increment = 1;
-        else
-            break;
-    }
-}
-
-
-
-// mallocs a block with `paddingSize` zero bytes followed by `original`.
-static uint8_t* allocPadded(NSData* original, size_t paddingSize) {
-    size_t length = original.length;
-    uint8_t* padded = malloc(paddingSize + length);
-    memset(padded, 0, paddingSize);
-    memcpy(padded + paddingSize, original.bytes, length);
-    return padded;
-}
-
-// Strips the first `paddingSize` bytes from `padded`, returning `padded`.
-static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
-    size_t length = padded.length - paddingSize;
-    memmove(padded.mutableBytes, padded.mutableBytes + paddingSize, length);
-    padded.length = length;
-    return padded;
 }
 
 
@@ -326,25 +221,14 @@ static NSData* unpad(NSMutableData* padded, size_t paddingSize) {
 
 
 
-
 @implementation CBPublicKey
 
-- (BOOL) verifySignature: (CBSignature)signature
-                ofDigest: (const void*)digest
-                  length: (size_t)length
-{
-    NSParameterAssert(digest != nil);
-    NSParameterAssert(length <= 256);
-    return curve25519_verify(signature.bytes, _rawKey.bytes, digest, length) == 0;
+- (CBRawKey) rawKey {
+    return super.rawKey;
 }
 
-- (BOOL) verifySignature: (CBSignature)signature
-                  ofData: (NSData*)input
-{
-    SHA256Digest digest;
-    CC_SHA256(input.bytes, (CC_LONG)input.length, digest.bytes);
-    return [self verifySignature: signature ofDigest: digest.bytes length: sizeof(digest)];
+- (NSData*) keyData {
+    return super.keyData;
 }
-
 
 @end

@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Couchbase. All rights reserved.
 //
 
-#import "CBKey+Group.h"
+#import "CBEncryptingKey+Group.h"
+#import "CBKey+Private.h"
+#import "sodium.h"
 
 
 /*
@@ -19,7 +21,7 @@
     cleartext encrypted with session key (16 bytes overhead)
  */
 
-#define kCBEncryptedMessageOverhead 16
+#define kCBEncryptedMessageOverhead crypto_box_MACBYTES
 
 typedef struct {
     uint8_t bytes[ sizeof(CBRawKey) + kCBEncryptedMessageOverhead ];
@@ -28,11 +30,11 @@ typedef struct {
 typedef struct {
     CBNonce nonce;
     uint32_t count;
-    GroupMessageEncryptedKey encryptedKey[0];
+    GroupMessageEncryptedKey encryptedKey[0]; // variable length
 } GroupMessage;
 
 
-@implementation CBPrivateKey (GroupEncryption)
+@implementation CBEncryptingKey (GroupEncryption)
 
 - (NSData*) encryptGroupMessage: (NSData*)cleartext
                   forRecipients: (NSArray*)recipients
@@ -41,23 +43,24 @@ typedef struct {
                                             + recipients.count * sizeof(GroupMessageEncryptedKey)
                                             + cleartext.length + kCBEncryptedMessageOverhead];
     // Generate a random nonce and write it:
-    CBNonce nonce = [CBPrivateKey randomNonce];
+    CBNonce nonce = [CBEncryptingKey randomNonce];
     [output appendBytes: &nonce length: sizeof(nonce)];
 
     // Generate a random session key-pair:
-    CBPrivateKey* sessionKey = [CBPrivateKey generateKeyPair];
+    CBEncryptingKey* sessionKey = [CBEncryptingKey generate];
     NSData* sessionPrivateKeyData = sessionKey.keyData;
 
     // Write the recipient count, and the session's private key encrypted for each recipient:
     uint32_t bigCount = CFSwapInt32HostToBig((uint32_t)recipients.count);
     [output appendBytes: &bigCount length: sizeof(bigCount)];
-    for (CBPublicKey* recipient in recipients) {
+    for (CBEncryptingPublicKey* recipient in recipients) {
         // (It's OK to reuse the same nonce, because each recipient public key is different)
         [self encrypt: sessionPrivateKeyData
             withNonce: nonce
          forRecipient: recipient
              appendTo: output];
     }
+
     // Finally append the ciphertext, encrypted with me as sender and session key as recipient:
     [self encrypt: cleartext
         withNonce: nonce
@@ -68,7 +71,7 @@ typedef struct {
 
 
 - (NSData*) decryptGroupMessage: (NSData*)input
-                     fromSender: (CBPublicKey*)sender
+                     fromSender: (CBEncryptingPublicKey*)sender
 {
     // Read the header:
     size_t inputLen = input.length;
@@ -91,7 +94,7 @@ typedef struct {
     if (!sessionKeyData)
         return nil; // Apparently it wasn't addressed to me :(
 
-    CBPrivateKey* sessionKey = [[CBPrivateKey alloc] initWithKeyData: sessionKeyData];
+    CBEncryptingKey* sessionKey = [[CBEncryptingKey alloc] initWithKeyData: sessionKeyData];
     if (!sessionKey)
         return nil;
 

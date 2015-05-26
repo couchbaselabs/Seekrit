@@ -22,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application
         didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    _privateKey = [CBPrivateKey keyPairFromKeychainForService: @"Seekrit" account: @"me"];
+    _privateKey = [CBPrivateKey keyFromKeychainForService: @"Seekrit" account: @"me"];
     if (!_privateKey) {
         _privateKey = [CBPrivateKey generateKeyPair];
         [_privateKey addToKeychainForService: @"Seekrit" account: @"me"];
