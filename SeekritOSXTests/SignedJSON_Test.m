@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
-#import "CBSigningKey.h"
+#import "CBSigningPrivateKey.h"
 #import "SignedJSON.h"
 #import "CanonicalJSON.h"
 
@@ -26,12 +26,12 @@ static NSString* jsonString(id obj) {
 
 @implementation SignedJSON_Test
 {
-    CBSigningKey* privateKey;
+    CBSigningPrivateKey* privateKey;
 }
 
 - (void)setUp {
     [super setUp];
-    privateKey = [CBSigningKey generate];
+    privateKey = [CBSigningPrivateKey generate];
 }
 
 - (void)testSignedJSON {
@@ -41,15 +41,15 @@ static NSString* jsonString(id obj) {
     NSLog(@"Signature = %@", jsonString(signature));
 
     XCTAssert([privateKey.publicKey verifySignature: signature ofJSON: json error: NULL]);
-    XCTAssertEqualObjects([CBSigningPublicKey signerOfSignature: signature ofJSON: json error: NULL],
+    XCTAssertEqualObjects([CBVerifyingPublicKey signerOfSignature: signature ofJSON: json error: NULL],
                           privateKey.publicKey);
 
-    NSDate* date = [CBSigningPublicKey dateOfSignature: signature];
+    NSDate* date = [CBVerifyingPublicKey dateOfSignature: signature];
     XCTAssert(date);
     XCTAssert(fabs(date.timeIntervalSinceNow) < 2.0);
 
-    XCTAssert(![CBSigningPublicKey isExpiredSignature: signature]);
-    NSDate* exp = [CBSigningPublicKey expirationDateOfSignature: signature];
+    XCTAssert(![CBVerifyingPublicKey isExpiredSignature: signature]);
+    NSDate* exp = [CBVerifyingPublicKey expirationDateOfSignature: signature];
     XCTAssertNotNil(exp);
     NSTimeInterval remaining = exp.timeIntervalSinceNow;
     XCTAssertGreaterThan(remaining, 59*60);
@@ -62,7 +62,7 @@ static NSString* jsonString(id obj) {
     XCTAssert(signedJSON);
     for (NSString* key in json)
         XCTAssertEqualObjects(signedJSON[key], json[key]);
-    XCTAssertNotNil([CBSigningPublicKey signatureOfJSON: signedJSON]);
+    XCTAssertNotNil([CBVerifyingPublicKey signatureOfJSON: signedJSON]);
 }
 
 @end

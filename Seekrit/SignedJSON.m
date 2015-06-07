@@ -8,6 +8,7 @@
 
 #import "SignedJSON.h"
 #import "CanonicalJSON.h"
+#import "Logging.h"
 #import <CommonCrypto/CommonDigest.h>
 
 
@@ -79,7 +80,7 @@ static NSString* formatDate(NSDate* date) {
 
 
 
-@implementation CBSigningPublicKey (JSON)
+@implementation CBVerifyingPublicKey (JSON)
 
 + (NSDictionary*) signatureOfJSON: (id)jsonObject {
     if (![jsonObject isKindOfClass: [NSDictionary class]])
@@ -90,11 +91,11 @@ static NSString* formatDate(NSDate* date) {
     return signature;
 }
 
-+ (CBSigningPublicKey*) keyFromSignature:(NSDictionary*)signature {
++ (CBVerifyingPublicKey*) keyFromSignature:(NSDictionary*)signature {
     // Check whether this is actually signed JSON with a '(signed)' item in it:
     NSData* keyData = DecodeBase64(signature[@"key_25519"]);
     if (keyData)
-        return [[CBSigningPublicKey alloc] initWithKeyData: keyData];
+        return [[CBVerifyingPublicKey alloc] initWithKeyData: keyData];
     return nil;
 }
 
@@ -127,7 +128,7 @@ static NSString* formatDate(NSDate* date) {
     if (!digestData) {
         return mkError(kCBSignedJSONErrorUnknownSignatureType, outError);
     } else if (![digestData isEqual: CanonicalDigest(jsonObject)]) {
-        NSLog(@"Warning: SignedJSON: Signature digest %@ doesn't match payload's %@; canonical JSON = %@",
+        Warn(@"SignedJSON: Signature digest %@ doesn't match payload's %@; canonical JSON = %@",
              digestData, CanonicalDigest(jsonObject),
              [CanonicalJSON canonicalString: jsonObject]);
         return mkError(kCBSignedJSONErrorIncorrectDigest, outError);
@@ -160,20 +161,20 @@ static NSString* formatDate(NSDate* date) {
 }
 
 
-+ (CBSigningPublicKey*) signerOfJSON:(NSDictionary*)jsonDict
++ (CBVerifyingPublicKey*) signerOfJSON:(NSDictionary*)jsonDict
                         error: (NSError**)outError
 {
-    CBSigningPublicKey* key = [self keyFromSignature: [self signatureOfJSON: jsonDict]];
+    CBVerifyingPublicKey* key = [self keyFromSignature: [self signatureOfJSON: jsonDict]];
     if ([key verifySignedJSON: jsonDict error: outError])
         return key;
     return nil;
 }
 
-+ (CBSigningPublicKey*) signerOfSignature: (NSDictionary*)signature
++ (CBVerifyingPublicKey*) signerOfSignature: (NSDictionary*)signature
                             ofJSON: (id)jsonObject
                              error: (NSError**)outError
 {
-    CBSigningPublicKey* key = [self keyFromSignature: signature];
+    CBVerifyingPublicKey* key = [self keyFromSignature: signature];
     if ([key verifySignature: signature ofJSON: jsonObject error: outError])
         return key;
     return nil;
@@ -185,7 +186,7 @@ static NSString* formatDate(NSDate* date) {
 
 
 
-@implementation CBSigningKey (JSON)
+@implementation CBSigningPrivateKey (JSON)
 
 - (NSDictionary*) signatureOfJSON: (id)jsonObject
                      expiresAfter: (NSTimeInterval)expirationInterval

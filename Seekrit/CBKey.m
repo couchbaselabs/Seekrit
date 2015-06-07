@@ -10,9 +10,18 @@
 #import "CBKey.h"
 #import "CBKey+Private.h"
 #import "sodium.h"
-#import "CBSigningKey.h"
-#import "CBEncryptingKey.h"
+#import "CBSigningPrivateKey.h"
+#import "CBEncryptingPrivateKey.h"
+#import "Logging.h"
+#import "Test.h"
+#import "MYErrorUtils.h"
 #import <CommonCrypto/CommonKeyDerivation.h>
+
+
+NSString* const CBKeyErrorDomain = @"CBKey";
+
+
+static NSString* secErrorString(OSStatus code);
 
 
 @implementation CBKey
@@ -148,9 +157,13 @@
 typedef CFTypeRef SecKeychainRef;
 #endif
 
+static SecKeychainRef sDefaultKeychain = NULL;
+
+
 - (BOOL) addToKeychain: (SecKeychainRef)keychain // parameter is unused in iOS
             forService: (NSString*)service
                account: (NSString*)account
+                 error: (NSError**)outError
 {
     NSData* itemData = [self.keyData base64EncodedDataWithOptions: 0];
     NSDate* now = [NSDate date];
@@ -171,19 +184,22 @@ typedef CFTypeRef SecKeychainRef;
 #endif
     CFTypeRef result = NULL;
     OSStatus err = SecItemAdd((__bridge CFDictionaryRef)attrs, &result);
-    return err == noErr;
+    if (err)
+        return MYReturnError(outError, err, NSOSStatusErrorDomain, @"%@", secErrorString(err));
+    return YES;
 }
 
 - (BOOL) addToKeychainForService: (NSString*)service
                          account: (NSString*)account
+                           error: (NSError**)outError
 {
-    return [self addToKeychain: NULL forService: service account: account];
+    return [self addToKeychain: sDefaultKeychain forService: service account: account error: outError];
 }
 
 
 + (instancetype) keyPairFromKeychain: (SecKeychainRef)keychain
-                           forService: (NSString*)service
-                              account: (NSString*)account
+                          forService: (NSString*)service
+                             account: (NSString*)account
 {
     NSDictionary* attrs = @{ (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
                              (__bridge id)kSecAttrService: service,
@@ -211,10 +227,24 @@ typedef CFTypeRef SecKeychainRef;
 
 
 + (instancetype) keyFromKeychainForService: (NSString*)service
-                                        account: (NSString*)account
+                                   account: (NSString*)account
 {
-    return [self keyPairFromKeychain: NULL forService: service account: account];
+    return [self keyPairFromKeychain: sDefaultKeychain forService: service account: account];
 }
+
+
+#if DEBUG
++ (void) useTestKeychain {
+#if !TARGET_OS_IPHONE
+    if (!sDefaultKeychain) {
+        NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"seekrit_test.keychain"];
+        Log(@"Creating keychain at %@", path);
+        [[NSFileManager defaultManager] removeItemAtPath: path error: NULL];
+        AssertEq(SecKeychainCreate(path.fileSystemRepresentation, 6, "foobar", NO, NULL, &sDefaultKeychain), noErr);
+    }
+#endif
+}
+#endif
 
 
 @end
@@ -232,3 +262,13 @@ typedef CFTypeRef SecKeychainRef;
 }
 
 @end
+
+
+
+static NSString* secErrorString(OSStatus code) {
+#if TARGET_OS_IPHONE
+    return [NSString stringWithFormat: @"Error %d", code];
+#else
+    return CFBridgingRelease(SecCopyErrorMessageString(code, NULL));
+#endif
+}

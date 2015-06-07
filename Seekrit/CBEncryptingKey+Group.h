@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Couchbase. All rights reserved.
 //
 
-#import "CBEncryptingKey.h"
+#import "CBEncryptingPrivateKey.h"
 
 
-@interface CBEncryptingKey (GroupEncryption)
+@interface CBEncryptingPrivateKey (GroupEncryption)
 
 /** Encrypts a message so that any of the recipients can decipher it.
     @param cleartext  The message to be encrypted.
-    @param recipientPublicKeys  An array of CBEncryptingPublicKey objects corresponding to the recipients who 
-                should be able to decipher the message.
+    @param recipientPublicKeys  An array of CBEncryptingPublicKey objects corresponding to the
+            recipients who should be able to decipher the message.
     @return  The encrypted data. */
 - (NSData*) encryptGroupMessage: (NSData*)cleartext
                   forRecipients: (NSArray*)recipientPublicKeys;

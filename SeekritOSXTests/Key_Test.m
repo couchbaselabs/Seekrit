@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 #import "CBKey+Private.h"
-#import "CBEncryptingKey.h"
+#import "CBEncryptingPrivateKey.h"
 #import "CBEncryptingKey+Group.h"
 #import "NSData+Mnemonic.h"
 
@@ -19,14 +19,14 @@
 
 @implementation Key_Test
 {
-    CBEncryptingKey* alice;
-    CBEncryptingKey* bob;
+    CBEncryptingPrivateKey* alice;
+    CBEncryptingPrivateKey* bob;
 }
 
 - (void)setUp {
     [super setUp];
-    alice = [CBEncryptingKey generate];
-    bob = [CBEncryptingKey generate];
+    alice = [CBEncryptingPrivateKey generate];
+    bob = [CBEncryptingPrivateKey generate];
     XCTAssert(alice.publicKey != nil);
     XCTAssert(bob.publicKey != nil);
 }
@@ -47,45 +47,45 @@
 }
 
 - (void) testRecoverPublicKey {
-    CBEncryptingKey* alice2 = [[CBEncryptingKey alloc] initWithKeyData: alice.keyData];
+    CBEncryptingPrivateKey* alice2 = [[CBEncryptingPrivateKey alloc] initWithKeyData: alice.keyData];
     XCTAssertEqualObjects(alice2.publicKey.keyData, alice.publicKey.keyData);
 }
 
 - (void) testNonces {
     CBNonce n = {0};
     n.bytes[23] = 200;
-    [CBEncryptingKey incrementNonce: &n by: 1];
+    [CBEncryptingPrivateKey incrementNonce: &n by: 1];
     XCTAssertEqual(n.bytes[23], 201);
     for (int i=0; i<23; i++)
         XCTAssertEqual(n.bytes[i], 0);
 
-    [CBEncryptingKey incrementNonce: &n by: 100];
+    [CBEncryptingPrivateKey incrementNonce: &n by: 100];
     XCTAssertEqual(n.bytes[23], 45);
     XCTAssertEqual(n.bytes[22], 1);
     for (int i=0; i<22; i++)
         XCTAssertEqual(n.bytes[i], 0);
 
-    [CBEncryptingKey incrementNonce: &n by: -45];
+    [CBEncryptingPrivateKey incrementNonce: &n by: -45];
     XCTAssertEqual(n.bytes[23], 0);
     XCTAssertEqual(n.bytes[22], 1);
     for (int i=0; i<22; i++)
         XCTAssertEqual(n.bytes[i], 0);
 
     memset(&n, 0, sizeof(n));
-    [CBEncryptingKey incrementNonce: &n by: -1];
+    [CBEncryptingPrivateKey incrementNonce: &n by: -1];
     for (int i=0; i<24; i++)
         XCTAssertEqual(n.bytes[i], 255);
 }
 
 - (void) testPasswords {
     NSData* salt = [@"SaltyMcNaCl" dataUsingEncoding: NSUTF8StringEncoding];
-    uint32_t rounds = [CBEncryptingKey passphraseRoundsNeededForDelay: 0.5 withSalt: salt];
+    uint32_t rounds = [CBEncryptingPrivateKey passphraseRoundsNeededForDelay: 0.5 withSalt: salt];
     NSLog(@"Rounds should be %d", rounds);
     XCTAssertGreaterThan(rounds, 100000);
 
     // Generate a key from a password:
     NSString* password = @"letmein123456";
-    CBEncryptingKey* key = [CBEncryptingKey keyFromPassphrase: password
+    CBEncryptingPrivateKey* key = [CBEncryptingPrivateKey keyFromPassphrase: password
                                         withSalt: salt
                                           rounds: rounds];
     NSLog(@"Derived key = %@", key.keyData);
@@ -98,40 +98,41 @@
     NSMutableArray* groupPrivate = [NSMutableArray array];
     NSMutableArray* groupPublic = [NSMutableArray array];
     for (size_t i=0; i<n; ++i) {
-        CBEncryptingKey* priv = [CBEncryptingKey generate];
+        CBEncryptingPrivateKey* priv = [CBEncryptingPrivateKey generate];
         [groupPrivate addObject: priv];
         [groupPublic addObject: priv.publicKey];
     }
 
-    CBEncryptingKey* me = [CBEncryptingKey generate];
+    CBEncryptingPrivateKey* me = [CBEncryptingPrivateKey generate];
 
     NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
     NSData* cipher = [me encryptGroupMessage: clear forRecipients: groupPublic];
     NSLog(@"Cipher = %@", cipher);
 
-    for (CBEncryptingKey* member in groupPrivate) {
+    for (CBEncryptingPrivateKey* member in groupPrivate) {
         NSData* decrypted = [member decryptGroupMessage: cipher fromSender: me.publicKey];
         XCTAssertEqualObjects(decrypted, clear);
     }
 
-    CBEncryptingKey* stranger = [CBEncryptingKey generate];
+    CBEncryptingPrivateKey* stranger = [CBEncryptingPrivateKey generate];
     XCTAssertNil([stranger decryptGroupMessage: cipher fromSender: me.publicKey]);
 }
 
 #if !TARGET_OS_IPHONE
 - (void) testKeychain {
-    CBEncryptingKey* key = [CBEncryptingKey generate];
+    CBEncryptingPrivateKey* key = [CBEncryptingPrivateKey generate];
     XCTAssert([key addToKeychain: self.keychain
                       forService: @"unit-test"
-                         account: @"testy-mc-tester"]);
+                         account: @"testy-mc-tester"
+                           error: nil]);
 
-    CBEncryptingKey* readKey = [CBEncryptingKey keyPairFromKeychain: self.keychain
+    CBEncryptingPrivateKey* readKey = [CBEncryptingPrivateKey keyPairFromKeychain: self.keychain
                                                    forService: @"unit-test"
                                                       account: @"testy-mc-tester"];
     XCTAssertNotNil(readKey);
     XCTAssertEqualObjects(key.keyData, readKey.keyData);
 
-    XCTAssertNil([CBEncryptingKey keyPairFromKeychain: self.keychain
+    XCTAssertNil([CBEncryptingPrivateKey keyPairFromKeychain: self.keychain
                                         forService: @"unit-test"
                                            account: @"frobozz"]);
 }

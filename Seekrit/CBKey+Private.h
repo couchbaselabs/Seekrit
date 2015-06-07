@@ -23,4 +23,7 @@ typedef struct {
 
 @interface CBPrivateKey ()
 - (instancetype)initWithSeed: (CBKeySeed)seed; // called by +keyFromPassphrase:
+#if DEBUG
++ (void) useTestKeychain; // Unit tests should use this
+#endif
 @end

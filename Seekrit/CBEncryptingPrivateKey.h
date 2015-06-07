@@ -10,9 +10,9 @@
 @class CBEncryptingPublicKey;
 
 
-/** A private key used to encrypt and decrypt messages.
+/** A Curve25519 private key used to encrypt and decrypt messages.
     Uses the libsodium "crypto_box" API. */
-@interface CBEncryptingKey : CBPrivateKey
+@interface CBEncryptingPrivateKey : CBPrivateKey
 
 /** The corresponding public key. */
 @property CBEncryptingPublicKey* publicKey;
@@ -57,6 +57,7 @@
 
 
 
-/** A public key used to encrypt messages addressed to the owner of its private key. */
+/** A public key used to encrypt messages addressed to the owner of its private key.
+    Only the matching private key can be used to decrypt such messages. */
 @interface CBEncryptingPublicKey : CBPublicKey
 @end

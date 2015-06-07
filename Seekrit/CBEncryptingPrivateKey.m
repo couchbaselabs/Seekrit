@@ -7,7 +7,7 @@
 //
 //  <https://download.libsodium.org/doc/public-key_cryptography/authenticated_encryption.html>
 
-#import "CBEncryptingKey.h"
+#import "CBEncryptingPrivateKey.h"
 #import "CBKey+Private.h"
 #import "sodium.h"
 
@@ -17,7 +17,7 @@
 
 
 
-@implementation CBEncryptingKey
+@implementation CBEncryptingPrivateKey
 
 
 @synthesize publicKey=_publicKey;

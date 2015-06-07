@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271DE8401B19395900741623 /* CBKeyBag.h in Headers */ = {isa = PBXBuildFile; fileRef = 271DE83E1B19395900741623 /* CBKeyBag.h */; };
 		271F776E1ACA40490062B59C /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 271F776D1ACA40490062B59C /* CameraShutter.aiff */; };
 		271F776F1ACA40490062B59C /* CameraShutter.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 271F776D1ACA40490062B59C /* CameraShutter.aiff */; };
 		2731FC451B13CC9700578152 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2731FC441B13CC5200578152 /* libsodium.a */; };
 		2731FC461B13CC9C00578152 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2731FC421B13CC5200578152 /* libsodium.a */; };
-		2731FC491B13D84500578152 /* CBSigningKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 2731FC471B13D84500578152 /* CBSigningKey.h */; };
-		2731FC4A1B13D84500578152 /* CBSigningKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC481B13D84500578152 /* CBSigningKey.m */; };
-		2731FC4B1B13D84500578152 /* CBSigningKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC481B13D84500578152 /* CBSigningKey.m */; };
-		2731FC4E1B13D8FE00578152 /* CBEncryptingKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 2731FC4C1B13D8FE00578152 /* CBEncryptingKey.h */; };
-		2731FC4F1B13D8FE00578152 /* CBEncryptingKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC4D1B13D8FE00578152 /* CBEncryptingKey.m */; };
-		2731FC501B13D8FE00578152 /* CBEncryptingKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC4D1B13D8FE00578152 /* CBEncryptingKey.m */; };
+		2731FC491B13D84500578152 /* CBSigningPrivateKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 2731FC471B13D84500578152 /* CBSigningPrivateKey.h */; };
+		2731FC4A1B13D84500578152 /* CBSigningPrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC481B13D84500578152 /* CBSigningPrivateKey.m */; };
+		2731FC4B1B13D84500578152 /* CBSigningPrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC481B13D84500578152 /* CBSigningPrivateKey.m */; };
+		2731FC4E1B13D8FE00578152 /* CBEncryptingPrivateKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 2731FC4C1B13D8FE00578152 /* CBEncryptingPrivateKey.h */; };
+		2731FC4F1B13D8FE00578152 /* CBEncryptingPrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */; };
+		2731FC501B13D8FE00578152 /* CBEncryptingPrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */; };
 		2731FC521B13DF8D00578152 /* Signature_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC511B13DF8D00578152 /* Signature_Test.m */; };
 		2731FC531B13DF8D00578152 /* Signature_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC511B13DF8D00578152 /* Signature_Test.m */; };
 		2731FC561B14238900578152 /* CBSymmetricKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 2731FC541B14238900578152 /* CBSymmetricKey.h */; };
@@ -61,6 +62,25 @@
 		278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */; };
 		278416421AC8E9700011F0BF /* CBQRCodeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416401AC8E9700011F0BF /* CBQRCodeScanner.m */; };
 		278416451AC909F50011F0BF /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416441AC909F50011F0BF /* QRCodeScanner.swift */; };
+		279421431B240B84005BE0AD /* CBKeyBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DE83F1B19395900741623 /* CBKeyBag.m */; };
+		279421441B240B85005BE0AD /* CBKeyBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DE83F1B19395900741623 /* CBKeyBag.m */; };
+		2794217D1B24B9E9005BE0AD /* CollectionUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 279421471B24B9E9005BE0AD /* CollectionUtils.h */; };
+		2794217E1B24B9E9005BE0AD /* CollectionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421481B24B9E9005BE0AD /* CollectionUtils.m */; };
+		2794217F1B24B9E9005BE0AD /* CollectionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421481B24B9E9005BE0AD /* CollectionUtils.m */; };
+		279421861B24B9E9005BE0AD /* Logging.h in Headers */ = {isa = PBXBuildFile; fileRef = 2794214E1B24B9E9005BE0AD /* Logging.h */; };
+		279421871B24B9E9005BE0AD /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794214F1B24B9E9005BE0AD /* Logging.m */; };
+		279421881B24B9E9005BE0AD /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794214F1B24B9E9005BE0AD /* Logging.m */; };
+		2794218C1B24B9E9005BE0AD /* MYBlockUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 279421521B24B9E9005BE0AD /* MYBlockUtils.h */; };
+		2794218D1B24B9E9005BE0AD /* MYBlockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421531B24B9E9005BE0AD /* MYBlockUtils.m */; };
+		2794218E1B24B9E9005BE0AD /* MYBlockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421531B24B9E9005BE0AD /* MYBlockUtils.m */; };
+		2794219B1B24B9E9005BE0AD /* MYErrorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2794215C1B24B9E9005BE0AD /* MYErrorUtils.h */; };
+		2794219C1B24B9E9005BE0AD /* MYErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794215D1B24B9E9005BE0AD /* MYErrorUtils.m */; };
+		2794219D1B24B9E9005BE0AD /* MYErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794215D1B24B9E9005BE0AD /* MYErrorUtils.m */; };
+		279421B91B24B9E9005BE0AD /* Test.h in Headers */ = {isa = PBXBuildFile; fileRef = 279421741B24B9E9005BE0AD /* Test.h */; };
+		279421BA1B24B9E9005BE0AD /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421751B24B9E9005BE0AD /* Test.m */; };
+		279421BB1B24B9E9005BE0AD /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421751B24B9E9005BE0AD /* Test.m */; };
+		279421BC1B24B9E9005BE0AD /* Test_Assertions.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421761B24B9E9005BE0AD /* Test_Assertions.m */; };
+		279421BD1B24B9E9005BE0AD /* Test_Assertions.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421761B24B9E9005BE0AD /* Test_Assertions.m */; };
 		27A12C5F1A2E90B200846803 /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
 		27A12C6B1A2E90E500846803 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
 		27A12C6C1A2E90E500846803 /* CBEncryptingKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingKey+Group.m */; };
@@ -121,6 +141,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		271DE83E1B19395900741623 /* CBKeyBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBKeyBag.h; sourceTree = "<group>"; };
+		271DE83F1B19395900741623 /* CBKeyBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBKeyBag.m; sourceTree = "<group>"; };
 		271F776D1ACA40490062B59C /* CameraShutter.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = CameraShutter.aiff; sourceTree = "<group>"; };
 		2731FC0C1B13CC5200578152 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2731FC0D1B13CC5200578152 /* crypto_aead_chacha20poly1305.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crypto_aead_chacha20poly1305.h; sourceTree = "<group>"; };
@@ -177,10 +199,10 @@
 		2731FC401B13CC5200578152 /* sodium.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sodium.h; sourceTree = "<group>"; };
 		2731FC421B13CC5200578152 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
 		2731FC441B13CC5200578152 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
-		2731FC471B13D84500578152 /* CBSigningKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSigningKey.h; sourceTree = "<group>"; };
-		2731FC481B13D84500578152 /* CBSigningKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSigningKey.m; sourceTree = "<group>"; };
-		2731FC4C1B13D8FE00578152 /* CBEncryptingKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEncryptingKey.h; sourceTree = "<group>"; };
-		2731FC4D1B13D8FE00578152 /* CBEncryptingKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEncryptingKey.m; sourceTree = "<group>"; };
+		2731FC471B13D84500578152 /* CBSigningPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSigningPrivateKey.h; sourceTree = "<group>"; };
+		2731FC481B13D84500578152 /* CBSigningPrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSigningPrivateKey.m; sourceTree = "<group>"; };
+		2731FC4C1B13D8FE00578152 /* CBEncryptingPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEncryptingPrivateKey.h; sourceTree = "<group>"; };
+		2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEncryptingPrivateKey.m; sourceTree = "<group>"; };
 		2731FC511B13DF8D00578152 /* Signature_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signature_Test.m; sourceTree = "<group>"; };
 		2731FC541B14238900578152 /* CBSymmetricKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSymmetricKey.h; sourceTree = "<group>"; };
 		2731FC551B14238900578152 /* CBSymmetricKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSymmetricKey.m; sourceTree = "<group>"; };
@@ -227,6 +249,17 @@
 		2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBQRCodeScanner.h; sourceTree = "<group>"; };
 		278416401AC8E9700011F0BF /* CBQRCodeScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBQRCodeScanner.m; sourceTree = "<group>"; };
 		278416441AC909F50011F0BF /* QRCodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
+		279421471B24B9E9005BE0AD /* CollectionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionUtils.h; sourceTree = "<group>"; };
+		279421481B24B9E9005BE0AD /* CollectionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionUtils.m; sourceTree = "<group>"; };
+		2794214E1B24B9E9005BE0AD /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		2794214F1B24B9E9005BE0AD /* Logging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logging.m; sourceTree = "<group>"; };
+		279421521B24B9E9005BE0AD /* MYBlockUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBlockUtils.h; sourceTree = "<group>"; };
+		279421531B24B9E9005BE0AD /* MYBlockUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYBlockUtils.m; sourceTree = "<group>"; };
+		2794215C1B24B9E9005BE0AD /* MYErrorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYErrorUtils.h; sourceTree = "<group>"; };
+		2794215D1B24B9E9005BE0AD /* MYErrorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYErrorUtils.m; sourceTree = "<group>"; };
+		279421741B24B9E9005BE0AD /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
+		279421751B24B9E9005BE0AD /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
+		279421761B24B9E9005BE0AD /* Test_Assertions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test_Assertions.m; sourceTree = "<group>"; };
 		27A12C541A2E90B200846803 /* libSeekritIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B960B819AE542500AAA1FD /* CBEncryptingKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBEncryptingKey+Group.h"; sourceTree = "<group>"; };
@@ -427,16 +460,18 @@
 				2776D0FA19AC1C1A0053D0A6 /* CBKey.h */,
 				2731FC5C1B14DA1300578152 /* CBKey+Private.h */,
 				2776D0FB19AC1C1A0053D0A6 /* CBKey.m */,
-				2731FC471B13D84500578152 /* CBSigningKey.h */,
-				2731FC481B13D84500578152 /* CBSigningKey.m */,
-				2731FC4C1B13D8FE00578152 /* CBEncryptingKey.h */,
-				2731FC4D1B13D8FE00578152 /* CBEncryptingKey.m */,
+				2731FC471B13D84500578152 /* CBSigningPrivateKey.h */,
+				2731FC481B13D84500578152 /* CBSigningPrivateKey.m */,
+				2731FC4C1B13D8FE00578152 /* CBEncryptingPrivateKey.h */,
+				2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */,
 				27B960B819AE542500AAA1FD /* CBEncryptingKey+Group.h */,
 				27B960B919AE542500AAA1FD /* CBEncryptingKey+Group.m */,
 				2731FC541B14238900578152 /* CBSymmetricKey.h */,
 				2731FC551B14238900578152 /* CBSymmetricKey.m */,
 				278415BE1AC791FE0011F0BF /* NSData+Mnemonic.h */,
 				278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */,
+				271DE83E1B19395900741623 /* CBKeyBag.h */,
+				271DE83F1B19395900741623 /* CBKeyBag.m */,
 				27B960C419AE8EF700AAA1FD /* JSON */,
 				278415F51AC879B00011F0BF /* QR Codes */,
 			);
@@ -547,9 +582,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		279421461B24B9E9005BE0AD /* MYUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				279421471B24B9E9005BE0AD /* CollectionUtils.h */,
+				279421481B24B9E9005BE0AD /* CollectionUtils.m */,
+				2794214E1B24B9E9005BE0AD /* Logging.h */,
+				2794214F1B24B9E9005BE0AD /* Logging.m */,
+				279421521B24B9E9005BE0AD /* MYBlockUtils.h */,
+				279421531B24B9E9005BE0AD /* MYBlockUtils.m */,
+				2794215C1B24B9E9005BE0AD /* MYErrorUtils.h */,
+				2794215D1B24B9E9005BE0AD /* MYErrorUtils.m */,
+				279421741B24B9E9005BE0AD /* Test.h */,
+				279421751B24B9E9005BE0AD /* Test.m */,
+				279421761B24B9E9005BE0AD /* Test_Assertions.m */,
+			);
+			name = MYUtilities;
+			path = vendor/MYUtilities;
+			sourceTree = "<group>";
+		};
 		27B960B719AE50BB00AAA1FD /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				279421461B24B9E9005BE0AD /* MYUtilities */,
 				278415991AC689130011F0BF /* mnemonicode */,
 			);
 			name = vendor;
@@ -574,12 +629,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B960BA19AE542500AAA1FD /* CBEncryptingKey+Group.h in Headers */,
+				271DE8401B19395900741623 /* CBKeyBag.h in Headers */,
+				2794219B1B24B9E9005BE0AD /* MYErrorUtils.h in Headers */,
 				278415C01AC791FE0011F0BF /* NSData+Mnemonic.h in Headers */,
 				27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */,
 				278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */,
-				2731FC491B13D84500578152 /* CBSigningKey.h in Headers */,
+				279421B91B24B9E9005BE0AD /* Test.h in Headers */,
+				279421861B24B9E9005BE0AD /* Logging.h in Headers */,
+				2794218C1B24B9E9005BE0AD /* MYBlockUtils.h in Headers */,
+				2731FC491B13D84500578152 /* CBSigningPrivateKey.h in Headers */,
 				278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */,
-				2731FC4E1B13D8FE00578152 /* CBEncryptingKey.h in Headers */,
+				2794217D1B24B9E9005BE0AD /* CollectionUtils.h in Headers */,
+				2731FC4E1B13D8FE00578152 /* CBEncryptingPrivateKey.h in Headers */,
 				2731FC561B14238900578152 /* CBSymmetricKey.h in Headers */,
 				27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */,
 				278415C51AC7AA060011F0BF /* CBQRCode.h in Headers */,
@@ -794,15 +855,22 @@
 				2731FC571B14238900578152 /* CBSymmetricKey.m in Sources */,
 				2776D12F19AC50620053D0A6 /* CBKey.m in Sources */,
 				27B960C319AE8EEE00AAA1FD /* SignedJSON.m in Sources */,
+				279421431B240B84005BE0AD /* CBKeyBag.m in Sources */,
+				2794219C1B24B9E9005BE0AD /* MYErrorUtils.m in Sources */,
+				2794217E1B24B9E9005BE0AD /* CollectionUtils.m in Sources */,
 				278415B61AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */,
 				278415C11AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
 				278415C61AC7AA060011F0BF /* CBQRCode.m in Sources */,
+				279421BA1B24B9E9005BE0AD /* Test.m in Sources */,
+				279421871B24B9E9005BE0AD /* Logging.m in Sources */,
 				27B960BB19AE542500AAA1FD /* CBEncryptingKey+Group.m in Sources */,
 				278415F41AC8729E0011F0BF /* CBQRCodeScannerView.m in Sources */,
-				2731FC4A1B13D84500578152 /* CBSigningKey.m in Sources */,
-				2731FC4F1B13D8FE00578152 /* CBEncryptingKey.m in Sources */,
+				2794218D1B24B9E9005BE0AD /* MYBlockUtils.m in Sources */,
+				2731FC4A1B13D84500578152 /* CBSigningPrivateKey.m in Sources */,
+				2731FC4F1B13D8FE00578152 /* CBEncryptingPrivateKey.m in Sources */,
 				278416421AC8E9700011F0BF /* CBQRCodeScanner.m in Sources */,
+				279421BC1B24B9E9005BE0AD /* Test_Assertions.m in Sources */,
 				278415B81AC785BE0011F0BF /* mnemonic.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -845,16 +913,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				279421BD1B24B9E9005BE0AD /* Test_Assertions.m in Sources */,
 				27A12C6B1A2E90E500846803 /* CBKey.m in Sources */,
-				2731FC501B13D8FE00578152 /* CBEncryptingKey.m in Sources */,
+				2794219D1B24B9E9005BE0AD /* MYErrorUtils.m in Sources */,
+				279421441B240B85005BE0AD /* CBKeyBag.m in Sources */,
+				2731FC501B13D8FE00578152 /* CBEncryptingPrivateKey.m in Sources */,
+				2794217F1B24B9E9005BE0AD /* CollectionUtils.m in Sources */,
 				2731FC581B14238900578152 /* CBSymmetricKey.m in Sources */,
 				27A12C6C1A2E90E500846803 /* CBEncryptingKey+Group.m in Sources */,
-				2731FC4B1B13D84500578152 /* CBSigningKey.m in Sources */,
+				279421BB1B24B9E9005BE0AD /* Test.m in Sources */,
+				2731FC4B1B13D84500578152 /* CBSigningPrivateKey.m in Sources */,
 				27A12C6D1A2E90E500846803 /* CanonicalJSON.m in Sources */,
 				27A12C6E1A2E90E500846803 /* SignedJSON.m in Sources */,
 				278415B71AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				278415C21AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
+				279421881B24B9E9005BE0AD /* Logging.m in Sources */,
 				278415C71AC7AA060011F0BF /* CBQRCode.m in Sources */,
+				2794218E1B24B9E9005BE0AD /* MYBlockUtils.m in Sources */,
 				278415B91AC785BE0011F0BF /* mnemonic.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1013,12 +1088,14 @@
 		2776D11219AC40270053D0A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/libsodium/MacOS",
@@ -1027,15 +1104,19 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit/SeekritOSX-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		2776D11319AC40270053D0A6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/libsodium/MacOS",
@@ -1044,6 +1125,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit/SeekritOSX-Bridging-Header.h";
 			};
 			name = Release;
 		};

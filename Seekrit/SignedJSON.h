@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Couchbase, Inc. All rights reserved.
 //
 
-#import "CBSigningKey.h"
+#import "CBSigningPrivateKey.h"
 
 
 // https://github.com/couchbase/couchbase-lite-ios/wiki/Signed-Documents
@@ -16,16 +16,16 @@
 extern NSString* const kJSONSignatureProperty;
 
 
-@interface CBSigningPublicKey (JSON)
+@interface CBVerifyingPublicKey (JSON)
 
 /** Verifies a signed JSON object and returns the signer's key.
     If verification fails (or the object is unsigned) returns nil. */
-+ (CBSigningPublicKey*) signerOfJSON:(NSDictionary*)jsonDict
++ (CBVerifyingPublicKey*) signerOfJSON:(NSDictionary*)jsonDict
                         error: (NSError**)outError;
 
 /** Verifies a JSON object with an external signature and returns the signer's key.
     If verification fails (or the object is unsigned) returns nil. */
-+ (CBSigningPublicKey*) signerOfSignature: (NSDictionary*)signature
++ (CBVerifyingPublicKey*) signerOfSignature: (NSDictionary*)signature
                             ofJSON: (id)jsonObject
                              error: (NSError**)outError;
 
@@ -54,7 +54,7 @@ extern NSString* const kJSONSignatureProperty;
 @end
 
 
-@interface CBSigningKey (JSON)
+@interface CBSigningPrivateKey (JSON)
 
 /** Returns a dictionary containing a signature of the given object (which must be JSON-encodable). */
 - (NSDictionary*) signatureOfJSON: (id)jsonObject

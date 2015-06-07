@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Couchbase. All rights reserved.
 //
 
-#import "CBSigningKey.h"
+#import "CBSigningPrivateKey.h"
+#import "CBEncryptingPrivateKey.h"
 #import "CBKey+Private.h"
 #import "sodium.h"
 
@@ -17,7 +18,7 @@ typedef struct {
 } CBRawSigningKey;
 
 
-@implementation CBSigningKey
+@implementation CBSigningPrivateKey
 {
     // Since libsodium wants a larger key structure for signing, I allocate one here.
     // The inherited _rawKey stores the seed, not the actual key.
@@ -40,7 +41,7 @@ typedef struct {
     self = [super initWithRawKey: rawKey];
     if (self) {
         crypto_sign_seed_keypair(pub.bytes, _secretKey.bytes, rawKey.bytes); // rawKey is really seed
-        _publicKey = [[CBSigningPublicKey alloc] initWithRawKey: pub];
+        _publicKey = [[CBVerifyingPublicKey alloc] initWithRawKey: pub];
     }
     return self;
 }
@@ -63,12 +64,26 @@ typedef struct {
 }
 
 
+- (CBEncryptingPrivateKey*) asEncryptingKey {
+    CBRawKey rawEncryptingKey;
+    crypto_sign_ed25519_sk_to_curve25519(rawEncryptingKey.bytes, self.rawKey.bytes);
+    return [[CBEncryptingPrivateKey alloc] initWithRawKey: rawEncryptingKey];
+}
+
+
 @end
 
 
 
 
-@implementation CBSigningPublicKey
+@implementation CBVerifyingPublicKey
+
+
+- (CBEncryptingPublicKey*) asEncryptingPublicKey {
+    CBRawKey rawEncryptingKey;
+    crypto_sign_ed25519_pk_to_curve25519(rawEncryptingKey.bytes, self.rawKey.bytes);
+    return [[CBEncryptingPublicKey alloc] initWithRawKey: rawEncryptingKey];
+}
 
 
 - (BOOL) verifySignature: (CBSignature)signature

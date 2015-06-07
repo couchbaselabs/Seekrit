@@ -21,6 +21,21 @@
 }
 
 
+- (instancetype) initWithCoder:(NSCoder *)decoder {
+    NSUInteger length;
+    const void* raw = [decoder decodeBytesForKey: @"key" returnedLength: &length];
+    if (!raw || length != sizeof(CBRawKey))
+        return nil;
+    return [self initWithRawKey: *(CBRawKey*)raw];
+}
+
+
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    CBRawKey rawKey = self.rawKey;
+    [encoder encodeBytes: (const uint8_t*)&rawKey length: sizeof(rawKey) forKey: @"key"];
+}
+
+
 - (NSData*) encrypt: (NSData*)cleartext
           withNonce: (CBNonce)nonce
 {
@@ -78,6 +93,41 @@
                                         nonce->bytes, self.rawKey.bytes))
         return nil;
     return cleartext;
+}
+
+
+#pragma mark - CLUES:
+
+
+- (CBKeyClue) clue {
+    CBRawKey rawKey = self.rawKey;
+    // DJB2 hash function:
+    uint32_t hash = 5381;
+    for (int i = 0; i < sizeof(rawKey.bytes); ++i)
+        hash = ((hash << 5) + hash) + rawKey.bytes[i];
+    return (UInt16)hash;
+}
+
+
+- (NSData*) encryptWithClue: (NSData*)cleartext {
+    CBKeyClue clue = NSSwapHostShortToBig(self.clue);
+    NSMutableData* ciphertext = [[self encrypt: cleartext] mutableCopy];
+    [ciphertext replaceBytesInRange: NSMakeRange(0, 0) withBytes: &clue length: sizeof(clue)];
+    return ciphertext;
+}
+
+
+- (NSData*) decryptWithClue: (NSData*)ciphertext {
+    if (ciphertext.length < 2)
+        return nil;
+    if ([[self class] clueForEncryptedData: ciphertext] != self.clue)
+        return nil;
+    return [self decrypt: [ciphertext subdataWithRange: NSMakeRange(2, ciphertext.length-2)]];
+}
+
+
++ (CBKeyClue) clueForEncryptedData: (NSData*)ciphertext {
+    return NSSwapBigShortToHost(*(CBKeyClue*)ciphertext.bytes);
 }
 
 

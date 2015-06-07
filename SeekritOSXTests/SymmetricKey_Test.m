@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
+#import "CBKey+Private.h"
 #import "CBSymmetricKey.h"
+#import "CBKeyBag.h"
 
 
-@interface CBPrivateKey ()
-@property (readonly) NSData* keyData;
+@interface CBKeyBag (Private)
++ (NSString*) pathForIdentifier: (NSString*)identifier;
 @end
 
 
@@ -57,6 +59,47 @@
     NSData* decrypted = [alice2 decrypt: cipher withNonce: nonce];
     NSLog(@"decrypted = %@", decrypted);
     XCTAssertEqualObjects(decrypted, clear);
+}
+
+
+
+- (void) testKeyBag {
+    [CBPrivateKey useTestKeychain];
+
+    [[NSFileManager defaultManager] removeItemAtPath: [CBKeyBag pathForIdentifier: @"UnitTests"]
+                                               error: nil];
+    NSError* error;
+    CBKeyBag* bag = [CBKeyBag keyBagWithIdentifier: @"UnitTests" error: &error];
+    XCTAssertNotNil(bag, @"Couldn't create CBKeyBag: %@", error);
+    NSLog(@"CBKeyBag created at %@", bag.path);
+
+    CBSymmetricKey* key1 = [[CBSymmetricKey alloc] init];
+    [bag addKey: key1 identifier: @"key1"];
+    CBSymmetricKey* key2 = [[CBSymmetricKey alloc] init];
+    [bag addKey: key2 identifier: @"key2"];
+
+    XCTAssertEqual([bag keyWithIdentifier: @"key1"], key1);
+    XCTAssertEqual([bag keyWithIdentifier: @"key2"], key2);
+
+    NSData* cleartext = [@"ATTACK AT DAWN" dataUsingEncoding: NSUTF8StringEncoding];
+    NSData* encrypted = [key1 encryptWithClue: cleartext];
+
+    CBSymmetricKey* usedKey;
+    NSData* decrypted = [bag decrypt: encrypted usedKey: &usedKey];
+    XCTAssertEqualObjects(decrypted, cleartext);
+    XCTAssertEqualObjects(usedKey, key1);
+
+    XCTAssert([bag save: &error], @"Save failed: %@", error);
+
+    bag = [CBKeyBag keyBagWithIdentifier: @"UnitTests" error: &error];
+    XCTAssertNotNil(bag, @"Couldn't reopen CBKeyBag: %@", error);
+
+    XCTAssertEqualObjects([bag keyWithIdentifier: @"key1"], key1);
+    XCTAssertEqualObjects([bag keyWithIdentifier: @"key2"], key2);
+
+    decrypted = [bag decrypt: encrypted usedKey: &usedKey];
+    XCTAssertEqualObjects(decrypted, cleartext);
+    XCTAssertEqualObjects(usedKey, key1);
 }
 
 

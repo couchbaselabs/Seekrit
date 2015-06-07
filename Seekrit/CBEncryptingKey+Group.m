@@ -34,7 +34,7 @@ typedef struct {
 } GroupMessage;
 
 
-@implementation CBEncryptingKey (GroupEncryption)
+@implementation CBEncryptingPrivateKey (GroupEncryption)
 
 - (NSData*) encryptGroupMessage: (NSData*)cleartext
                   forRecipients: (NSArray*)recipients
@@ -43,11 +43,11 @@ typedef struct {
                                             + recipients.count * sizeof(GroupMessageEncryptedKey)
                                             + cleartext.length + kCBEncryptedMessageOverhead];
     // Generate a random nonce and write it:
-    CBNonce nonce = [CBEncryptingKey randomNonce];
+    CBNonce nonce = [CBEncryptingPrivateKey randomNonce];
     [output appendBytes: &nonce length: sizeof(nonce)];
 
     // Generate a random session key-pair:
-    CBEncryptingKey* sessionKey = [CBEncryptingKey generate];
+    CBEncryptingPrivateKey* sessionKey = [CBEncryptingPrivateKey generate];
     NSData* sessionPrivateKeyData = sessionKey.keyData;
 
     // Write the recipient count, and the session's private key encrypted for each recipient:
@@ -94,7 +94,7 @@ typedef struct {
     if (!sessionKeyData)
         return nil; // Apparently it wasn't addressed to me :(
 
-    CBEncryptingKey* sessionKey = [[CBEncryptingKey alloc] initWithKeyData: sessionKeyData];
+    CBEncryptingPrivateKey* sessionKey = [[CBEncryptingPrivateKey alloc] initWithKeyData: sessionKeyData];
     if (!sessionKey)
         return nil;
 

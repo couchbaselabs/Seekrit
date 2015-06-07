@@ -7,7 +7,7 @@
 //
 
 #import "CBKey.h"
-@class CBSigningPublicKey;
+@class CBVerifyingPublicKey, CBEncryptingPrivateKey, CBEncryptingPublicKey;
 
 
 /** An Ed25519 digital signature. (512 bits, 64 bytes) */
@@ -16,9 +16,9 @@ typedef struct {
 } CBSignature;
 
 
-/** A private key used for creating digital signatures.
+/** An Ed25519 private key used for creating digital signatures.
     Uses the libsodium "crypto_sign" API. */
-@interface CBSigningKey : CBPrivateKey
+@interface CBSigningPrivateKey : CBPrivateKey
 
 /** Creates a digital signature of a block of data, using this key.
     (Actually it uses the closely related Ed25519 key.)
@@ -28,14 +28,17 @@ typedef struct {
 - (CBSignature) signData: (NSData*)input;
 
 /** The corresponding public key. */
-@property (readonly) CBSigningPublicKey* publicKey;
+@property (readonly) CBVerifyingPublicKey* publicKey;
+
+/** Converts this key into a key that can be used to encrypt data. */
+- (CBEncryptingPrivateKey*) asEncryptingKey;
 
 @end
 
 
 
 /** A public key used for verifying digital signatures created by its private key. */
-@interface CBSigningPublicKey : CBPublicKey
+@interface CBVerifyingPublicKey : CBPublicKey
 
 /** Verifies that a digital signature was created by this key's matching private signing key.
     @param signature  The signature to be verified.
@@ -44,5 +47,8 @@ typedef struct {
                 key; NO if the signature is invalid or doesn't match. */
 - (BOOL) verifySignature: (CBSignature)signature
                   ofData: (NSData*)inputData;
+
+/** Converts this key into a public key that can be used to encrypt data. */
+- (CBEncryptingPublicKey*) asEncryptingPublicKey;
 
 @end

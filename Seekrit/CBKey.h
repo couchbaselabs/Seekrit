@@ -21,7 +21,7 @@ typedef struct {
 
 
 
-/** A Curve25519 key; abstract superclass of CBPublicKey and CBPrivateKey. */
+/** A Curve25519 or Ed25519 key; abstract superclass of CBPublicKey and CBPrivateKey. */
 @interface CBKey : NSObject
 
 /** Generates a new key (or key-pair) at random. Same as -init. */
@@ -46,7 +46,9 @@ typedef struct {
 
 
 
-/** A key whose contents are sensitive, i.e. a symmetric key, or the private key of a key-pair. */
+/** A key whose contents are sensitive, i.e. a symmetric key, or the private key of a key-pair.
+    Note that private keys (other than symmetric keys) don't provide access to their raw data.
+    This is intentional. Such keys should only be stored in the Keychain. */
 @interface CBPrivateKey : CBKey
 
 /** Creates a private key (and any matching public key) derived from a password using PBKDF2.
@@ -77,13 +79,15 @@ typedef struct {
 
 /** Adds a private key to the Keychain under the given service and account names. */
 - (BOOL) addToKeychainForService: (NSString*)service
-                         account: (NSString*)account;
+                         account: (NSString*)account
+                           error: (NSError**)outError;
 
 #if !TARGET_OS_IPHONE // OS X only; iOS doesn't support multiple Keychains.
 /** Adds a private key to a specific Keychain under the given service and account names. */
 - (BOOL) addToKeychain: (SecKeychainRef)keychain
             forService: (NSString*)service
-               account: (NSString*)account;
+               account: (NSString*)account
+                 error: (NSError**)outError;
 
 /** Reads a private key (and its public key) from a specific Keychain, looking up the given service
     and account. */

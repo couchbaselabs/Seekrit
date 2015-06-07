@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
-#import "CBSigningKey.h"
+#import "CBSigningPrivateKey.h"
+#import "CBEncryptingPrivateKey.h"
 #import "NSData+Mnemonic.h"
 
 
@@ -22,20 +23,20 @@
 
 @implementation Signature_Test
 {
-    CBSigningKey* alice;
-    CBSigningKey* bob;
+    CBSigningPrivateKey* alice;
+    CBSigningPrivateKey* bob;
 }
 
 - (void)setUp {
     [super setUp];
-    alice = [CBSigningKey generate];
-    bob = [CBSigningKey generate];
+    alice = [CBSigningPrivateKey generate];
+    bob = [CBSigningPrivateKey generate];
     XCTAssert(alice.publicKey != nil);
     XCTAssert(bob.publicKey != nil);
 }
 
 - (void) testRecoverPublicKey {
-    CBSigningKey* alice2 = [[CBSigningKey alloc] initWithKeyData: alice.keyData];
+    CBSigningPrivateKey* alice2 = [[CBSigningPrivateKey alloc] initWithKeyData: alice.keyData];
     XCTAssertEqualObjects(alice2.publicKey.keyData, alice.publicKey.keyData);
 }
 
@@ -48,8 +49,28 @@
     XCTAssert([alice.publicKey verifySignature: signature ofData: message]);
 
     NSData* pubKeyData = alice.publicKey.keyData;
-    CBSigningPublicKey* pubKey = [[CBSigningPublicKey alloc] initWithKeyData: pubKeyData];
+    CBVerifyingPublicKey* pubKey = [[CBVerifyingPublicKey alloc] initWithKeyData: pubKeyData];
     XCTAssert([pubKey verifySignature: signature ofData: message]);
+}
+
+- (void) testEncryptingConversion {
+    CBEncryptingPrivateKey* aliceEncrypt = alice.asEncryptingKey;
+    CBEncryptingPublicKey* alicePublicEncrypt = alice.publicKey.asEncryptingPublicKey;
+    XCTAssertEqualObjects(alicePublicEncrypt, aliceEncrypt.publicKey);
+
+    CBEncryptingPrivateKey* bobEncrypt = bob.asEncryptingKey;
+    CBEncryptingPublicKey* bobPublicEncrypt = bob.publicKey.asEncryptingPublicKey;
+
+    NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
+    NSLog(@"cleartext = %@", clear);
+    CBNonce nonce = {0x01, 0x02, 0x03}; // rest all zeroes
+    NSData* cipher = [aliceEncrypt encrypt: clear withNonce: nonce forRecipient: bobPublicEncrypt];
+    XCTAssert(cipher);
+    NSLog(@"ciphertext= %@", cipher);
+
+    NSData* decrypted = [bobEncrypt decrypt: cipher withNonce: nonce fromSender: alicePublicEncrypt];
+    NSLog(@"decrypted = %@", decrypted);
+    XCTAssertEqualObjects(decrypted, clear);
 }
 
 @end
