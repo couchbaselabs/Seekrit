@@ -763,6 +763,7 @@
 		2776D0D719AC1ABD0053D0A6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Couchbase;
 				TargetAttributes = {

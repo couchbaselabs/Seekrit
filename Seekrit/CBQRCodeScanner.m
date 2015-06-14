@@ -102,7 +102,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CFAbsoluteTime time = CFAbsoluteTimeGetCurrent();
     if (time - _lastScanTime >= kMinScanInterval) {
         _lastScanTime = time;
-        self.scannedFeature = [_qrDetector featuresInImage: frame].firstObject;
+        self.scannedFeature = (CIQRCodeFeature*)[_qrDetector featuresInImage: frame].firstObject;
     }
     self.currentFrame = frame;
     NSString* message = [self.scannedFeature.messageString copy];
