@@ -27,7 +27,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [captureView addObserver: self forKeyPath: @"scannedString" options: 0 context: NULL];
 
-    CBPrivateKey* privKey = [[CBPrivateKey alloc] init];
+    CBSigningPrivateKey* privKey = [[CBSigningPrivateKey alloc] init];
     NSDictionary* obj = @{@"name": @"Pupshaw"};
     NSDictionary* s = [privKey addSignatureToJSON: obj expiresAfter: 5*60];
     NSData* json = [NSJSONSerialization dataWithJSONObject: s options: 0 error: nil];

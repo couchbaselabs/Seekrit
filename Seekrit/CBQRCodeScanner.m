@@ -40,7 +40,6 @@
         AVCaptureDevice* video = [AVCaptureDevice defaultDeviceWithMediaType: AVMediaTypeVideo];
         if (!video)
             return [self failWithMessage: @"No video camera available" error: outError];
-        NSError* error;
         AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice: video
                                                                             error: outError];
         if (!input)

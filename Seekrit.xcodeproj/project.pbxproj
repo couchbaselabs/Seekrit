@@ -25,6 +25,11 @@
 		2731FC581B14238900578152 /* CBSymmetricKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC551B14238900578152 /* CBSymmetricKey.m */; };
 		2731FC5A1B142C7800578152 /* SymmetricKey_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC591B142C7800578152 /* SymmetricKey_Test.m */; };
 		2731FC5B1B142C7800578152 /* SymmetricKey_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2731FC591B142C7800578152 /* SymmetricKey_Test.m */; };
+		276FFD781B2E07DD0027B51A /* CBQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415C41AC7AA060011F0BF /* CBQRCode.m */; };
+		276FFD791B2E07DF0027B51A /* CBQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415C41AC7AA060011F0BF /* CBQRCode.m */; };
+		276FFD7A1B2E07EC0027B51A /* CBQRCodeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416401AC8E9700011F0BF /* CBQRCodeScanner.m */; };
+		276FFD7B1B2E07F10027B51A /* CBQRCodeScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415F21AC8729E0011F0BF /* CBQRCodeScannerView.m */; };
+		276FFD7C1B2E085E0027B51A /* Seekrit.h in Headers */ = {isa = PBXBuildFile; fileRef = 276FFD761B2E071A0027B51A /* Seekrit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2776D12E19AC4E680053D0A6 /* libSeekritOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2776D10319AC40270053D0A6 /* libSeekritOSX.a */; };
 		2776D12F19AC50620053D0A6 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
 		2776D13019AC56E20053D0A6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2776D12B19AC4B590053D0A6 /* Cocoa.framework */; };
@@ -40,8 +45,6 @@
 		278415C11AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */; };
 		278415C21AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */; };
 		278415C51AC7AA060011F0BF /* CBQRCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 278415C31AC7AA060011F0BF /* CBQRCode.h */; };
-		278415C61AC7AA060011F0BF /* CBQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415C41AC7AA060011F0BF /* CBQRCode.m */; };
-		278415C71AC7AA060011F0BF /* CBQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415C41AC7AA060011F0BF /* CBQRCode.m */; };
 		278415D21AC7B20C0011F0BF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415D11AC7B20C0011F0BF /* AppDelegate.m */; };
 		278415D41AC7B20C0011F0BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415D31AC7B20C0011F0BF /* main.m */; };
 		278415D61AC7B20C0011F0BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278415D51AC7B20C0011F0BF /* Images.xcassets */; };
@@ -49,7 +52,6 @@
 		278415ED1AC7B6570011F0BF /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 278415EC1AC7B6570011F0BF /* AVKit.framework */; };
 		278415EE1AC7D0BD0011F0BF /* libSeekritOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2776D10319AC40270053D0A6 /* libSeekritOSX.a */; };
 		278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 278415F11AC8729E0011F0BF /* CBQRCodeScannerView.h */; };
-		278415F41AC8729E0011F0BF /* CBQRCodeScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415F21AC8729E0011F0BF /* CBQRCodeScannerView.m */; };
 		278415FF1AC89FBF0011F0BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 278415FE1AC89FBF0011F0BF /* main.m */; };
 		278416021AC89FBF0011F0BF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416011AC89FBF0011F0BF /* AppDelegate.m */; };
 		278416051AC89FBF0011F0BF /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416041AC89FBF0011F0BF /* FirstViewController.m */; };
@@ -60,7 +62,6 @@
 		2784163C1AC8CE090011F0BF /* QRCodeScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */; };
 		2784163E1AC8D2EF0011F0BF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784163D1AC8D2EF0011F0BF /* SecondViewController.swift */; };
 		278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 2784163F1AC8E9700011F0BF /* CBQRCodeScanner.h */; };
-		278416421AC8E9700011F0BF /* CBQRCodeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 278416401AC8E9700011F0BF /* CBQRCodeScanner.m */; };
 		278416451AC909F50011F0BF /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278416441AC909F50011F0BF /* QRCodeScanner.swift */; };
 		279421431B240B84005BE0AD /* CBKeyBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DE83F1B19395900741623 /* CBKeyBag.m */; };
 		279421441B240B85005BE0AD /* CBKeyBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DE83F1B19395900741623 /* CBKeyBag.m */; };
@@ -83,13 +84,13 @@
 		279421BD1B24B9E9005BE0AD /* Test_Assertions.m in Sources */ = {isa = PBXBuildFile; fileRef = 279421761B24B9E9005BE0AD /* Test_Assertions.m */; };
 		27A12C5F1A2E90B200846803 /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
 		27A12C6B1A2E90E500846803 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
-		27A12C6C1A2E90E500846803 /* CBEncryptingKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingKey+Group.m */; };
+		27A12C6C1A2E90E500846803 /* CBEncryptingPrivateKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */; };
 		27A12C6D1A2E90E500846803 /* CanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */; };
 		27A12C6E1A2E90E500846803 /* SignedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */; };
 		27A12C6F1A2E918800846803 /* Key_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D13119AC57D80053D0A6 /* Key_Test.m */; };
 		27A12C701A2E918B00846803 /* SignedJSON_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960C519AE964800AAA1FD /* SignedJSON_Test.m */; };
-		27B960BA19AE542500AAA1FD /* CBEncryptingKey+Group.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960B819AE542500AAA1FD /* CBEncryptingKey+Group.h */; };
-		27B960BB19AE542500AAA1FD /* CBEncryptingKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingKey+Group.m */; };
+		27B960BA19AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */; };
+		27B960BB19AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */; };
 		27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */; };
 		27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */; };
 		27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */; };
@@ -208,6 +209,7 @@
 		2731FC551B14238900578152 /* CBSymmetricKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSymmetricKey.m; sourceTree = "<group>"; };
 		2731FC591B142C7800578152 /* SymmetricKey_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SymmetricKey_Test.m; sourceTree = "<group>"; };
 		2731FC5C1B14DA1300578152 /* CBKey+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBKey+Private.h"; sourceTree = "<group>"; };
+		276FFD761B2E071A0027B51A /* Seekrit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Seekrit.h; sourceTree = "<group>"; };
 		2776D0FA19AC1C1A0053D0A6 /* CBKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBKey.h; sourceTree = "<group>"; };
 		2776D0FB19AC1C1A0053D0A6 /* CBKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBKey.m; sourceTree = "<group>"; };
 		2776D10319AC40270053D0A6 /* libSeekritOSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,8 +264,8 @@
 		279421761B24B9E9005BE0AD /* Test_Assertions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test_Assertions.m; sourceTree = "<group>"; };
 		27A12C541A2E90B200846803 /* libSeekritIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		27B960B819AE542500AAA1FD /* CBEncryptingKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBEncryptingKey+Group.h"; sourceTree = "<group>"; };
-		27B960B919AE542500AAA1FD /* CBEncryptingKey+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBEncryptingKey+Group.m"; sourceTree = "<group>"; };
+		27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBEncryptingPrivateKey+Group.h"; sourceTree = "<group>"; };
+		27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBEncryptingPrivateKey+Group.m"; sourceTree = "<group>"; };
 		27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanonicalJSON.h; sourceTree = "<group>"; };
 		27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanonicalJSON.m; sourceTree = "<group>"; };
 		27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedJSON.h; sourceTree = "<group>"; };
@@ -427,6 +429,15 @@
 			path = MacOS;
 			sourceTree = "<group>";
 		};
+		276FFD771B2E07810027B51A /* Mnemonics */ = {
+			isa = PBXGroup;
+			children = (
+				278415BE1AC791FE0011F0BF /* NSData+Mnemonic.h */,
+				278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */,
+			);
+			name = Mnemonics;
+			sourceTree = "<group>";
+		};
 		2776D0D619AC1ABD0053D0A6 = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +468,7 @@
 		2776D0E119AC1ABD0053D0A6 /* Seekrit */ = {
 			isa = PBXGroup;
 			children = (
+				276FFD761B2E071A0027B51A /* Seekrit.h */,
 				2776D0FA19AC1C1A0053D0A6 /* CBKey.h */,
 				2731FC5C1B14DA1300578152 /* CBKey+Private.h */,
 				2776D0FB19AC1C1A0053D0A6 /* CBKey.m */,
@@ -464,15 +476,14 @@
 				2731FC481B13D84500578152 /* CBSigningPrivateKey.m */,
 				2731FC4C1B13D8FE00578152 /* CBEncryptingPrivateKey.h */,
 				2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */,
-				27B960B819AE542500AAA1FD /* CBEncryptingKey+Group.h */,
-				27B960B919AE542500AAA1FD /* CBEncryptingKey+Group.m */,
+				27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */,
+				27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */,
 				2731FC541B14238900578152 /* CBSymmetricKey.h */,
 				2731FC551B14238900578152 /* CBSymmetricKey.m */,
-				278415BE1AC791FE0011F0BF /* NSData+Mnemonic.h */,
-				278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */,
 				271DE83E1B19395900741623 /* CBKeyBag.h */,
 				271DE83F1B19395900741623 /* CBKeyBag.m */,
 				27B960C419AE8EF700AAA1FD /* JSON */,
+				276FFD771B2E07810027B51A /* Mnemonics */,
 				278415F51AC879B00011F0BF /* QR Codes */,
 			);
 			path = Seekrit;
@@ -628,7 +639,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27B960BA19AE542500AAA1FD /* CBEncryptingKey+Group.h in Headers */,
+				27B960BA19AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h in Headers */,
 				271DE8401B19395900741623 /* CBKeyBag.h in Headers */,
 				2794219B1B24B9E9005BE0AD /* MYErrorUtils.h in Headers */,
 				278415C01AC791FE0011F0BF /* NSData+Mnemonic.h in Headers */,
@@ -636,6 +647,7 @@
 				278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */,
 				279421B91B24B9E9005BE0AD /* Test.h in Headers */,
 				279421861B24B9E9005BE0AD /* Logging.h in Headers */,
+				276FFD7C1B2E085E0027B51A /* Seekrit.h in Headers */,
 				2794218C1B24B9E9005BE0AD /* MYBlockUtils.h in Headers */,
 				2731FC491B13D84500578152 /* CBSigningPrivateKey.h in Headers */,
 				278416411AC8E9700011F0BF /* CBQRCodeScanner.h in Headers */,
@@ -764,7 +776,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Couchbase;
 				TargetAttributes = {
 					2776D10219AC40270053D0A6 = {
@@ -862,15 +874,12 @@
 				278415B61AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */,
 				278415C11AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
-				278415C61AC7AA060011F0BF /* CBQRCode.m in Sources */,
 				279421BA1B24B9E9005BE0AD /* Test.m in Sources */,
 				279421871B24B9E9005BE0AD /* Logging.m in Sources */,
-				27B960BB19AE542500AAA1FD /* CBEncryptingKey+Group.m in Sources */,
-				278415F41AC8729E0011F0BF /* CBQRCodeScannerView.m in Sources */,
+				27B960BB19AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m in Sources */,
 				2794218D1B24B9E9005BE0AD /* MYBlockUtils.m in Sources */,
 				2731FC4A1B13D84500578152 /* CBSigningPrivateKey.m in Sources */,
 				2731FC4F1B13D8FE00578152 /* CBEncryptingPrivateKey.m in Sources */,
-				278416421AC8E9700011F0BF /* CBQRCodeScanner.m in Sources */,
 				279421BC1B24B9E9005BE0AD /* Test_Assertions.m in Sources */,
 				278415B81AC785BE0011F0BF /* mnemonic.c in Sources */,
 			);
@@ -892,6 +901,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				276FFD781B2E07DD0027B51A /* CBQRCode.m in Sources */,
+				276FFD7A1B2E07EC0027B51A /* CBQRCodeScanner.m in Sources */,
+				276FFD7B1B2E07F10027B51A /* CBQRCodeScannerView.m in Sources */,
 				278415D41AC7B20C0011F0BF /* main.m in Sources */,
 				278415D21AC7B20C0011F0BF /* AppDelegate.m in Sources */,
 			);
@@ -902,6 +914,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				278416021AC89FBF0011F0BF /* AppDelegate.m in Sources */,
+				276FFD791B2E07DF0027B51A /* CBQRCode.m in Sources */,
 				278416051AC89FBF0011F0BF /* FirstViewController.m in Sources */,
 				278416451AC909F50011F0BF /* QRCodeScanner.swift in Sources */,
 				278415FF1AC89FBF0011F0BF /* main.m in Sources */,
@@ -921,7 +934,7 @@
 				2731FC501B13D8FE00578152 /* CBEncryptingPrivateKey.m in Sources */,
 				2794217F1B24B9E9005BE0AD /* CollectionUtils.m in Sources */,
 				2731FC581B14238900578152 /* CBSymmetricKey.m in Sources */,
-				27A12C6C1A2E90E500846803 /* CBEncryptingKey+Group.m in Sources */,
+				27A12C6C1A2E90E500846803 /* CBEncryptingPrivateKey+Group.m in Sources */,
 				279421BB1B24B9E9005BE0AD /* Test.m in Sources */,
 				2731FC4B1B13D84500578152 /* CBSigningPrivateKey.m in Sources */,
 				27A12C6D1A2E90E500846803 /* CanonicalJSON.m in Sources */,
@@ -929,7 +942,6 @@
 				278415B71AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				278415C21AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
 				279421881B24B9E9005BE0AD /* Logging.m in Sources */,
-				278415C71AC7AA060011F0BF /* CBQRCode.m in Sources */,
 				2794218E1B24B9E9005BE0AD /* MYBlockUtils.m in Sources */,
 				278415B91AC785BE0011F0BF /* mnemonic.c in Sources */,
 			);
@@ -1022,6 +1034,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1149,6 +1162,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xctest;
@@ -1171,6 +1185,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xctest;
@@ -1193,6 +1208,7 @@
 				INFOPLIST_FILE = "Seekrit Mac Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1210,6 +1226,7 @@
 				INFOPLIST_FILE = "Seekrit Mac Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1229,6 +1246,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Seekrit iOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit iOS Demo/Seekrit iOS Demo-Bridging-Header.h";
@@ -1248,6 +1266,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Seekrit iOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Seekrit iOS Demo/Seekrit iOS Demo-Bridging-Header.h";
@@ -1307,6 +1326,7 @@
 				INFOPLIST_FILE = SeekritOSXTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 			};
@@ -1322,6 +1342,7 @@
 				INFOPLIST_FILE = SeekritOSXTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 			};

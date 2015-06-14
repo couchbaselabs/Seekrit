@@ -10,7 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "CBKey+Private.h"
 #import "CBEncryptingPrivateKey.h"
-#import "CBEncryptingKey+Group.h"
+#import "CBEncryptingPrivateKey+Group.h"
 #import "NSData+Mnemonic.h"
 
 
