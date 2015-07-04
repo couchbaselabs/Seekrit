@@ -142,9 +142,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		271DE83E1B19395900741623 /* CBKeyBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBKeyBag.h; sourceTree = "<group>"; };
-		271DE83F1B19395900741623 /* CBKeyBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBKeyBag.m; sourceTree = "<group>"; };
+		271DE83E1B19395900741623 /* CBKeyBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBKeyBag.h; path = Keys/CBKeyBag.h; sourceTree = "<group>"; };
+		271DE83F1B19395900741623 /* CBKeyBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBKeyBag.m; path = Keys/CBKeyBag.m; sourceTree = "<group>"; };
 		271F776D1ACA40490062B59C /* CameraShutter.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = CameraShutter.aiff; sourceTree = "<group>"; };
+		2731DB511B487895000D825E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2731FC0C1B13CC5200578152 /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		2731FC0D1B13CC5200578152 /* crypto_aead_chacha20poly1305.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crypto_aead_chacha20poly1305.h; sourceTree = "<group>"; };
 		2731FC0E1B13CC5200578152 /* crypto_auth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = crypto_auth.h; sourceTree = "<group>"; };
@@ -200,18 +201,18 @@
 		2731FC401B13CC5200578152 /* sodium.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sodium.h; sourceTree = "<group>"; };
 		2731FC421B13CC5200578152 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
 		2731FC441B13CC5200578152 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
-		2731FC471B13D84500578152 /* CBSigningPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSigningPrivateKey.h; sourceTree = "<group>"; };
-		2731FC481B13D84500578152 /* CBSigningPrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSigningPrivateKey.m; sourceTree = "<group>"; };
-		2731FC4C1B13D8FE00578152 /* CBEncryptingPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEncryptingPrivateKey.h; sourceTree = "<group>"; };
-		2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEncryptingPrivateKey.m; sourceTree = "<group>"; };
+		2731FC471B13D84500578152 /* CBSigningPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBSigningPrivateKey.h; path = Keys/CBSigningPrivateKey.h; sourceTree = "<group>"; };
+		2731FC481B13D84500578152 /* CBSigningPrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBSigningPrivateKey.m; path = Keys/CBSigningPrivateKey.m; sourceTree = "<group>"; };
+		2731FC4C1B13D8FE00578152 /* CBEncryptingPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBEncryptingPrivateKey.h; path = Keys/CBEncryptingPrivateKey.h; sourceTree = "<group>"; };
+		2731FC4D1B13D8FE00578152 /* CBEncryptingPrivateKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBEncryptingPrivateKey.m; path = Keys/CBEncryptingPrivateKey.m; sourceTree = "<group>"; };
 		2731FC511B13DF8D00578152 /* Signature_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signature_Test.m; sourceTree = "<group>"; };
-		2731FC541B14238900578152 /* CBSymmetricKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSymmetricKey.h; sourceTree = "<group>"; };
-		2731FC551B14238900578152 /* CBSymmetricKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSymmetricKey.m; sourceTree = "<group>"; };
+		2731FC541B14238900578152 /* CBSymmetricKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBSymmetricKey.h; path = Keys/CBSymmetricKey.h; sourceTree = "<group>"; };
+		2731FC551B14238900578152 /* CBSymmetricKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBSymmetricKey.m; path = Keys/CBSymmetricKey.m; sourceTree = "<group>"; };
 		2731FC591B142C7800578152 /* SymmetricKey_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SymmetricKey_Test.m; sourceTree = "<group>"; };
-		2731FC5C1B14DA1300578152 /* CBKey+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CBKey+Private.h"; sourceTree = "<group>"; };
+		2731FC5C1B14DA1300578152 /* CBKey+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CBKey+Private.h"; path = "Keys/CBKey+Private.h"; sourceTree = "<group>"; };
 		276FFD761B2E071A0027B51A /* Seekrit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Seekrit.h; sourceTree = "<group>"; };
-		2776D0FA19AC1C1A0053D0A6 /* CBKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBKey.h; sourceTree = "<group>"; };
-		2776D0FB19AC1C1A0053D0A6 /* CBKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBKey.m; sourceTree = "<group>"; };
+		2776D0FA19AC1C1A0053D0A6 /* CBKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBKey.h; path = Keys/CBKey.h; sourceTree = "<group>"; };
+		2776D0FB19AC1C1A0053D0A6 /* CBKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBKey.m; path = Keys/CBKey.m; sourceTree = "<group>"; };
 		2776D10319AC40270053D0A6 /* libSeekritOSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2776D10D19AC40270053D0A6 /* SeekritOSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritOSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2776D11019AC40270053D0A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -264,8 +265,8 @@
 		279421761B24B9E9005BE0AD /* Test_Assertions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test_Assertions.m; sourceTree = "<group>"; };
 		27A12C541A2E90B200846803 /* libSeekritIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSeekritIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBEncryptingPrivateKey+Group.h"; sourceTree = "<group>"; };
-		27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBEncryptingPrivateKey+Group.m"; sourceTree = "<group>"; };
+		27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBEncryptingPrivateKey+Group.h"; path = "Keys/CBEncryptingPrivateKey+Group.h"; sourceTree = "<group>"; };
+		27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CBEncryptingPrivateKey+Group.m"; path = "Keys/CBEncryptingPrivateKey+Group.m"; sourceTree = "<group>"; };
 		27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanonicalJSON.h; sourceTree = "<group>"; };
 		27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanonicalJSON.m; sourceTree = "<group>"; };
 		27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedJSON.h; sourceTree = "<group>"; };
@@ -436,15 +437,17 @@
 				278415BF1AC791FE0011F0BF /* NSData+Mnemonic.m */,
 			);
 			name = Mnemonics;
+			path = Mnemonic;
 			sourceTree = "<group>";
 		};
 		2776D0D619AC1ABD0053D0A6 = {
 			isa = PBXGroup;
 			children = (
+				2731DB511B487895000D825E /* README.md */,
 				2776D0E119AC1ABD0053D0A6 /* Seekrit */,
 				278415CD1AC7B20C0011F0BF /* Seekrit Mac Demo */,
 				278415FB1AC89FBF0011F0BF /* Seekrit iOS Demo */,
-				2776D10E19AC40270053D0A6 /* SeekritOSXTests */,
+				2776D10E19AC40270053D0A6 /* UnitTests */,
 				2731FC081B13CC5200578152 /* Frameworks */,
 				27B960B719AE50BB00AAA1FD /* vendor */,
 				278416431AC900C90011F0BF /* Frameworks */,
@@ -489,7 +492,7 @@
 			path = Seekrit;
 			sourceTree = "<group>";
 		};
-		2776D10E19AC40270053D0A6 /* SeekritOSXTests */ = {
+		2776D10E19AC40270053D0A6 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				2776D13119AC57D80053D0A6 /* Key_Test.m */,
@@ -499,7 +502,7 @@
 				27B960C519AE964800AAA1FD /* SignedJSON_Test.m */,
 				2776D10F19AC40270053D0A6 /* Supporting Files */,
 			);
-			path = SeekritOSXTests;
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 		2776D10F19AC40270053D0A6 /* Supporting Files */ = {
@@ -555,6 +558,7 @@
 				278416391AC8CA3C0011F0BF /* QRCodeScanController.swift */,
 			);
 			name = "QR Codes";
+			path = QRCode;
 			sourceTree = "<group>";
 		};
 		278415FB1AC89FBF0011F0BF /* Seekrit iOS Demo */ = {
@@ -629,7 +633,7 @@
 				27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */,
 				27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */,
 			);
-			name = JSON;
+			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1155,7 +1159,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SeekritOSXTests/Info.plist;
+				INFOPLIST_FILE = UnitTests/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Seekrit/Build/Products/Debug",
@@ -1178,7 +1182,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SeekritOSXTests/Info.plist;
+				INFOPLIST_FILE = UnitTests/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Seekrit/Build/Products/Debug",
@@ -1323,7 +1327,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SeekritOSXTests/Info.plist;
+				INFOPLIST_FILE = UnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1339,7 +1343,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SeekritOSXTests/Info.plist;
+				INFOPLIST_FILE = UnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.couchbase.$(PRODUCT_NAME:rfc1034identifier)";
