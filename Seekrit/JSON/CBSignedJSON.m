@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 Couchbase, Inc. All rights reserved.
 //
 
-#import "SignedJSON.h"
-#import "CanonicalJSON.h"
+#import "CBSignedJSON.h"
+#import "CBCanonicalJSON.h"
 #import "Logging.h"
 #import <CommonCrypto/CommonDigest.h>
 

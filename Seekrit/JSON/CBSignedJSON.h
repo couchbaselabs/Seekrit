@@ -21,13 +21,13 @@ extern NSString* const kCBJSONSignatureProperty;
 /** Verifies a signed JSON object and returns the signer's key.
     If verification fails (or the object is unsigned) returns nil. */
 + (CBVerifyingPublicKey*) signerOfJSON:(NSDictionary*)jsonDict
-                        error: (NSError**)outError;
+                                 error: (NSError**)outError;
 
 /** Verifies a JSON object with an external signature and returns the signer's key.
     If verification fails (or the object is unsigned) returns nil. */
 + (CBVerifyingPublicKey*) signerOfSignature: (NSDictionary*)signature
-                            ofJSON: (id)jsonObject
-                             error: (NSError**)outError;
+                                     ofJSON: (id)jsonObject
+                                      error: (NSError**)outError;
 
 /** Returns the signature dictionary of a signed JSON object (without verifying it.) */
 + (NSDictionary*) signatureOfJSON: (id)jsonObject;

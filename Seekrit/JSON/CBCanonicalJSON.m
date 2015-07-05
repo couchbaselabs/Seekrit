@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Couchbase, Inc. All rights reserved.
 //
 
-#import "CanonicalJSON.h"
+#import "CBCanonicalJSON.h"
 
 
 @implementation CBCanonicalJSON
