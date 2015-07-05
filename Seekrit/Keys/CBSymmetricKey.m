@@ -13,6 +13,8 @@
 
 @implementation CBSymmetricKey
 
+@synthesize keyData=_keyData;
+
 
 - (instancetype)init {
     CBRawKey rawKey;

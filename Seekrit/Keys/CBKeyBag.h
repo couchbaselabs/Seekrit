@@ -13,7 +13,7 @@
 /** Simple, lightweight (but secure) database of CBSymmetricKeys.
     The KeyBag is persisted to a single file that's encrypted using a master symmetric key
     stored in the Keychain. */
-@interface CBKeyBag : NSObject
+@interface CBKeyBag : NSObject <CBDecrypting>
 
 /** Opens or creates a KeyBag with an app-defined identifier.
     The file is stored in "~/Library/Application Support/$IDENTIFIER.keybag".

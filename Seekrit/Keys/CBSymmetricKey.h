@@ -16,7 +16,10 @@ typedef UInt16 CBKeyClue;
 /** A symmetric key that both encrypts and decrypts.
     Uses the libsodium "crypto_secretbox" API, encrypting with XSalsa20 and authenticating with
     Poly1305 MAC. */
-@interface CBSymmetricKey : CBPrivateKey <NSCoding>
+@interface CBSymmetricKey : CBPrivateKey <NSCoding, CBEncrypting, CBDecrypting>
+
+/** The key's raw data. */
+@property (readonly) NSData* keyData;
 
 /** Encrypts a data block. The encrypted form can only be read using this same key.
     Requires a _nonce_, a 24-byte value that alters the encryption. The nonce can contain anything,

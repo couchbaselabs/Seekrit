@@ -21,6 +21,17 @@ typedef struct {
 
 
 
+@protocol CBEncrypting <NSObject>
+- (NSData*) encrypt: (NSData*)cleartext;
+@end
+
+@protocol CBDecrypting <NSObject>
+- (NSData*) decrypt: (NSData*)cleartext;
+@end
+
+
+
+
 /** A Curve25519 or Ed25519 key; abstract superclass of CBPublicKey and CBPrivateKey. */
 @interface CBKey : NSObject
 
