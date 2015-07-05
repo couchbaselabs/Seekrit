@@ -14,7 +14,8 @@ typedef UInt16 CBKeyClue;
 
 
 /** A symmetric key that both encrypts and decrypts.
-    Uses the libsodium "crypto_secretbox" API. */
+    Uses the libsodium "crypto_secretbox" API, encrypting with XSalsa20 and authenticating with
+    Poly1305 MAC. */
 @interface CBSymmetricKey : CBPrivateKey <NSCoding>
 
 /** Encrypts a data block. The encrypted form can only be read using this same key.
@@ -33,6 +34,8 @@ typedef UInt16 CBKeyClue;
     Requires the _nonce_ value that was used to encrypt the message. (Either the sender needs to
     include the nonce along with the ciphertext, or the parties need to agree on some other way to
     derive it, for example by using a counter of the number of messages sent.)
+    If the ciphertext was not encrypted with this key+nonce, or is not a valid ciphertext at all,
+    this method reliably returns nil (not garbage.)
     @param ciphertext  The encrypted message to be decrypted.
     @param nonce  The nonce that was used to encrypt the message (see above).
     @return  The decrypted message, or nil if it could not be decrypted (because this isn't the

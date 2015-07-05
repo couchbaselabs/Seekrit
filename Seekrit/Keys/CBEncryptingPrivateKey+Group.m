@@ -8,6 +8,7 @@
 
 #import "CBEncryptingPrivateKey+Group.h"
 #import "CBKey+Private.h"
+#import "CBSymmetricKey.h"
 #import "sodium.h"
 
 
@@ -46,26 +47,23 @@ typedef struct {
     CBNonce nonce = [CBEncryptingPrivateKey randomNonce];
     [output appendBytes: &nonce length: sizeof(nonce)];
 
-    // Generate a random session key-pair:
-    CBEncryptingPrivateKey* sessionKey = [CBEncryptingPrivateKey generate];
-    NSData* sessionPrivateKeyData = sessionKey.keyData;
+    // Generate a random session key:
+    CBSymmetricKey* sessionKey = [CBSymmetricKey generate];
+    NSData* sessionKeyData = sessionKey.keyData;
 
-    // Write the recipient count, and the session's private key encrypted for each recipient:
+    // Write the recipient count, and the session key encrypted for each recipient:
     uint32_t bigCount = CFSwapInt32HostToBig((uint32_t)recipients.count);
     [output appendBytes: &bigCount length: sizeof(bigCount)];
     for (CBEncryptingPublicKey* recipient in recipients) {
         // (It's OK to reuse the same nonce, because each recipient public key is different)
-        [self encrypt: sessionPrivateKeyData
+        [self encrypt: sessionKeyData
             withNonce: nonce
          forRecipient: recipient
              appendTo: output];
     }
 
-    // Finally append the ciphertext, encrypted with me as sender and session key as recipient:
-    [self encrypt: cleartext
-        withNonce: nonce
-     forRecipient: sessionKey.publicKey
-         appendTo: output];
+    // Finally append the ciphertext, encrypted with the session key:
+    [output appendData: [sessionKey encrypt: cleartext withNonce: nonce]];
     return output;
 }
 
@@ -94,16 +92,16 @@ typedef struct {
     if (!sessionKeyData)
         return nil; // Apparently it wasn't addressed to me :(
 
-    CBEncryptingPrivateKey* sessionKey = [[CBEncryptingPrivateKey alloc] initWithKeyData: sessionKeyData];
+    CBSymmetricKey* sessionKey = [[CBSymmetricKey alloc] initWithKeyData: sessionKeyData];
     if (!sessionKey)
         return nil;
 
-    // Decrypt the ciphertext, which was encrypted with the session key as recipient:
+    // Decrypt the ciphertext with the session key:
+    size_t cipherLen = input.length - offsetof(GroupMessage, encryptedKey[count]);
     NSData* ciphertext = [[NSData alloc] initWithBytesNoCopy: (void*)&header->encryptedKey[count]
-                                              length: input.length - offsetof(GroupMessage,
-                                                                              encryptedKey[count])
-                                        freeWhenDone: NO];
-    return [sessionKey decrypt: ciphertext withNonce: header->nonce fromSender: sender];
+                                                      length: cipherLen
+                                                freeWhenDone: NO];
+    return [sessionKey decrypt: ciphertext withNonce: header->nonce];
 }
 
 
