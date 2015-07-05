@@ -57,6 +57,22 @@
 
 
 - (NSData*) encrypt: (NSData*)cleartext
+       forRecipient: (CBEncryptingPublicKey*)recipient
+{
+    NSParameterAssert(recipient != nil);
+
+    size_t clearLen = cleartext.length;
+    size_t cipherLen = sizeof(CBNonce) + clearLen + crypto_box_MACBYTES;
+    void* ciphertext = malloc(cipherLen);
+    CBNonce* nonce = (CBNonce*)ciphertext;
+    *nonce = [CBKey randomNonce];
+    crypto_box_easy(ciphertext + sizeof(CBNonce), cleartext.bytes, clearLen, (uint8_t*)nonce,
+                    recipient.rawKey.bytes, self.rawKey.bytes);
+    return [NSData dataWithBytesNoCopy: ciphertext length: cipherLen freeWhenDone: YES];
+}
+
+
+- (NSData*) encrypt: (NSData*)cleartext
           withNonce: (CBNonce)nonce
        forRecipient: (CBEncryptingPublicKey*)recipient
 {
@@ -103,6 +119,26 @@
     NSMutableData* cleartext = [NSMutableData dataWithLength: msgLen];
     if (0 != crypto_box_open_easy(cleartext.mutableBytes, ciphertext.bytes, ciphertext.length,
                                   nonce.bytes, sender.rawKey.bytes, self.rawKey.bytes))
+        return nil;
+    return cleartext;
+}
+
+
+- (NSData*) decrypt: (NSData*)ciphertext
+         fromSender: (CBEncryptingPublicKey*)sender
+{
+    NSParameterAssert(ciphertext != nil);
+    NSParameterAssert(sender != nil);
+
+    if (ciphertext.length < sizeof(CBNonce) + crypto_box_MACBYTES)
+        return nil;
+    size_t cipherLen = ciphertext.length - sizeof(CBNonce);
+    size_t msgLen = cipherLen - crypto_box_MACBYTES;
+    NSMutableData* cleartext = [NSMutableData dataWithLength: msgLen];
+    if (0 != crypto_box_open_easy(cleartext.mutableBytes,
+                                  ciphertext.bytes + sizeof(CBNonce), cipherLen,
+                                  ciphertext.bytes,
+                                  sender.rawKey.bytes, self.rawKey.bytes))
         return nil;
     return cleartext;
 }
