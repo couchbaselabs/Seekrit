@@ -37,7 +37,7 @@ typedef struct {
 
 
 - (instancetype)initWithRawKey: (CBRawKey)rawKey {
-    CBRawKey pub, secret;
+    CBRawKey pub;
     self = [super initWithRawKey: rawKey];
     if (self) {
         crypto_sign_seed_keypair(pub.bytes, _secretKey.bytes, rawKey.bytes); // rawKey is really seed

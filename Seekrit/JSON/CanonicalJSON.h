@@ -10,7 +10,7 @@
 
 /** Generates a canonical JSON form of an object tree, suitable for signing.
     See algorithm at <http://wiki.apache.org/couchdb/SignedDocuments>. */
-@interface CanonicalJSON : NSObject
+@interface CBCanonicalJSON : NSObject
 
 - (id) initWithObject: (id)object;
 

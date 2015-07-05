@@ -13,7 +13,7 @@
 
 
 /** The property name used in a JSON object to hold the signature. Equal to "(signed)". */
-extern NSString* const kJSONSignatureProperty;
+extern NSString* const kCBJSONSignatureProperty;
 
 
 @interface CBVerifyingPublicKey (JSON)

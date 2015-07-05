@@ -9,7 +9,7 @@
 #import "CanonicalJSON.h"
 
 
-@implementation CanonicalJSON
+@implementation CBCanonicalJSON
 {
     @private
     id _input;
@@ -167,14 +167,14 @@ static NSComparisonResult compareCanonStrings( id s1, id s2, void *context) {
 
 
 + (NSString*) canonicalString: (id)rootObject {
-    CanonicalJSON* encoder = [[self alloc] initWithObject: rootObject];
+    CBCanonicalJSON* encoder = [[self alloc] initWithObject: rootObject];
     NSString* result = encoder.canonicalString;
     return result;
 }
 
 
 + (NSData*) canonicalData: (id)rootObject {
-    CanonicalJSON* encoder = [[self alloc] initWithObject: rootObject];
+    CBCanonicalJSON* encoder = [[self alloc] initWithObject: rootObject];
     NSData* result = encoder.canonicalData;
     return result;
 }

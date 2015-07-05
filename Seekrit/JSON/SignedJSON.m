@@ -14,14 +14,14 @@
 
 #define kExpiresUnit (60.0) // one minute
 
-NSString* const kJSONSignatureProperty = @"(signed)";
+NSString* const kCBJSONSignatureProperty = @"(signed)";
 
 NSString* const kCBSignedJSONErrorDomain = @"CBSignedJSON";
 
 
 
 static NSData* CanonicalDigest(id jsonObject) {
-    NSData* canonical = [CanonicalJSON canonicalData: jsonObject];
+    NSData* canonical = [CBCanonicalJSON canonicalData: jsonObject];
     struct {
         uint8_t bytes[20];
     } digest;
@@ -85,7 +85,7 @@ static NSString* formatDate(NSDate* date) {
 + (NSDictionary*) signatureOfJSON: (id)jsonObject {
     if (![jsonObject isKindOfClass: [NSDictionary class]])
         return nil;
-    id signature = jsonObject[kJSONSignatureProperty];
+    id signature = jsonObject[kCBJSONSignatureProperty];
     if (![signature isKindOfClass: [NSDictionary class]])
         return nil;
     return signature;
@@ -130,7 +130,7 @@ static NSString* formatDate(NSDate* date) {
     } else if (![digestData isEqual: CanonicalDigest(jsonObject)]) {
         Warn(@"SignedJSON: Signature digest %@ doesn't match payload's %@; canonical JSON = %@",
              digestData, CanonicalDigest(jsonObject),
-             [CanonicalJSON canonicalString: jsonObject]);
+             [CBCanonicalJSON canonicalString: jsonObject]);
         return mkError(kCBSignedJSONErrorIncorrectDigest, outError);
     }
     NSData* sigData = [[NSData alloc] initWithBase64EncodedString: signature[@"sig"]
@@ -142,7 +142,7 @@ static NSString* formatDate(NSDate* date) {
     NSMutableDictionary* unsignedSignature = [signature mutableCopy];
     [unsignedSignature removeObjectForKey: @"sig"];
     if (![self verifySignature: *(const CBSignature*)sigData.bytes
-                        ofData: [CanonicalJSON canonicalData: unsignedSignature]]) {
+                        ofData: [CBCanonicalJSON canonicalData: unsignedSignature]]) {
         return mkError(kCBSignedJSONErrorInvalidSignature, outError);
     }
     return YES;
@@ -156,7 +156,7 @@ static NSString* formatDate(NSDate* date) {
     if (!signature)
         return mkError(kCBSignedJSONErrorUnsigned, outError);
     NSMutableDictionary *unsignedDict = [jsonDict mutableCopy];
-    [unsignedDict removeObjectForKey: kJSONSignatureProperty];
+    [unsignedDict removeObjectForKey: kCBJSONSignatureProperty];
     return [self verifySignature: signature ofJSON: unsignedDict error: outError];
 }
 
@@ -199,7 +199,7 @@ static NSString* formatDate(NSDate* date) {
     } mutableCopy];
     if (expirationInterval > 0.0)
         signature[@"expires"] = @(MAX(0, floor(expirationInterval / kExpiresUnit)));
-    CBSignature sig = [self signData: [CanonicalJSON canonicalData: signature]];
+    CBSignature sig = [self signData: [CBCanonicalJSON canonicalData: signature]];
     NSData* sigData = [NSData dataWithBytes: &sig length: sizeof(sig)];
     signature[@"sig"] = [sigData base64EncodedStringWithOptions: 0];
     return [signature copy];
@@ -210,11 +210,11 @@ static NSString* formatDate(NSDate* date) {
                         expiresAfter: (NSTimeInterval)expirationInterval
 {
     NSMutableDictionary *signedDict = [jsonDict mutableCopy];
-    [signedDict removeObjectForKey: kJSONSignatureProperty];
+    [signedDict removeObjectForKey: kCBJSONSignatureProperty];
     NSDictionary *signature = [self signatureOfJSON: signedDict expiresAfter: expirationInterval];
     if (!signature)
         return nil;
-    signedDict[kJSONSignatureProperty] = signature;
+    signedDict[kCBJSONSignatureProperty] = signature;
     return signedDict;
 }
 
