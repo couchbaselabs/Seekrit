@@ -51,7 +51,7 @@
     NSLog(@"alice = %@ ", alice.keyData);
     NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
     NSLog(@"cleartext = %@", clear);
-    CBNonce nonce = {0x01, 0x02, 0x03}; // rest all zeroes
+    CBNonce nonce = {{0x01, 0x02, 0x03}}; // rest all zeroes
     NSData* cipher = [alice encrypt: clear withNonce: nonce];
     XCTAssert(cipher);
     NSLog(@"ciphertext= %@", cipher);

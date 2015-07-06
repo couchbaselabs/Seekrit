@@ -11,7 +11,6 @@
 #import "CBKey+Private.h"
 #import "CBEncryptingPrivateKey.h"
 #import "CBEncryptingPrivateKey+Group.h"
-#import "NSData+Mnemonic.h"
 
 
 @interface Key_Test : XCTestCase
@@ -36,7 +35,7 @@
     NSLog(@"bob   = %@  /  %@", bob.keyData, bob.publicKey.keyData);
     NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
     NSLog(@"cleartext = %@", clear);
-    CBNonce nonce = {0x01, 0x02, 0x03}; // rest all zeroes
+    CBNonce nonce = {{0x01, 0x02, 0x03}}; // rest all zeroes
     NSData* cipher = [alice encrypt: clear withNonce: nonce forRecipient: bob.publicKey];
     XCTAssert(cipher);
     NSLog(@"ciphertext= %@", cipher);
@@ -52,7 +51,7 @@
 }
 
 - (void) testNonces {
-    CBNonce n = {0};
+    CBNonce n = {{0}};
     n.bytes[23] = 200;
     [CBEncryptingPrivateKey incrementNonce: &n by: 1];
     XCTAssertEqual(n.bytes[23], 201);

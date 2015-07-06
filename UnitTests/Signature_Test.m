@@ -10,7 +10,6 @@
 #import <XCTest/XCTest.h>
 #import "CBSigningPrivateKey.h"
 #import "CBEncryptingPrivateKey.h"
-#import "NSData+Mnemonic.h"
 
 
 @interface CBPrivateKey ()
@@ -63,7 +62,7 @@
 
     NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
     NSLog(@"cleartext = %@", clear);
-    CBNonce nonce = {0x01, 0x02, 0x03}; // rest all zeroes
+    CBNonce nonce = {{0x01, 0x02, 0x03}}; // rest all zeroes
     NSData* cipher = [aliceEncrypt encrypt: clear withNonce: nonce forRecipient: bobPublicEncrypt];
     XCTAssert(cipher);
     NSLog(@"ciphertext= %@", cipher);
