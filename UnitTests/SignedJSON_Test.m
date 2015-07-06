@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 #import "CBSigningPrivateKey.h"
-#import "SignedJSON.h"
-#import "CanonicalJSON.h"
+#import "CBSignedJSON.h"
+#import "CBCanonicalJSON.h"
 
 
 static NSString* jsonString(id obj) {

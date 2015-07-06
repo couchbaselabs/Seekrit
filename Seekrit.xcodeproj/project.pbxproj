@@ -85,16 +85,16 @@
 		27A12C5F1A2E90B200846803 /* libSeekritIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A12C541A2E90B200846803 /* libSeekritIOS.a */; };
 		27A12C6B1A2E90E500846803 /* CBKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D0FB19AC1C1A0053D0A6 /* CBKey.m */; };
 		27A12C6C1A2E90E500846803 /* CBEncryptingPrivateKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */; };
-		27A12C6D1A2E90E500846803 /* CanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */; };
-		27A12C6E1A2E90E500846803 /* SignedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */; };
+		27A12C6D1A2E90E500846803 /* CBCanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CBCanonicalJSON.m */; };
+		27A12C6E1A2E90E500846803 /* CBSignedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BF19AE8EEE00AAA1FD /* CBSignedJSON.m */; };
 		27A12C6F1A2E918800846803 /* Key_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2776D13119AC57D80053D0A6 /* Key_Test.m */; };
 		27A12C701A2E918B00846803 /* SignedJSON_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960C519AE964800AAA1FD /* SignedJSON_Test.m */; };
 		27B960BA19AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */; };
 		27B960BB19AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */; };
-		27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */; };
-		27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */; };
-		27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */; };
-		27B960C319AE8EEE00AAA1FD /* SignedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */; };
+		27B960C019AE8EEE00AAA1FD /* CBCanonicalJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BC19AE8EEE00AAA1FD /* CBCanonicalJSON.h */; };
+		27B960C119AE8EEE00AAA1FD /* CBCanonicalJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BD19AE8EEE00AAA1FD /* CBCanonicalJSON.m */; };
+		27B960C219AE8EEE00AAA1FD /* CBSignedJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B960BE19AE8EEE00AAA1FD /* CBSignedJSON.h */; };
+		27B960C319AE8EEE00AAA1FD /* CBSignedJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960BF19AE8EEE00AAA1FD /* CBSignedJSON.m */; };
 		27B960C619AE964800AAA1FD /* SignedJSON_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B960C519AE964800AAA1FD /* SignedJSON_Test.m */; };
 /* End PBXBuildFile section */
 
@@ -267,10 +267,10 @@
 		27A12C5E1A2E90B200846803 /* SeekritIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeekritIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B960B819AE542500AAA1FD /* CBEncryptingPrivateKey+Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBEncryptingPrivateKey+Group.h"; path = "Keys/CBEncryptingPrivateKey+Group.h"; sourceTree = "<group>"; };
 		27B960B919AE542500AAA1FD /* CBEncryptingPrivateKey+Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CBEncryptingPrivateKey+Group.m"; path = "Keys/CBEncryptingPrivateKey+Group.m"; sourceTree = "<group>"; };
-		27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanonicalJSON.h; sourceTree = "<group>"; };
-		27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanonicalJSON.m; sourceTree = "<group>"; };
-		27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignedJSON.h; sourceTree = "<group>"; };
-		27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedJSON.m; sourceTree = "<group>"; };
+		27B960BC19AE8EEE00AAA1FD /* CBCanonicalJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCanonicalJSON.h; sourceTree = "<group>"; };
+		27B960BD19AE8EEE00AAA1FD /* CBCanonicalJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCanonicalJSON.m; sourceTree = "<group>"; };
+		27B960BE19AE8EEE00AAA1FD /* CBSignedJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSignedJSON.h; sourceTree = "<group>"; };
+		27B960BF19AE8EEE00AAA1FD /* CBSignedJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSignedJSON.m; sourceTree = "<group>"; };
 		27B960C519AE964800AAA1FD /* SignedJSON_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignedJSON_Test.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -628,10 +628,10 @@
 		27B960C419AE8EF700AAA1FD /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				27B960BC19AE8EEE00AAA1FD /* CanonicalJSON.h */,
-				27B960BD19AE8EEE00AAA1FD /* CanonicalJSON.m */,
-				27B960BE19AE8EEE00AAA1FD /* SignedJSON.h */,
-				27B960BF19AE8EEE00AAA1FD /* SignedJSON.m */,
+				27B960BC19AE8EEE00AAA1FD /* CBCanonicalJSON.h */,
+				27B960BD19AE8EEE00AAA1FD /* CBCanonicalJSON.m */,
+				27B960BE19AE8EEE00AAA1FD /* CBSignedJSON.h */,
+				27B960BF19AE8EEE00AAA1FD /* CBSignedJSON.m */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -647,7 +647,7 @@
 				271DE8401B19395900741623 /* CBKeyBag.h in Headers */,
 				2794219B1B24B9E9005BE0AD /* MYErrorUtils.h in Headers */,
 				278415C01AC791FE0011F0BF /* NSData+Mnemonic.h in Headers */,
-				27B960C019AE8EEE00AAA1FD /* CanonicalJSON.h in Headers */,
+				27B960C019AE8EEE00AAA1FD /* CBCanonicalJSON.h in Headers */,
 				278415F31AC8729E0011F0BF /* CBQRCodeScannerView.h in Headers */,
 				279421B91B24B9E9005BE0AD /* Test.h in Headers */,
 				279421861B24B9E9005BE0AD /* Logging.h in Headers */,
@@ -658,7 +658,7 @@
 				2794217D1B24B9E9005BE0AD /* CollectionUtils.h in Headers */,
 				2731FC4E1B13D8FE00578152 /* CBEncryptingPrivateKey.h in Headers */,
 				2731FC561B14238900578152 /* CBSymmetricKey.h in Headers */,
-				27B960C219AE8EEE00AAA1FD /* SignedJSON.h in Headers */,
+				27B960C219AE8EEE00AAA1FD /* CBSignedJSON.h in Headers */,
 				278415C51AC7AA060011F0BF /* CBQRCode.h in Headers */,
 				278415BA1AC785BE0011F0BF /* mnemonic.h in Headers */,
 			);
@@ -871,12 +871,12 @@
 			files = (
 				2731FC571B14238900578152 /* CBSymmetricKey.m in Sources */,
 				2776D12F19AC50620053D0A6 /* CBKey.m in Sources */,
-				27B960C319AE8EEE00AAA1FD /* SignedJSON.m in Sources */,
+				27B960C319AE8EEE00AAA1FD /* CBSignedJSON.m in Sources */,
 				279421431B240B84005BE0AD /* CBKeyBag.m in Sources */,
 				2794219C1B24B9E9005BE0AD /* MYErrorUtils.m in Sources */,
 				2794217E1B24B9E9005BE0AD /* CollectionUtils.m in Sources */,
 				278415B61AC785BE0011F0BF /* mn_wordlist.c in Sources */,
-				27B960C119AE8EEE00AAA1FD /* CanonicalJSON.m in Sources */,
+				27B960C119AE8EEE00AAA1FD /* CBCanonicalJSON.m in Sources */,
 				278415C11AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
 				279421BA1B24B9E9005BE0AD /* Test.m in Sources */,
 				279421871B24B9E9005BE0AD /* Logging.m in Sources */,
@@ -941,8 +941,8 @@
 				27A12C6C1A2E90E500846803 /* CBEncryptingPrivateKey+Group.m in Sources */,
 				279421BB1B24B9E9005BE0AD /* Test.m in Sources */,
 				2731FC4B1B13D84500578152 /* CBSigningPrivateKey.m in Sources */,
-				27A12C6D1A2E90E500846803 /* CanonicalJSON.m in Sources */,
-				27A12C6E1A2E90E500846803 /* SignedJSON.m in Sources */,
+				27A12C6D1A2E90E500846803 /* CBCanonicalJSON.m in Sources */,
+				27A12C6E1A2E90E500846803 /* CBSignedJSON.m in Sources */,
 				278415B71AC785BE0011F0BF /* mn_wordlist.c in Sources */,
 				278415C21AC791FE0011F0BF /* NSData+Mnemonic.m in Sources */,
 				279421881B24B9E9005BE0AD /* Logging.m in Sources */,
