@@ -10,5 +10,5 @@
 #import "CBSigningPrivateKey.h"
 #import "CBEncryptingPrivateKey.h"
 #import "CBEncryptingPrivateKey+Group.h"
-#import "CBSymmetricKey.h
+#import "CBSymmetricKey.h"
 #import "CBKeyBag.h"
