@@ -34,6 +34,7 @@
 
 - (void)testEncrypt {
     NSLog(@"alice = %@ ", alice.keyData);
+    XCTAssertEqual(alice.keyData.length, sizeof(CBRawKey));
     NSData* clear = [@"this is the cleartext message right here!" dataUsingEncoding: NSUTF8StringEncoding];
     NSLog(@"cleartext = %@", clear);
     NSData* cipher = [alice encrypt: clear];
@@ -100,6 +101,8 @@
     decrypted = [bag decrypt: encrypted usedKey: &usedKey];
     XCTAssertEqualObjects(decrypted, cleartext);
     XCTAssertEqualObjects(usedKey, key1);
+
+    [[NSFileManager defaultManager] removeItemAtPath: bag.path error: NULL];
 }
 
 

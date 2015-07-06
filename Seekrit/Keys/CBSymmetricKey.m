@@ -13,8 +13,6 @@
 
 @implementation CBSymmetricKey
 
-@synthesize keyData=_keyData;
-
 
 - (instancetype)init {
     CBRawKey rawKey;
@@ -35,6 +33,11 @@
 - (void) encodeWithCoder:(NSCoder *)encoder {
     CBRawKey rawKey = self.rawKey;
     [encoder encodeBytes: (const uint8_t*)&rawKey length: sizeof(rawKey) forKey: @"key"];
+}
+
+
+- (NSData*) keyData {
+    return [NSData dataWithBytes: self.rawKey.bytes length: sizeof(CBRawKey)];
 }
 
 
