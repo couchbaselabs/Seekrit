@@ -9,6 +9,7 @@
 #import "CBSignedJSON.h"
 #import "CBCanonicalJSON.h"
 #import "Logging.h"
+#import "MYErrorUtils.h"
 #import <CommonCrypto/CommonDigest.h>
 
 
@@ -41,8 +42,15 @@ static NSData* DecodeBase64(id input) {
 }
 
 static BOOL mkError(NSInteger code, NSError** outError) {
-    if (outError)
-        *outError = [NSError errorWithDomain: kCBSignedJSONErrorDomain code: code userInfo: nil];
+    if (outError) {
+        static NSString* const kMessages[6] = {nil,
+            @"Signature expired",
+            @"Content does not match signature",
+            @"Signature is invalid",
+            @"Unknown signature type",
+            @"Signature is missing"};
+        *outError = MYError((int)code, kCBSignedJSONErrorDomain, @"%@", kMessages[code]);
+    }
     return NO;
 }
 
