@@ -10,6 +10,11 @@
 
 The code in this repository was written by Jens Alfke, except for the iOS QR-code implementation and sample app, by Pasin Suriyentrakorn.
 
+## Disclaimer
+
+* This is sample code, not an official supported Couchbase product.
+* This code has not been extensively tested.
+
 ## License
 
 * Code in this repository: Apache 2.0
