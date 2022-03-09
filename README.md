@@ -1,3 +1,5 @@
+⚠️ This repo is obsolete and will no longer receive updates.  Archived for historical purposes.
+
 ## Seekrit: Cryptography utilities for iOS and Mac OS X.
 
 * Symmetric and asymmetric encryption using the [Curve25519](http://cr.yp.to/ecdh.html) elliptic-key algorithm (based on [libSodium](https://github.com/jedisct1/libsodium)). This offers much smaller keys than RSA (256 bits vs 2048 bits) and faster performance too; in particular, key generation is almost instantaneous.
